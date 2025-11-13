@@ -1,1 +1,21 @@
-<p>header works!</p>
+<header class="main-header">
+    <div class="header-logo">
+        <a routerLink="">Loki</a>
+    </div>
+
+    <form class="header-search" (ngSubmit)="onSearch(searchInput.value)">
+        <input class="search-box" type="text" placeholder="Buscar productos..." #searchInput>
+        <button class="btn btn-primary" type="submit">Buscar</button>
+    </form>
+
+    <nav class="header-nav">
+        <ul class="buttons">
+            <li>
+                <a routerLink="/user-form" class="btn btn-primary">Registrarse</a>
+            </li>
+            <li>
+                <a routerLink="/sign-in" class="btn btn-primary">Iniciar sesion</a>
+            </li>
+        </ul>
+    </nav>
+</header>

@@ -1,13 +1,13 @@
-FROM node:24-alpine
+FROM node:20-alpine
 
 WORKDIR /usr/src/app
 
 COPY frontend/package*.json ./
 
-RUN npm install -g @angular/cli && npm install
+RUN npm install
 
 COPY frontend/ .
 
 EXPOSE 4200
 
-CMD ["npm", "start"]
+CMD ["npx", "ng", "serve", "--host", "0.0.0.0"]

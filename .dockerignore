@@ -1,0 +1,13 @@
+# .dockerignore
+
+# Ignora todos los node_modules en CUALQUIER subcarpeta
+**/node_modules
+
+# Ignora las carpetas de build de Angular
+**/dist
+**/.angular/cache
+
+# Ignora logs y archivos del IDE
+.git
+.vscode
+npm-debug.log

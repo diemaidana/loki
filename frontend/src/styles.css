@@ -27,6 +27,7 @@ html, body {
   padding: 0;
   background-color: var(--main-background-color); 
   font-family: var(--main-font);
+  color: var(--font-primary);
 }
 
 body {
@@ -54,7 +55,6 @@ app-footer {
   width: 100%;
 }
 
-/* main debe crecer en vertical */
 main {
   flex: 1;
   display: flex;

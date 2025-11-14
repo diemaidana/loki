@@ -1,0 +1,25 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: center;
+    gap: 40px;
+    padding: 20px 0;
+}
+
+.welcome-msg, .geton-msg {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.slide-box {
+  background: #f0f0f0;
+  padding: 40px;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+  height: 400px;
+}

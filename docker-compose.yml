@@ -9,6 +9,9 @@ services:
     volumes:
     - ./frontend:/usr/src/app
     - /usr/src/app/node_modules
+
+    command: npx ng serve --host 0.0.0.0 --poll=1000
+    
     depends_on:
       - json-server
     networks:

@@ -7,16 +7,16 @@ import { HttpClient } from '@angular/common/http';
 })
 export class UserService {
   private readonly http = inject(HttpClient);
-
+  private readonly urlApi = "http://localhost:3000/users";
   // Get
   getUsers(){
-    return this.http.get<User[]>(/* Hay que poner la Api */);
+    return this.http.get<User[]>(this.urlApi);
   }
   getUserById(id: string | number){
-    return this.http.get<User[]>(`${/* Hay que poner la Api */}/${id}`);
+    return this.http.get<User[]>(`${this.urlApi}/${id}`);
   }
 
   postUser(user: User){
-    return this.http.post<User>(`${/* Hay que poner la Api */}`, user);
+    return this.http.post<User>(`${this.urlApi}`, user);
   }
 }

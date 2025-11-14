@@ -5,7 +5,7 @@
     padding: 10px;
     background-color: var(--card-background);
     border-radius: 16px;
-    margin: 20px 0;
+    margin: 20px auto;
 }
 
 .header-logo {

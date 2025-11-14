@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'swiper/swiper-bundle.css';
+
 :root{
     /* COLORS */
     --primary-color: #5F2ECC;
@@ -25,6 +27,13 @@ html, body {
   padding: 0;
   background-color: var(--main-background-color); 
   font-family: var(--main-font);
+  color: var(--font-primary);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 app-root {
@@ -33,15 +42,24 @@ app-root {
   min-height: 100%;
 }
 
-app-header, main, app-footer {
+.container {
   width: 100%;
   max-width: 1200px;
-  
-  margin-left: auto;
-  margin-right: auto;
-  
+  margin: 0 auto;
   padding-left: 20px;
   padding-right: 20px;
+}
+
+app-header,
+app-footer {
+  width: 100%;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 main {

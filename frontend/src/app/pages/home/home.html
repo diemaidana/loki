@@ -1,1 +1,34 @@
-<p>home works!</p>
+<div class="main-container">
+
+    <div class="welcome-msg">
+        <h2>Bienvenidos a Loki!</h2>
+        <p>Busca, oferta o compra productos!</p>
+        <button class="btn btn-primary">Ver todos los productos</button>
+    </div>
+
+    <swiper-container
+      slides-per-view="3"
+      space-between="20"
+      navigation="true"
+      pagination="false"
+      loop="true"
+    >
+      @for (item of items; track $index) {
+        <swiper-slide>
+          <div class="slide-box">
+            {{ item }}
+          </div>
+        </swiper-slide>
+      }
+    </swiper-container>
+
+    <div class="geton-msg">
+        <h3>Todavia no te sumaste?</h3>
+        <button routerLink="/user-form" class="btn btn-primary">Registrarse</button>
+        <div class="signin-msg">
+            <p>Ya tienes cuenta?</p>
+            <button routerLink="/user-form" class="signin-btn">Inicia sesion</button>
+        </div>
+    </div>
+
+</div>

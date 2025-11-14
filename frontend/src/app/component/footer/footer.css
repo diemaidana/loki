@@ -1,0 +1,10 @@
+.main-footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: var(--primary-color);
+    color: var(--main-background-color);
+    border-radius: 16px;
+}

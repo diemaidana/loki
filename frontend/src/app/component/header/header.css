@@ -1,11 +1,11 @@
 .main-header{
     display: flex;
     justify-content: space-between;
-    padding: 20px 20px;
     align-items: center;
+    padding: 10px;
     background-color: var(--card-background);
     border-radius: 16px;
-    margin-top: 20px;
+    margin: 20px 0;
 }
 
 .header-logo {

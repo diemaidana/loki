@@ -5,7 +5,7 @@ import { SignIn } from './pages/sign-in/sign-in';
 
 export const routes: Routes = [
     {path: '', component: Home},
-    {path: 'user-form', component: UserForm},
-    {path: 'sign-in', component: SignIn},
+    {path: 'sign-up', component: UserForm, title:"Registrarse"},
+    {path: 'sign-in', component: SignIn, title:"Acceder"},
     {path: '**', redirectTo: ''}
 ];

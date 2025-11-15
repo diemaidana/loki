@@ -1,50 +1,52 @@
-<h2>Registrarse</h2>
+<div class="form-container">
+    <h2>Registrarse</h2>
 
-<form [formGroup]="formSingUp" (ngSubmit)="handleSubmit()">
-    <div class="form-field">
-        <label for="username">Nombre de Usuario</label>
-        <input type="text" name="username" id="username" formControlName="username">
-    </div>
-    <div class="form-field">
-        <label for="email">Correo electronico</label>
-        <input type="email" name="email" id="email" formControlName="email">
-    </div>
-    <div class="form-field">
-        <label for="password">Contraseña</label>
-        <input type="password" name="password" id="password"
-        formControlName="password">
-    </div>
-    <div class="form-field">
-        <label for="repassword">Contraseña</label>
-        <input type="password" name="repassword" id="repassword" formControlName="repassword">
-    </div>
-    <div class="form-field">
-        <label for="fullName">Nombre completo</label>
-        <input type="text" name="fullName" id="fullName" formControlName="fullName">
-    </div>
-    <div class="form-field">
-        <label for="DNI">DNI</label>
-        <input type="text" name="DNI" id="DNI" formControlName="DNI">
-    </div>
-    <div class="form-field">
-        <label for="phoneNumber">Numero de telefono</label>
-        <input type="text" name="phoneNumber" id="phoneNumber" formControlName="phoneNumber">
-    </div>
-    <div class="form-field">
-        <label for="address">Calle: </label>
-        <input type="text" name="address" id="address" formControlName="address">
-    </div>
-    <div class="form-field">
-        <label for="nationality">Nacionalidad</label>
-        <select name="nationality" id="nationality" formControlName="nationality">
-            <option value="" selected disabled>Seleccione su Pais de nacionalidad.</option>
-            @for (nation of nations; track $index) {
-                <option [value]="nation">{{nation}}</option>
-            }
-        </select>
-    </div>
-    <div>
-        <button (click)="navigateTo()" class="btn btn-primary">Volver</button>
-        <button type="submit" class="btn btn-primary">Registrarse</button>
-    </div>
-</form>
+    <form [formGroup]="formSingUp" (ngSubmit)="handleSubmit()">
+        <div class="form-field">
+            <label for="username">Nombre de Usuario</label>
+            <input type="text" name="username" id="username" formControlName="username">
+        </div>
+        <div class="form-field">
+            <label for="email">Correo electronico</label>
+            <input type="email" name="email" id="email" formControlName="email">
+        </div>
+        <div class="form-field">
+            <label for="password">Contraseña</label>
+            <input type="password" name="password" id="password"
+            formControlName="password">
+        </div>
+        <div class="form-field">
+            <label for="repassword">Contraseña</label>
+            <input type="password" name="repassword" id="repassword" formControlName="repassword">
+        </div>
+        <div class="form-field">
+            <label for="fullName">Nombre completo</label>
+            <input type="text" name="fullName" id="fullName" formControlName="fullName">
+        </div>
+        <div class="form-field">
+            <label for="DNI">DNI</label>
+            <input type="text" name="DNI" id="DNI" formControlName="DNI">
+        </div>
+        <div class="form-field">
+            <label for="phoneNumber">Numero de telefono</label>
+            <input type="text" name="phoneNumber" id="phoneNumber" formControlName="phoneNumber">
+        </div>
+        <div class="form-field">
+            <label for="address">Calle: </label>
+            <input type="text" name="address" id="address" formControlName="address">
+        </div>
+        <div class="form-field">
+            <label for="nationality">Nacionalidad</label>
+            <select name="nationality" id="nationality" formControlName="nationality">
+                <option value="" selected disabled>Seleccione su Pais de nacionalidad.</option>
+                @for (nation of nations; track $index) {
+                    <option [value]="nation">{{nation}}</option>
+                }
+            </select>
+        </div>
+        <div class="action-btns">
+            <button (click)="navigateTo()" class="btn btn-primary">Volver</button>
+            <button type="submit" class="btn btn-primary">Registrarse</button>
+        </div>
+    </form>
+</div>

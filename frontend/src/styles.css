@@ -9,6 +9,8 @@
     --container-color: #FAFAFA;
     --card-background: #FFFFFF;
     --border: #E2E8F0;
+    --buy-color: #28A745;
+    --offer-color: #D4A017;
 
     /* FONTS */
     --main-font: 'Inter', sans-serif;
@@ -84,20 +86,48 @@ li {
   text-decoration: none;
   cursor: pointer;
   border-radius: 16px;
-  
   border: 2px solid transparent; 
-  
   transition: all 0.2s ease-in-out;
+  color: var(--card-background);
+}
+
+.btn:hover{
+  background-color: var(--card-background);
 }
 
 .btn-primary {
   background-color: var(--primary-color);
   border-color: var(--primary-color);
-  color: var(--main-background-color);
 }
 
 .btn-primary:hover {
-  background-color: var(--main-background-color);
   border-color: var(--primary-color);
   color: var(--primary-color);
+}
+
+.btn-offer {
+  background-color: var(--offer-color);
+  border-color: var(--offer-color);
+}
+
+.btn-offer:hover {
+
+  border-color: var(--offer-color);
+  color: var(--offer-color);
+}
+
+.btn-buy {
+  background-color: var(--buy-color);
+  border-color: var(--buy-color);
+}
+
+.btn-buy:hover {
+
+  border-color: var(--buy-color);
+  color: var(--buy-color);
+}
+
+.action-btns {
+    display: flex;
+    gap: 15px;
 }

@@ -1,17 +1,14 @@
 services:
   angular-loki:
     build:
-      context: .
-      dockerfile: frontend/Dockerfile
+      context: ./frontend
+      dockerfile: Dockerfile
     container_name: angular-loki
     ports:
       - "4200:4200"
     volumes:
-    - ./frontend:/usr/src/app
-    - /usr/src/app/node_modules
-
-    command: npx ng serve --host 0.0.0.0 --poll=1000
-    
+      - ./frontend:/usr/src/app
+      - /usr/src/app/node_modules
     depends_on:
       - json-server
     networks:

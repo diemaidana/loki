@@ -3,7 +3,7 @@
     <div class="welcome-msg">
         <h2>Bienvenidos a Loki!</h2>
         <p>Busca, oferta o compra productos!</p>
-        <button class="btn btn-primary">Ver todos los productos</button>
+        <button type="button" class="btn btn-primary" routerLink="/list-products">Ver todos los productos</button>
     </div>
 
     <swiper-container
@@ -13,10 +13,16 @@
       pagination="false"
       loop="true"
     >
-      @for (item of items; track $index) {
+      @for (item of products().slice(0,10); track item.id) {
         <swiper-slide>
           <div class="slide-box">
-            {{ item }}
+            <h3>{{ item.name }}</h3>
+            <img src="{{item.image}}" alt="{{ item.name }}">
+            <p>{{ item.price | currency:'ARS' }}</p>
+            <div class="action-btns">
+              <button type="button" class="btn btn-offer" routerLink="/offer">Ofertar</button>
+              <button type="button" class="btn btn-buy" routerLink="/buy">Comprar</button>
+            </div>
           </div>
         </swiper-slide>
       }
@@ -27,7 +33,7 @@
         <button routerLink="/user-form" class="btn btn-primary">Registrarse</button>
         <div class="signin-msg">
             <p>Ya tienes cuenta?</p>
-            <button routerLink="/user-form" class="signin-btn">Inicia sesion</button>
+            <button type="button" routerLink="/user-form" class="signin-btn">Inicia sesion</button>
         </div>
     </div>
 

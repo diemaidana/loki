@@ -126,3 +126,8 @@ li {
   border-color: var(--buy-color);
   color: var(--buy-color);
 }
+
+.action-btns {
+    display: flex;
+    gap: 15px;
+}

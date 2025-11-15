@@ -2,16 +2,22 @@
     <div class="categories-container">
         <h3>Categorias</h3>
         @for (category of categories(); track $index) {
-            <p>{{ category }}</p>
+            @if (category.length > 0) {
+                <p>{{ category }}</p>   
+            }
         }
     </div>
     <div class="products-container">
-        @for (product of products(); track $index) {
+        @for (product of paginatedProducts(); track $index) {
           <div class="product-card">
             <h3>{{ product.name }}</h3>
             <img src="{{product.image}}" alt="{{ product.name }}">
             <p>{{ product.price | currency:'ARS' }}</p>
           </div>
         }
+        <div class="action-btns">
+            <button>Anterior</button>
+            <button>Siguiente</button>
+        </div>
     </div>
 </div>

@@ -1,1 +1,208 @@
-{}
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "diego_m",
+      "email": "diego@mail.com",
+      "password": "123456",
+      "fullname": "Diego Maidana",
+      "dni": "40111222",
+      "phonenumber": "+54 223 555 1234",
+      "address": "Av. Independencia 1234, Mar del Plata",
+      "nationality": "Argentina"
+    },
+    {
+      "id": 2,
+      "username": "loki_seller",
+      "email": "seller@mail.com",
+      "password": "abcdef",
+      "fullname": "Loki Seller",
+      "dni": "38999888",
+      "phonenumber": "+54 11 4444 5555",
+      "address": "Calle Falsa 123, Buenos Aires",
+      "nationality": "Argentina"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Auriculares Bluetooth",
+      "description": "Auriculares inalámbricos con cancelación de ruido.",
+      "price": 25000,
+      "id_seller": 2,
+      "brand": "Sony",
+      "image": "/assets/products/auriculares.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Macbook Pro",
+      "description": "Laptop gamer con RTX 4060 y 16GB de RAM.",
+      "price": 950000,
+      "id_seller": 1,
+      "brand": "Apple",
+      "image": "/assets/products/notebook.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Mouse Inalámbrico",
+      "description": "Mouse ergonómico ideal para trabajar todo el día.",
+      "price": 12000,
+      "id_seller": 1,
+      "brand": "Logitech",
+      "image": "/assets/products/mouse.jpg"
+    },
+    {
+      "id": 4,
+      "name": "Teclado Mecánico",
+      "description": "Teclado RGB switches rojos.",
+      "price": 30000,
+      "id_seller": 2,
+      "brand": "HyperX",
+      "image": "/assets/products/teclado.jpg"
+    },
+    {
+      "id": 5,
+      "name": "Monitor 27''",
+      "description": "Monitor 144Hz 1ms FreeSync.",
+      "price": 200000,
+      "id_seller": 1,
+      "brand": "Samsung",
+      "image": "/assets/products/monitor.jpg"
+    },
+    {
+      "id": 6,
+      "name": "Silla Gamer",
+      "description": "Silla reclinable con soporte lumbar.",
+      "price": 150000,
+      "id_seller": 2,
+      "brand": "DXRacer",
+      "image": "/assets/products/silla.jpg"
+    },
+    {
+      "id": 7,
+      "name": "Smartwatch",
+      "description": "Reloj inteligente con medición de oxígeno.",
+      "price": 45000,
+      "id_seller": 1,
+      "brand": "Xiaomi",
+      "image": "/assets/products/smartwatch.jpg"
+    },
+    {
+      "id": 8,
+      "name": "Parlante Bluetooth",
+      "description": "Parlante portátil resistente al agua.",
+      "price": 35000,
+      "id_seller": 2,
+      "brand": "JBL",
+      "image": "/assets/products/parlante.jpg"
+    },
+    {
+      "id": 9,
+      "name": "Smart TV 55''",
+      "description": "Smart TV 4K UHD con HDR10.",
+      "price": 500000,
+      "id_seller": 1,
+      "brand": "LG",
+      "image": "/assets/products/smarttv.jpg"
+    },
+    {
+      "id": 10,
+      "name": "PlayStation 5",
+      "description": "Consola PS5 con control DualSense.",
+      "price": 900000,
+      "id_seller": 2,
+      "brand": "Sony",
+      "image": "/assets/products/ps5.jpg"
+    },
+    {
+      "id": 11,
+      "name": "Cámara Deportiva",
+      "description": "Grabación 4K 60fps waterproof.",
+      "price": 80000,
+      "id_seller": 1,
+      "brand": "GoPro",
+      "image": "/assets/products/camara.jpg"
+    },
+    {
+      "id": 12,
+      "name": "Impresora Multifunción",
+      "description": "Imprime, escanea y fotocopia.",
+      "price": 60000,
+      "id_seller": 2,
+      "brand": "HP",
+      "image": "/assets/products/impresora.jpg"
+    },
+    {
+      "id": 13,
+      "name": "Tablet 10''",
+      "description": "Pantalla Full HD, 8GB RAM.",
+      "price": 90000,
+      "id_seller": 1,
+      "brand": "Huawei",
+      "image": "/assets/products/tablet.jpg"
+    },
+    {
+      "id": 14,
+      "name": "Cafetera Express",
+      "description": "Cafetera para espresso y cappuccino.",
+      "price": 70000,
+      "id_seller": 2,
+      "brand": "Niche",
+      "image": "/assets/products/cafetera.jpg"
+    },
+    {
+      "id": 15,
+      "name": "Heladera No Frost",
+      "description": "Heladera con freezer no frost doble puerta.",
+      "price": 650000,
+      "id_seller": 1,
+      "brand": "Whirlpool",
+      "image": "/assets/products/heladera.jpg"
+    },
+    {
+      "id": 16,
+      "name": "Lavarropas Automático",
+      "description": "Lavarropas 10kg con carga frontal.",
+      "price": 480000,
+      "id_seller": 2,
+      "brand": "Aliomatic",
+      "image": "/assets/products/lavarropas.jpg"
+    },
+    {
+      "id": 17,
+      "name": "Microondas Digital",
+      "description": "Microondas con grill y descongelado rápido.",
+      "price": 90000,
+      "id_seller": 1,
+      "brand": "Black & Decker",
+      "image": "/assets/products/microondas.jpg"
+    },
+    {
+      "id": 18,
+      "name": "Aspiradora Robot",
+      "description": "Robot aspirador con mapeo láser.",
+      "price": 180000,
+      "id_seller": 2,
+      "brand": "Roomba",
+      "image": "/assets/products/robot.jpg"
+    },
+    {
+      "id": 19,
+      "name": "Bicicleta Mountain Bike",
+      "description": "Cuadro de aluminio, 21 velocidades.",
+      "price": 140000,
+      "id_seller": 1,
+      "brand": "Venzo",
+      "image": "/assets/products/bicicleta.jpg"
+    },
+    {
+      "id": 20,
+      "name": "Zapatillas Running",
+      "description": "Zapatillas deportivas livianas.",
+      "price": 50000,
+      "id_seller": 2,
+      "brand": "Nike",
+      "image": "/assets/products/zapatillas.jpg"
+    }
+  ]
+}

@@ -48,8 +48,6 @@ app-root {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding-left: 20px;
-  padding-right: 20px;
 }
 
 app-header,
@@ -125,4 +123,18 @@ li {
 
   border-color: var(--buy-color);
   color: var(--buy-color);
+}
+
+.slide-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background: var(--card-background);
+    padding: 30px;
+    border-radius: 16px;
+    font-size: 22px;
+    height: 400px;
+    width: 350px;
 }

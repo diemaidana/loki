@@ -31,7 +31,8 @@
       "price": 25000,
       "id_seller": 2,
       "brand": "Sony",
-      "image": "/assets/products/auriculares.jpg"
+      "image": "/assets/products/auriculares.jpg",
+      "category": "Electronica"
     },
     {
       "id": 2,
@@ -40,7 +41,8 @@
       "price": 950000,
       "id_seller": 1,
       "brand": "Apple",
-      "image": "/assets/products/notebook.jpg"
+      "image": "/assets/products/notebook.jpg",
+      "category": "Electronica"
     },
     {
       "id": 3,
@@ -49,7 +51,8 @@
       "price": 12000,
       "id_seller": 1,
       "brand": "Logitech",
-      "image": "/assets/products/mouse.jpg"
+      "image": "/assets/products/mouse.jpg",
+      "category": "Electronica"
     },
     {
       "id": 4,
@@ -58,7 +61,8 @@
       "price": 30000,
       "id_seller": 2,
       "brand": "HyperX",
-      "image": "/assets/products/teclado.jpg"
+      "image": "/assets/products/teclado.jpg",
+      "category": "Electronica"
     },
     {
       "id": 5,
@@ -67,7 +71,8 @@
       "price": 200000,
       "id_seller": 1,
       "brand": "Samsung",
-      "image": "/assets/products/monitor.jpg"
+      "image": "/assets/products/monitor.jpg",
+      "category": "Electronica"
     },
     {
       "id": 6,
@@ -76,7 +81,8 @@
       "price": 150000,
       "id_seller": 2,
       "brand": "DXRacer",
-      "image": "/assets/products/silla.jpg"
+      "image": "/assets/products/silla.jpg",
+      "category": ""
     },
     {
       "id": 7,
@@ -85,7 +91,8 @@
       "price": 45000,
       "id_seller": 1,
       "brand": "Xiaomi",
-      "image": "/assets/products/smartwatch.jpg"
+      "image": "/assets/products/smartwatch.jpg",
+      "category": "Electronica"
     },
     {
       "id": 8,
@@ -94,7 +101,8 @@
       "price": 35000,
       "id_seller": 2,
       "brand": "JBL",
-      "image": "/assets/products/parlante.jpg"
+      "image": "/assets/products/parlante.jpg",
+      "category": "Electronica"
     },
     {
       "id": 9,
@@ -103,7 +111,8 @@
       "price": 500000,
       "id_seller": 1,
       "brand": "LG",
-      "image": "/assets/products/smarttv.jpg"
+      "image": "/assets/products/smarttv.jpg",
+      "category": "Electronica"
     },
     {
       "id": 10,
@@ -112,7 +121,8 @@
       "price": 900000,
       "id_seller": 2,
       "brand": "Sony",
-      "image": "/assets/products/ps5.jpg"
+      "image": "/assets/products/ps5.jpg",
+      "category": "Electronica"
     },
     {
       "id": 11,
@@ -121,7 +131,8 @@
       "price": 80000,
       "id_seller": 1,
       "brand": "GoPro",
-      "image": "/assets/products/camara.jpg"
+      "image": "/assets/products/camara.jpg",
+      "category": "Electronica"
     },
     {
       "id": 12,
@@ -130,7 +141,8 @@
       "price": 60000,
       "id_seller": 2,
       "brand": "HP",
-      "image": "/assets/products/impresora.jpg"
+      "image": "/assets/products/impresora.jpg",
+      "category": "Electronica"
     },
     {
       "id": 13,
@@ -139,7 +151,8 @@
       "price": 90000,
       "id_seller": 1,
       "brand": "Huawei",
-      "image": "/assets/products/tablet.jpg"
+      "image": "/assets/products/tablet.jpg",
+      "category": "Electronica"
     },
     {
       "id": 14,
@@ -148,7 +161,8 @@
       "price": 70000,
       "id_seller": 2,
       "brand": "Niche",
-      "image": "/assets/products/cafetera.jpg"
+      "image": "/assets/products/cafetera.jpg",
+      "category": "Electronica"
     },
     {
       "id": 15,
@@ -157,7 +171,8 @@
       "price": 650000,
       "id_seller": 1,
       "brand": "Whirlpool",
-      "image": "/assets/products/heladera.jpg"
+      "image": "/assets/products/heladera.jpg",
+      "category": "Electronica"
     },
     {
       "id": 16,
@@ -166,7 +181,8 @@
       "price": 480000,
       "id_seller": 2,
       "brand": "Aliomatic",
-      "image": "/assets/products/lavarropas.jpg"
+      "image": "/assets/products/lavarropas.jpg",
+      "category": "Electronica"
     },
     {
       "id": 17,
@@ -175,7 +191,8 @@
       "price": 90000,
       "id_seller": 1,
       "brand": "Black & Decker",
-      "image": "/assets/products/microondas.jpg"
+      "image": "/assets/products/microondas.jpg",
+      "category": "Electronica"
     },
     {
       "id": 18,
@@ -184,7 +201,8 @@
       "price": 180000,
       "id_seller": 2,
       "brand": "Roomba",
-      "image": "/assets/products/robot.jpg"
+      "image": "/assets/products/robot.jpg",
+      "category": "Electronica"
     },
     {
       "id": 19,
@@ -193,7 +211,8 @@
       "price": 140000,
       "id_seller": 1,
       "brand": "Venzo",
-      "image": "/assets/products/bicicleta.jpg"
+      "image": "/assets/products/bicicleta.jpg",
+      "category": "Deportes"
     },
     {
       "id": 20,
@@ -202,7 +221,8 @@
       "price": 50000,
       "id_seller": 2,
       "brand": "Nike",
-      "image": "/assets/products/zapatillas.jpg"
+      "image": "/assets/products/zapatillas.jpg",
+      "category": "Indumentaria"
     }
   ]
 }

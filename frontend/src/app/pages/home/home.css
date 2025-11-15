@@ -14,20 +14,6 @@
     gap: 10px;
 }
 
-.slide-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    background: var(--card-background);
-    padding: 40px;
-    border-radius: 12px;
-    font-size: 22px;
-    font-weight: 600;
-    height: 400px;
-}
-
 .signin-msg {
     display: flex;
     align-items: center;

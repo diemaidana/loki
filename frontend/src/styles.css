@@ -142,3 +142,8 @@ li {
     height: 400px;
     width: 350px;
 }
+
+.action-btns {
+    display: flex;
+    gap: 15px;
+}

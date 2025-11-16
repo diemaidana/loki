@@ -11,3 +11,4 @@
 .git
 .vscode
 npm-debug.log
+./.vscode

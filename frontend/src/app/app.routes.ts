@@ -6,8 +6,8 @@ import { ListProducts } from './pages/list-products/list-products';
 
 export const routes: Routes = [
     {path: '', component: Home},
-    {path: 'user-form', component: UserForm},
-    {path: 'sign-in', component: SignIn},
+    {path: 'sign-up', component: UserForm, title:"Registrarse"},
+    {path: 'sign-in', component: SignIn, title:"Acceder"},
     {path: 'list-products', component: ListProducts},
     {path: '**', redirectTo: ''}
 ];

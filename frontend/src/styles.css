@@ -127,5 +127,15 @@ li {
 
 .action-btns {
     display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 15px;
+}
+
+.btn-margin{
+  margin-top: 32px;
+}
+
+.errorMessageForm{
+    color: red;
 }

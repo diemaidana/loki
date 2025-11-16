@@ -1,4 +1,4 @@
-<div class="form-container">
+<div class="container form-container">
     <h2>Registrarse</h2>
 
     <form [formGroup]="formSingUp" (ngSubmit)="handleSubmit()">
@@ -38,15 +38,15 @@
         <div class="form-field">
             <label for="nationality">Nacionalidad</label>
             <select name="nationality" id="nationality" formControlName="nationality">
-                <option value="" selected disabled>Seleccione su Pais de nacionalidad.</option>
+                <option value="" selected disabled>Seleccione su nacionalidad</option>
                 @for (nation of nations; track $index) {
                     <option [value]="nation">{{nation}}</option>
                 }
             </select>
         </div>
-        <div class="action-btns">
-            <button (click)="navigateTo()" class="btn btn-primary">Volver</button>
-            <button type="submit" class="btn btn-primary">Registrarse</button>
-        </div>
     </form>
+    <div class="action-btns">
+        <button (click)="navigateTo()" class="btn btn-primary">Volver</button>
+        <button type="submit" class="btn btn-primary">Registrarse</button>
+    </div>
 </div>

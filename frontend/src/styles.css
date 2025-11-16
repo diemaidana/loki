@@ -139,8 +139,8 @@ li {
     padding: 30px;
     border-radius: 16px;
     font-size: 22px;
-    height: 400px;
-    width: 350px;
+    height: auto;
+    width: auto;
 }
 
 .action-btns {

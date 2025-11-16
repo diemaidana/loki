@@ -64,6 +64,10 @@ export class UserForm {
   get nationality() {
     return this.formSignUp.controls.nationality;
   }
+
+  get touched(){
+    return this.formSignUp.touched;
+  }
   
   private passwordsMatchValidator = (group: import('@angular/forms').AbstractControl) => {
     const pwd = group.get('password')?.value;

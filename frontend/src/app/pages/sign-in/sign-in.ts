@@ -1,5 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators, ɵInternalFormsSharedModule } from "@angular/forms";
+import { Router } from '@angular/router';
+import { AuthService } from '../../auth/service/auth-service';
 
 @Component({
   selector: 'app-sign-in',
@@ -8,7 +10,9 @@ import { FormBuilder, ReactiveFormsModule, Validators, ɵInternalFormsSharedModu
   styleUrl: './sign-in.css',
 })
 export class SignIn {
+  private readonly auth = inject(AuthService);
   private readonly formBuilder = inject(FormBuilder);
+  private readonly router = inject(Router);
 
   readonly formSignIn = this.formBuilder.nonNullable.group({
     email: ["", [Validators.required]],
@@ -27,7 +31,17 @@ export class SignIn {
     return this.formSignIn.touched;
   }
   
-  handleSubmit(){
+  async handleSubmit(){
+    const user = this.formSignIn.getRawValue();
+    const ok = await this.auth.login(user.email, user.password);
+    if(ok){
+      this.router.navigateByUrl('/');
+    } else {
+      alert('Email o contraseña inválidos');
+    }
+  }
 
+  navigateTo(){
+    this.router.navigateByUrl("/sign-up");
   }
 }

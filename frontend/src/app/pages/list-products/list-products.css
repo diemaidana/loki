@@ -1,0 +1,80 @@
+.container {
+    display: flex;
+    flex-grow: 1;
+    background-color: transparent;
+    gap: 20px;
+}
+
+.categories-container {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 15%;
+    gap: 20px;
+    background-color: var(--card-background);
+    border-radius: 16px;
+    align-items: center;
+    padding: 20px 0;
+    align-self: flex-start;
+}
+
+.categories-container button {
+    background-color: transparent;
+}
+
+.selected {
+    display: flex;
+    justify-content: space-between;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.close-icon {
+  font-weight: bold;
+  cursor: pointer;
+  color: red;
+}
+
+.products-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: fit-content;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 16px;
+    gap: 16px;
+    justify-content: center;
+    width: fit-content;
+}
+
+.product-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--card-background);
+    border-radius: 16px;
+    font-size: 22px;
+    height: 300px;
+    width: 320px;
+}
+
+img {
+    height: 15vh;
+    width: auto;
+    object-fit: cover;
+}
+
+.action-btns {
+    display: flex;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+button {
+    border: none;
+}

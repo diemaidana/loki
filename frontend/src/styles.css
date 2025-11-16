@@ -72,6 +72,10 @@ input {
     font-size: inherit;
 }
 
+button:hover{
+    cursor: pointer;
+}
+
 li {
     list-style: none;
 }
@@ -123,6 +127,20 @@ li {
 
   border-color: var(--buy-color);
   color: var(--buy-color);
+}
+
+.slide-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background: var(--card-background);
+    padding: 30px;
+    border-radius: 16px;
+    font-size: 22px;
+    height: 400px;
+    width: 350px;
 }
 
 .action-btns {

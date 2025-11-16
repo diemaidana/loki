@@ -6,4 +6,5 @@ export interface Product {
     id_seller: number | string;
     brand: string;
     image: string;
+    category: string;
 }

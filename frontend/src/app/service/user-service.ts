@@ -1,13 +1,15 @@
 import { inject, Injectable } from '@angular/core';
 import { User } from '../model/user';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError, Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   private readonly http = inject(HttpClient);
-  private readonly urlApi = "http://localhost:3000/users";
+  private readonly urlApi = " http://localhost:3000/users";
+  
   // Get
   getUsers(){
     return this.http.get<User[]>(this.urlApi);
@@ -16,7 +18,14 @@ export class UserService {
     return this.http.get<User[]>(`${this.urlApi}/${id}`);
   }
 
-  postUser(user: User){
-    return this.http.post<User>(`${this.urlApi}`, user);
+  postUser(user: User): Observable<User> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<User>(this.urlApi, user, { headers, withCredentials: false })
+      .pipe(
+        catchError(err => {
+          console.error('UserService.postUser error:', err);
+          return throwError(() => err);
+        })
+      );
   }
 }

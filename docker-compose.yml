@@ -17,10 +17,12 @@ services:
   json-server:
     build:
       context: ./json-server
+      dockerfile: Dockerfile
+    container_name: json-server
     ports:
       - "3000:3000"
     volumes:
-      - ./json-server/db.json:/app/db.json
+      - ./json-server:/app
     networks:
       - loki-network
 

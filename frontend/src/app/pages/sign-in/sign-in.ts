@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators, ɵInternalFormsSharedModule } from "@angular/forms";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-in',
@@ -9,6 +10,7 @@ import { FormBuilder, ReactiveFormsModule, Validators, ɵInternalFormsSharedModu
 })
 export class SignIn {
   private readonly formBuilder = inject(FormBuilder);
+  private readonly router = inject(Router);
 
   readonly formSignIn = this.formBuilder.nonNullable.group({
     email: ["", [Validators.required]],
@@ -29,5 +31,9 @@ export class SignIn {
   
   handleSubmit(){
 
+  }
+
+  navigateTo(){
+    this.router.navigateByUrl("/sign-up");
   }
 }

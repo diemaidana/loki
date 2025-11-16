@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="categories-container">
+        <h3>Categorias</h3>
+        @for (category of categories(); track $index) {
+            @if (category.length > 0) {
+                <button type="button" (click)="changeCategory(category)" [ngClass]="{ 'selected' : currentCategory() === category }">
+                    {{ category }}
+                      @if (currentCategory() === category) {
+                        <span class="close-icon">×</span>
+                    }
+                </button>   
+            }
+        }
+    </div>
+    <div class="products-container">
+        <div class="cards">
+            @for (product of paginatedProducts(); track $index) {
+            <div class="product-card">
+                <h3>{{ product.name }}</h3>
+                <img src="{{product.image}}" alt="{{ product.name }}">
+                <p>{{ product.price | currency:'ARS' }}</p>
+            </div>
+            }
+        </div>
+        <div class="action-btns">
+            <button (click)="previousPage()" [disabled]="currentPage() === 1">Anterior</button>
+            <button (click)="nextPage()">Siguiente</button>
+        </div>
+    </div>
+</div>

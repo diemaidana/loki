@@ -7,17 +7,22 @@
     padding: 20px 0;
 }
 
-.welcome-msg, .geton-msg {
+.geton-msg {
+    display: flex;
+    gap: 10px;
+    justify-content: space-around;
+}
+
+.msg {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
+    width: auto;
 }
 
-.signin-msg {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+.wecolme-msg, .signin-msg{
+    text-align: center;
 }
 
 .signin-btn {

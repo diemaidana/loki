@@ -18,6 +18,16 @@
             justify-content:space-between;
             align-items: center;
             gap: 4vh;
+
+            input{
+                text-align: center;
+                padding: 4px 4px 4px 0;
+                border: 2px solid black;
+                border-radius: 16px;
+            }
+            .errorMessageForm{
+                color: red;
+            }
         }
     }
 }

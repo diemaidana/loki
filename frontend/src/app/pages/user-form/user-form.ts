@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject, Input, input } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { User } from '../../model/user';
 import { UserService } from '../../service/user-service';
@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class UserForm {
   private readonly formBuilder = inject(FormBuilder);
   private readonly service = inject(UserService);
-  protected readonly user = input<User>();
+  @Input() protected readonly user?:User;
   private readonly router = inject(Router);
 
   protected readonly nations = [
@@ -29,9 +29,51 @@ export class UserForm {
     "Brasil"
   ];
 
-  protected readonly formSingUp = this.formBuilder.nonNullable.group({
+  get username() {
+    return this.formSignUp.controls.username;
+  }
+
+  get email() {
+    return this.formSignUp.controls.email;
+  }
+
+  get password() {
+    return this.formSignUp.controls.password;
+  }
+
+  get repassword() {
+    return this.formSignUp.controls.repassword;
+  }
+
+  get fullName() {
+    return this.formSignUp.controls.fullName;
+  }
+
+  get DNI() {
+    return this.formSignUp.controls.DNI;
+  }
+
+  get phoneNumber() {
+    return this.formSignUp.controls.phoneNumber;
+  }
+
+  get address() {
+    return this.formSignUp.controls.address;
+  }
+
+  get nationality() {
+    return this.formSignUp.controls.nationality;
+  }
+  
+  private passwordsMatchValidator = (group: import('@angular/forms').AbstractControl) => {
+    const pwd = group.get('password')?.value;
+    const repwd = group.get('repassword')?.value;
+    return pwd && repwd && pwd !== repwd ? { passwordsMismatch: true } : null;
+  }
+
+  protected readonly formSignUp = this.formBuilder.nonNullable.group({
     username: ["", [Validators.required]],
-    email: ["", [Validators.required]],
+    email: ["", [Validators.required, Validators.email]],
     password: ["", [Validators.required]],
     repassword: ["", [Validators.required]],
     fullName: ["", [Validators.required]],
@@ -39,20 +81,27 @@ export class UserForm {
     phoneNumber: [""],
     address: ["", [Validators.required]],
     nationality: ["", [Validators.required]]
-  });
+  }, { validators: this.passwordsMatchValidator });
+
 
   navigateTo(){
-    this.router.navigateByUrl("/");
+    return this.router.navigateByUrl("/");
   }
 
   handleSubmit(){
-    if(this.formSingUp.invalid){
+    if(this.formSignUp.invalid){
       alert("formulario invalido");
       return
-    }
-    else{
-      const user = this.formSingUp.getRawValue();
-      this.service.postUser(user);
+      
+    }else{
+      const user = this.formSignUp.getRawValue();
+      if(confirm("Desea crear usuario? ")){
+        this.service.postUser(user).subscribe(() => {
+          alert("Usuario creado con exito");
+          this.router.navigateByUrl("/sign-in");
+        })
+      }
     }
   }
+
 }

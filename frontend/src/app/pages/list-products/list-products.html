@@ -16,8 +16,8 @@
           </div>
         }
         <div class="action-btns">
-            <button>Anterior</button>
-            <button>Siguiente</button>
+            <button (click)="previousPage()" [disabled]="currentPage() === 1">Anterior</button>
+            <button (click)="nextPage()">Siguiente</button>
         </div>
     </div>
 </div>

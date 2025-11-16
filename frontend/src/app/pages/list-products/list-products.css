@@ -7,11 +7,18 @@
 .categories-container {
     display: flex;
     flex-direction: column;
-    flex-basis: 20%;
+    flex-wrap: 1;
+    flex-basis: 50%;
     gap: 20px;
 }
 
 .products-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cards {
     display: flex;
     flex-wrap: wrap;
     border-radius: 16px;
@@ -42,6 +49,7 @@ img {
 .action-btns {
     display: flex;
     gap: 15px;
+    margin: 20px 0;
 }
 
 button {

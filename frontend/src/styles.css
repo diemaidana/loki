@@ -72,6 +72,10 @@ input {
     font-size: inherit;
 }
 
+button:hover{
+    cursor: pointer;
+}
+
 li {
     list-style: none;
 }

@@ -3,7 +3,7 @@
         <h3>Categorias</h3>
         @for (category of categories(); track $index) {
             @if (category.length > 0) {
-                <p>{{ category }}</p>   
+                <button type="button" (click)="changeCategory(category)">{{ category }}</button>   
             }
         }
     </div>

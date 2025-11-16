@@ -27,6 +27,7 @@ export class ListProducts {
 
   protected currentPage = signal(1);
   private pageSize = 9;
+  protected totalPages = 0;
 
   protected paginatedProducts = computed(() => {
     const page = this.currentPage();
@@ -36,9 +37,12 @@ export class ListProducts {
     const end = start + this.pageSize;
 
     if(this.currentCategory() === ""){
+      this.totalPages = Math.ceil(this.products().length / this.pageSize);
       return this.products().slice(start, end);
     } else {
-      return this.products().filter(p => p.category === this.currentCategory()).slice(start, end);
+      const filteredProducts = this.products().filter(p => p.category === this.currentCategory());
+      this.totalPages = Math.ceil(filteredProducts.length / this.pageSize);
+      return filteredProducts.slice(start, end);
     }
     
     //return this.products()?.slice(start, end);
@@ -52,6 +56,7 @@ export class ListProducts {
 
   nextPage() {
     const pages = Math.ceil(this.paginatedProducts.length / this.pageSize);
+    console.log(pages);
     if(this.currentPage() < pages){
       this.currentPage.update(page => page + 1);
     }

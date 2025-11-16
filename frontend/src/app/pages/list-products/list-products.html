@@ -3,7 +3,12 @@
         <h3>Categorias</h3>
         @for (category of categories(); track $index) {
             @if (category.length > 0) {
-                <button type="button" (click)="changeCategory(category)">{{ category }}</button>   
+                <button type="button" (click)="changeCategory(category)" [ngClass]="{ 'selected' : currentCategory() === category }">
+                    {{ category }}
+                      @if (currentCategory() === category) {
+                        <span class="close-icon">×</span>
+                    }
+                </button>   
             }
         }
     </div>

@@ -1,11 +1,11 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ProductService } from '../../service/product';
-import { CurrencyPipe } from '@angular/common';
+import { CommonModule, CurrencyPipe, NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-list-products',
-  imports: [CurrencyPipe],
+  imports: [CurrencyPipe, CommonModule],
   templateUrl: './list-products.html',
   styleUrl: './list-products.css',
 })
@@ -58,7 +58,11 @@ export class ListProducts {
   }
 
   changeCategory(category: string){
-    this.currentCategory.update(cat => category);
+    if(this.currentCategory() === category){
+      this.currentCategory.update(cat => "");
+    } else {
+      this.currentCategory.update(cat => category);
+    }
     console.log(this.currentCategory());
   }
 }

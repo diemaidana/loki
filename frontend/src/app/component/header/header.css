@@ -9,6 +9,9 @@
 }
 
 .header-logo {
+    display: flex;
+    gap: 10px;
+    align-items: center;
     font-family: var(--logo-font);
     font-size: 3rem;
 }
@@ -16,6 +19,12 @@
 .header-logo a {
     text-decoration: none;
     color: var(--primary-color);
+}
+
+.header-logo img {
+    height: 8vh;
+    width: auto;
+    object-fit: cover;
 }
 
 .header-search {

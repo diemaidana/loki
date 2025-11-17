@@ -7,9 +7,22 @@
         <p>{{ product()?.brand }}</p>
         <p>{{ product()?.description }}</p>
         <p class="price">{{ product()?.price | currency: 'ARS'}}</p>
-        <div class="action-btns">
-            <button class="btn btn-offer">Ofertar</button>
-            <button class="btn btn-buy">Comprar</button>
-        </div>
+        @if(showOfferInput()){
+            <div class="offer">
+                <div class="input-offer">
+                    <label for="">Ingresar oferta:</label>
+                    <input type="number" [min]="minAmount">
+                </div>
+                <div class="offer-btns">
+                    <button class="btn btn-cancel" (click)="changeOffer()">Cancelar</button>
+                    <button class="btn btn-offer" (click)="offer()">Ofertar</button>
+                </div>
+            </div>
+        } @else {
+            <div class="action-btns">
+                <button class="btn btn-offer" (click)="changeOffer()">Ofertar</button>
+                <button class="btn btn-buy" (click)="buy()">Comprar</button>
+            </div>
+        } 
     </div>
 </div>

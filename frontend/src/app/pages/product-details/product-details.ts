@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ProductService } from '../../service/product';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -19,5 +19,18 @@ export class ProductDetails {
 
   protected product = toSignal(this.productService.getProductsById(this.id!));
 
+  protected showOfferInput = signal(false);
+  protected minAmount = 0;
 
+  changeOffer() {
+    this.showOfferInput.update(v => !v);
+  }
+
+  offer() {
+
+  }
+
+  buy(){
+
+  }
 }

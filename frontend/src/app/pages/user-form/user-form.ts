@@ -3,6 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { User } from '../../model/user';
 import { UserService } from '../../service/user-service';
 import { Router } from '@angular/router';
+import { passwordsMatchValidator } from '../../validator/password-match';
 
 @Component({
   selector: 'app-user-form',
@@ -68,12 +69,7 @@ export class UserForm {
   get touched(){
     return this.formSignUp.touched;
   }
-  
-  private passwordsMatchValidator = (group: import('@angular/forms').AbstractControl) => {
-    const pwd = group.get('password')?.value;
-    const repwd = group.get('repassword')?.value;
-    return pwd && repwd && pwd !== repwd ? { passwordsMismatch: true } : null;
-  }
+
 
   protected readonly formSignUp = this.formBuilder.nonNullable.group({
     username: ["", [Validators.required]],
@@ -85,8 +81,11 @@ export class UserForm {
     phoneNumber: [""],
     address: ["", [Validators.required]],
     nationality: ["", [Validators.required]]
-  }, { validators: this.passwordsMatchValidator });
+  }, { validators: [passwordsMatchValidator]});
 
+  get formControls(){
+    return this.formSignUp.controls
+  }
 
   navigateTo(){
     return this.router.navigateByUrl("/");

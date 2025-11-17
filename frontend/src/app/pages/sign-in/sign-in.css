@@ -12,9 +12,13 @@
     .form-field{
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-end;
         flex-wrap: wrap;
         gap: 16px;
         padding: 8px;
+    }
+    .registrarseField{
+        margin: 4px;
+        text-align: end;
     }
  }

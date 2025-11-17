@@ -56,8 +56,8 @@ export class ListProducts {
 
   nextPage() {
     const pages = Math.ceil(this.paginatedProducts.length / this.pageSize);
-    console.log(pages);
-    if(this.currentPage() < pages){
+    console.log(this.totalPages);
+    if(this.currentPage() < this.totalPages){
       this.currentPage.update(page => page + 1);
     }
   }

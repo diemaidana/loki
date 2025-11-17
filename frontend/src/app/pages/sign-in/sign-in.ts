@@ -36,6 +36,7 @@ export class SignIn {
     const ok = await this.auth.login(user.email, user.password);
     if(ok){
       this.router.navigateByUrl('/');
+
     } else {
       alert('Email o contraseña inválidos');
     }

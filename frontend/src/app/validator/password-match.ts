@@ -1,9 +1,6 @@
-// src/app/validators/password-match.validator.ts
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 /**
- * Validador personalizado para asegurar que el valor de dos campos dentro 
- * de un FormGroup coincidan (ej: Contraseña y Confirmar Contraseña).
  * @param controlName Nombre del campo de la contraseña original.
  * @param matchingControlName Nombre del campo de confirmación.
  * @returns Función Validadora (ValidatorFn).
@@ -11,6 +8,7 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 export const passwordsMatchValidator: ValidatorFn = (
   control: AbstractControl
 ): ValidationErrors | null => {
+  
   // Obtenemos las referencias a los controles de las contraseñas
   const password = control.get('password');
   const repassword = control.get('repassword');

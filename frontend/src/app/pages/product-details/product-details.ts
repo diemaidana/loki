@@ -27,10 +27,30 @@ export class ProductDetails {
   }
 
   offer() {
-
+    alert("La oferta por el producto: "+this.product()?.name! + " se realizo con exito");
+    this.router.navigateByUrl("/");
   }
 
   buy(){
+    const productData = this.product();
+    
+    if (!productData) {
+      alert('Error: El producto no está cargado.');
+      return;
+    }
 
+    // 2. Llamar al servicio para obtener el link de pago
+    this.productService.generateMercadoPagoLink(productData.id!).subscribe({
+      next: (checkoutUrl) => {
+        // 3. Redirección final
+        alert('Redirigiendo a Mercado Pago...');
+        window.location.href = checkoutUrl;
+      },
+      error: (err) => {
+        console.error('Error al generar el link de pago:', err);
+        // 4. Mostrar error si falla la comunicación con el backend
+        alert('Error: No se pudo generar el link de pago. Intente de nuevo más tarde.');
+      }
+    });
   }
 }

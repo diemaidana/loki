@@ -2,6 +2,7 @@ import { Component, computed, effect, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ProductService } from '../../service/product';
 import { CommonModule, CurrencyPipe, NgClass } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-products',
@@ -11,6 +12,7 @@ import { CommonModule, CurrencyPipe, NgClass } from '@angular/common';
 })
 export class ListProducts {
   private readonly http = inject(ProductService);
+  private readonly router = inject(Router);
   private readonly products = toSignal(this.http.getProducts(), { initialValue: []});
 
   /*
@@ -69,5 +71,9 @@ export class ListProducts {
       this.currentCategory.update(cat => category);
     }
     console.log(this.currentCategory());
+  }
+
+  navigateTo(id: string | number | undefined){
+    this.router.navigateByUrl(`/product-detail/${id}`);
   }
 }

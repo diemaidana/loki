@@ -1,5 +1,5 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, effect, inject, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ProductService } from '../../service/product';
 import { Product } from '../../model/product';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -15,5 +15,10 @@ import { Footer } from "../../component/footer/footer";
 })
 export class Home {
   private readonly productsService = inject(ProductService);
+  private readonly router = inject(Router);
   protected readonly products = toSignal(this.productsService.getProducts(), { initialValue: [] });
+
+  navigateTo(id: string | number | undefined){
+    this.router.navigateByUrl(`/product-detail/${id}`);
+  }
 }

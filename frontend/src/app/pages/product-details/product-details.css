@@ -1,0 +1,38 @@
+.product-container {
+    display: flex;
+    background-color: var(--card-background);
+    border-radius: 16px;
+}
+
+.img-container, .detail-container {
+    padding: 20px;
+}
+
+.detail-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    gap: 10px;
+}
+
+.action-btns {
+    margin: 40px 0;
+}
+
+.img-container img {
+    height: 50vh;
+    width: auto;
+    object-fit: cover;
+}
+
+.price {
+    margin-top: 20px;
+    font-weight: 800;
+    font-size: 2rem;
+}
+
+
+
+

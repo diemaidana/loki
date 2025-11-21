@@ -2,6 +2,8 @@ import { Component, computed, effect, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ProductService } from '../../service/product';
 import { CommonModule, CurrencyPipe, NgClass } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { combineLatestWith, map, startWith } from 'rxjs';
 
 @Component({
   selector: 'app-list-products',
@@ -11,6 +13,7 @@ import { CommonModule, CurrencyPipe, NgClass } from '@angular/common';
 })
 export class ListProducts {
   private readonly http = inject(ProductService);
+  private readonly route = inject(ActivatedRoute);
   private readonly products = toSignal(this.http.getProducts(), { initialValue: []});
 
   /*
@@ -70,4 +73,13 @@ export class ListProducts {
     }
     console.log(this.currentCategory());
   }
+  
+  protected readonly product = toSignal(this.http.getProducts().pipe(
+    combineLatestWith(this.route.queryParamMap.pipe(startWith(this.route.snapshot.queryParamMap))),
+    map(([products, params]) => {
+      const q = params.get('q')?.toLowerCase().trim();
+      if (!q) return products;
+      return products.filter(p => (p.name ?? '').toLowerCase().includes(q));
+    })
+  ));
 }

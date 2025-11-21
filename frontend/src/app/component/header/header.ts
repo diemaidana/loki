@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { RouterLink } from "@angular/router";
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -8,13 +8,13 @@ import { RouterLink } from "@angular/router";
   styleUrl: './header.css',
 })
 export class Header {
-
+  private readonly router = inject(Router);
   onSearch(name: string){
-    if(name.trim().length === 0){
-      return;
+    const n = (name ?? "").trim();
+    if(n){
+      this.router.navigate(['/search'], { queryParams: { q: n } });
+    }else{
+      this.router.navigateByUrl('/list-products');
     }
-
-    console.log(name);
   }
-
 }

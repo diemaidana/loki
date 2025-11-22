@@ -5,9 +5,28 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
+import { definePreset } from '@primeuix/themes';
 
 import { routes } from './app.routes';
 import { provideHttpClient, withFetch } from '@angular/common/http';
+
+const LokiPreset = definePreset(Aura, {
+    semantic: {
+        primary: {
+            50: '#efecff',
+            100: '#dcd6ff',
+            200: '#bcaeff',
+            300: '#937aff',
+            400: '#7244ff',
+            500: '#5F2ECC',  // <--- TU COLOR PRINCIPAL (Base)
+            600: '#4f1db5',  // <--- Hover (Un poco más oscuro)
+            700: '#431796',
+            800: '#38167a',
+            900: '#301363',
+            950: '#1b083b'
+        }
+    }
+});
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,9 +37,11 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     providePrimeNG({
       theme: {
-        preset: Aura,
+        preset: LokiPreset,
         options: {
-          darkModeSelector: false || 'none'
+          prefix: 'p',
+          darkModeSelector: false || 'none',
+          cssLayer: false
         }
       }
     })

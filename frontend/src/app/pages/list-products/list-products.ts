@@ -3,6 +3,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { ProductService } from '../../service/product';
 import { CommonModule, CurrencyPipe, NgClass } from '@angular/common';
 import { Router } from '@angular/router';
+import { SearchStateService } from '../../service/search-state-service';
 
 @Component({
   selector: 'app-list-products',
@@ -14,6 +15,7 @@ export class ListProducts {
   private readonly http = inject(ProductService);
   private readonly router = inject(Router);
   private readonly products = toSignal(this.http.getProducts(), { initialValue: []});
+  private searchStateService = inject(SearchStateService);
   private readonly searchTerm = toSignal(this.searchStateService.searchTerm, { initialValue: '' });
 
 

@@ -3,12 +3,14 @@
     <div class="header-logo">
         <a routerLink="/"><img src="logo.png" alt="Loki"></a>
     </div>
+-->
 <!-- type="button" (click)="onSearch(searchInput.value) -->
 <!-- (ngSubmit)="onSearch(searchInput.value); $event.preventDefault()"  -->
 <!--     <form class="header-search" (ngSubmit)="onSearch(searchInput.value, $event)">
         <input class="search-box" type="text" placeholder="Buscar productos..." #searchInput>
         <button class="btn btn-primary" type="submit">Buscar</button>
     </form> -->
+<!--
     <div class="header-search-container">
         <app-search-bar (search)="onSearchUpdated($event)"></app-search-bar>
     </div>
@@ -16,21 +18,20 @@
     <nav class="header-nav">
         <ul class="action-btns">
             @if (isLoggedIn) {
-                <!-- VISTA DE USUARIO LOGUEADO -->
+                VISTA DE USUARIO LOGUEADO
                 <li>
                     <span class="user-greeting">Hola, {{ currentUser?.username }}</span>
                 </li>
                 <li>
                     <a routerLink="/dashboard" class="btn btn-secondary">Dashboard</a>
                 </li>
-                <!-- tenemos que agregar un boton o alo para hacer un loggout -->
-<!--                 <li>
+                tenemos que agregar un boton o alo para hacer un loggout
+                 <li>
                     <button (click)="logout()" class="btn btn-logout" title="Salir">
                         <i-lucide name="log-out" class="icon-sm"></i-lucide>
                     </button>
-                </li> -->
+                </li>
             } @else {
-                <!-- VISTA DE INVITADO -->
                 <li>
                     <a routerLink="/sign-up" class="btn btn-primary">Registrarse</a>
                 </li>
@@ -38,12 +39,12 @@
                     <a routerLink="/sign-in" class="btn btn-primary">Iniciar sesión</a>
                 </li>
             }
-<!--        <li>
+                <li>
                 <a routerLink="/sign-up" class="btn btn-primary">Registrarse</a>
             </li>
             <li>
                 <a routerLink="/sign-in" class="btn btn-primary">Iniciar sesion</a>
-            </li> -->
+            </li>
         </ul>
     </nav>
 </header>
@@ -54,10 +55,13 @@
         <img src="logo.png" alt="Loki logo" routerLink="/">
     </ng-template>
     <ng-template #center>
+        <!--
         <p-iconfield>
             <p-inputicon class="pi pi-search" />
             <input type="text" pInputText placeholder="Search" pSize="large"/>
         </p-iconfield>
+        -->
+        <app-search-bar (search)="onSearchUpdated($event)"></app-search-bar>
     </ng-template>
     <ng-template #end>
         <div class="btn-actions">

@@ -1,6 +1,13 @@
+<!--
 <div class="search-container">
       <div class="input-wrapper">
-        <!-- Campo de entrada reactivo -->
         <input type="text" [formControl]="searchControl" placeholder="Buscar productos..." class="search-box search-input">
       </div>
 </div>
+-->
+
+
+<p-iconfield>
+    <p-inputicon class="pi pi-search" />
+    <input type="text" pInputText [formControl]="searchControl" placeholder="Buscar productos" pSize="large"/>
+</p-iconfield>

@@ -1,17 +1,24 @@
 .main-header{
-    display: flex;
+    /*display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: center;*/
     padding: 10px;
-    background-color: var(--card-background);
-    border-radius: 16px;
-    margin: 20px auto;
+    background-color: var(--container-color);
+    /*border-radius: 16px;*/
+/*    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;*/
 }
 
-.header-logo img {
-    height: 8vh;
+img {
+    height: 5vh;
     width: auto;
     object-fit: cover;
+    cursor: pointer;
+}
+
+.btn-actions {
+    display: flex;
+    gap: 10px
 }
 
 /* .header-search {

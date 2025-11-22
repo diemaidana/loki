@@ -1,3 +1,4 @@
+<!--
 <header class="container main-header">
     <div class="header-logo">
         <a routerLink="/"><img src="logo.png" alt="Loki"></a>
@@ -46,3 +47,22 @@
         </ul>
     </nav>
 </header>
+-->
+
+<p-toolbar class="container main-header">
+    <ng-template #start>
+        <img src="logo.png" alt="Loki logo" routerLink="/">
+    </ng-template>
+    <ng-template #center>
+        <p-iconfield>
+            <p-inputicon class="pi pi-search" />
+            <input type="text" pInputText placeholder="Search" pSize="large"/>
+        </p-iconfield>
+    </ng-template>
+    <ng-template #end>
+        <div class="btn-actions">
+            <p-button label="Registrarse" [raised]="true" styleClass="user-btn" routerLink="/sign-up" />
+            <p-button label="Iniciar sesion" [raised]="true" styleClass="user-btn" routerLink="/sign-in"/>
+        </div>
+    </ng-template>
+</p-toolbar>

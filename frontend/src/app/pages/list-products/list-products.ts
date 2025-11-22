@@ -40,7 +40,7 @@ export class ListProducts {
 
   // Filtra por queryParam y Categoria
   protected readonly productFiltered = computed(() => {
-        const term = this.searchTerm()?.toLowerCase() || '';
+    const term = this.searchTerm()?.toLowerCase() || '';
     const category = this.currentCategory();
     let filtered = this.products();
 
@@ -48,7 +48,9 @@ export class ListProducts {
     if (term) {
       filtered = filtered.filter(p => 
         (p.name?.toLowerCase().includes(term)) || 
-        (p.description?.toLowerCase().includes(term))
+        (p.description?.toLowerCase().includes(term)) ||
+        (p.brand?.toLowerCase().includes(term)) ||
+        (p.category?.toLowerCase().includes(term))
       );
     }
 

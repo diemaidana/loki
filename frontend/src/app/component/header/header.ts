@@ -27,7 +27,7 @@ export class Header {
     });
   } */
 
-    onSearchUpdated(term: string) {
+  onSearchUpdated(term: string) {
     // 1. Enviamos el término al servicio (para que ListProducts se entere)
     this.searchStateService.setSearchTerm(term);
 
@@ -41,17 +41,5 @@ export class Header {
   logout(){
     this.authService.logout();
     void this.router.navigateByUrl('/');
-  }
-
-  onSearch(name: string, event?: Event){
-    // prevenir recarga si recibe el evento
-    if(event) event.preventDefault();
-
-    const n = (name ?? "").trim();
-    if(n){
-      this.router.navigate(['/list-products'], { queryParams: { q: n } });
-    }else{
-      this.router.navigateByUrl('/list-products');
-    }
   }
 }

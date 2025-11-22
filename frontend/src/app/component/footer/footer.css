@@ -2,6 +2,6 @@ p-toolbar {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--primary-color);
+    background-color: var(--p-primary-500);
     color: var(--main-background-color);
 }

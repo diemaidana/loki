@@ -15,7 +15,7 @@
     <div class="products-container">
         <div class="cards">
             @for (product of paginatedProducts(); track $index) {
-            <div class="product-card">
+            <div class="product-card" (click)="navigateTo(product.id)">
                 <h3>{{ product.name }}</h3>
                 <img src="{{product.image}}" alt="{{ product.name }}">
                 <p>{{ product.price | currency:'ARS' }}</p>

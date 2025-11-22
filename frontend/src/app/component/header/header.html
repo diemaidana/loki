@@ -3,20 +3,47 @@
     <div class="header-logo">
         <a routerLink="/"><img src="logo.png" alt="Loki"></a>
     </div>
-
-    <form class="header-search" (ngSubmit)="onSearch(searchInput.value)">
+<!-- type="button" (click)="onSearch(searchInput.value) -->
+<!-- (ngSubmit)="onSearch(searchInput.value); $event.preventDefault()"  -->
+<!--     <form class="header-search" (ngSubmit)="onSearch(searchInput.value, $event)">
         <input class="search-box" type="text" placeholder="Buscar productos..." #searchInput>
         <button class="btn btn-primary" type="submit">Buscar</button>
-    </form>
-
+    </form> -->
+    <div class="header-search-container">
+        <app-search-bar (search)="onSearchUpdated($event)"></app-search-bar>
+    </div>
+    
     <nav class="header-nav">
         <ul class="action-btns">
-            <li>
+            @if (isLoggedIn) {
+                <!-- VISTA DE USUARIO LOGUEADO -->
+                <li>
+                    <span class="user-greeting">Hola, {{ currentUser?.username }}</span>
+                </li>
+                <li>
+                    <a routerLink="/dashboard" class="btn btn-secondary">Dashboard</a>
+                </li>
+                <!-- tenemos que agregar un boton o alo para hacer un loggout -->
+<!--                 <li>
+                    <button (click)="logout()" class="btn btn-logout" title="Salir">
+                        <i-lucide name="log-out" class="icon-sm"></i-lucide>
+                    </button>
+                </li> -->
+            } @else {
+                <!-- VISTA DE INVITADO -->
+                <li>
+                    <a routerLink="/sign-up" class="btn btn-primary">Registrarse</a>
+                </li>
+                <li>
+                    <a routerLink="/sign-in" class="btn btn-primary">Iniciar sesión</a>
+                </li>
+            }
+<!--        <li>
                 <a routerLink="/sign-up" class="btn btn-primary">Registrarse</a>
             </li>
             <li>
                 <a routerLink="/sign-in" class="btn btn-primary">Iniciar sesion</a>
-            </li>
+            </li> -->
         </ul>
     </nav>
 </header>

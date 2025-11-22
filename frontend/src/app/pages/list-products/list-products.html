@@ -14,19 +14,12 @@
     </div>
     <div class="products-container">
         <div class="cards">
-            @if(paginatedProducts().length === 0) {
-                <div class="no-products">
-                    <p>No se encontraron productos</p>
-                </div>
-            }
-            @else{
-                @for (product of paginatedProducts(); track $index) {
-                <div class="product-card">
-                    <h3>{{ product.name }}</h3>
-                    <img src="{{product.image}}" alt="{{ product.name }}">
-                    <p>{{ product.price | currency:'ARS' }}</p>
-                </div>
-                }
+            @for (product of paginatedProducts(); track $index) {
+            <div class="product-card" (click)="navigateTo(product.id)">
+                <h3>{{ product.name }}</h3>
+                <img src="{{product.image}}" alt="{{ product.name }}">
+                <p>{{ product.price | currency:'ARS' }}</p>
+            </div>
             }
         </div>
         <div class="action-btns">

@@ -2,9 +2,7 @@ import { Component, computed, effect, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ProductService } from '../../service/product';
 import { CommonModule, CurrencyPipe, NgClass } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
-import { combineLatestWith, filter, map, startWith } from 'rxjs';
-import { SearchStateService } from '../../service/search-state-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-products',
@@ -14,9 +12,7 @@ import { SearchStateService } from '../../service/search-state-service';
 })
 export class ListProducts {
   private readonly http = inject(ProductService);
-  private readonly route = inject(ActivatedRoute);
-  private readonly searchStateService = inject(SearchStateService);
-
+  private readonly router = inject(Router);
   private readonly products = toSignal(this.http.getProducts(), { initialValue: []});
   private readonly searchTerm = toSignal(this.searchStateService.searchTerm, { initialValue: '' });
 
@@ -112,4 +108,7 @@ export class ListProducts {
     this.currentPage.set(1);
   }
 
+  navigateTo(id: string | number | undefined){
+    this.router.navigateByUrl(`/product-detail/${id}`);
+  }
 }

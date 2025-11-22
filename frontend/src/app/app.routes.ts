@@ -11,6 +11,6 @@ export const routes: Routes = [
     {path: 'sign-up', component: UserForm, title:"Registrarse"},
     {path: 'sign-in', component: SignIn, title:"Acceder"},
     {path: 'list-products', component: ListProducts},
-    {path: 'product-detail/:id', component: ProductDetails, canActivate: [authGuardGuard]},
+    {path: 'product-detail/:id', component: ProductDetails},
     {path: '**', redirectTo: ''}
 ];

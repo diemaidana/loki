@@ -14,7 +14,7 @@
     object-fit: cover;
 }
 
-.header-search {
+/* .header-search {
     display: flex;
     flex-grow: 1;
     max-width: 500px;
@@ -27,4 +27,4 @@
     border: 1px solid var(--border);
     border-radius: 16px;
     padding: 10px;
-}
+} */

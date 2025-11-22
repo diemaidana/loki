@@ -3,7 +3,8 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { ProductService } from '../../service/product';
 import { CommonModule, CurrencyPipe, NgClass } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { combineLatestWith, map, startWith } from 'rxjs';
+import { combineLatestWith, filter, map, startWith } from 'rxjs';
+import { SearchStateService } from '../../service/search-state-service';
 
 @Component({
   selector: 'app-list-products',
@@ -14,7 +15,11 @@ import { combineLatestWith, map, startWith } from 'rxjs';
 export class ListProducts {
   private readonly http = inject(ProductService);
   private readonly route = inject(ActivatedRoute);
+  private readonly searchStateService = inject(SearchStateService);
+
   private readonly products = toSignal(this.http.getProducts(), { initialValue: []});
+  private readonly searchTerm = toSignal(this.searchStateService.searchTerm, { initialValue: '' });
+
 
   /*
   private productsToRender = computed(() => {
@@ -32,22 +37,51 @@ export class ListProducts {
   private pageSize = 9;
   protected totalPages = 0;
 
+
+  // Filtra por queryParam y Categoria
+  protected readonly productFiltered = computed(() => {
+        const term = this.searchTerm()?.toLowerCase() || '';
+    const category = this.currentCategory();
+    let filtered = this.products();
+
+    // Filtro por Buscador
+    if (term) {
+      filtered = filtered.filter(p => 
+        (p.name?.toLowerCase().includes(term)) || 
+        (p.description?.toLowerCase().includes(term))
+      );
+    }
+
+    // Filtro por Categoría
+    if (category) {
+      filtered = filtered.filter(p => p.category === category);
+    }
+
+    return filtered;
+  });
+
+
+  // Voy a refactorizar esta funcion.
   protected paginatedProducts = computed(() => {
     const page = this.currentPage();
-//    const allProducts = this.productsToRender;
-
     const start = (page - 1) * this.pageSize;
     const end = start + this.pageSize;
 
+    const filtered = this.productFiltered();
+    this.totalPages = Math.ceil(filtered.length / this.pageSize);
+    return filtered.slice(start, end);
+
+    /* 
     if(this.currentCategory() === ""){
-      this.totalPages = Math.ceil(this.products().length / this.pageSize);
+      const filtered = this.productFiltered();
+      this.totalPages = Math.ceil(filtered.length / this.pageSize);
       return this.products().slice(start, end);
     } else {
       const filteredProducts = this.products().filter(p => p.category === this.currentCategory());
       this.totalPages = Math.ceil(filteredProducts.length / this.pageSize);
       return filteredProducts.slice(start, end);
     }
-    
+    */ 
     //return this.products()?.slice(start, end);
   })
 
@@ -58,8 +92,8 @@ export class ListProducts {
   }
 
   nextPage() {
-    const pages = Math.ceil(this.paginatedProducts.length / this.pageSize);
-    console.log(this.totalPages);
+/*     const pages = Math.ceil(this.paginatedProducts.length / this.pageSize);
+    console.log(this.totalPages); */
     if(this.currentPage() < this.totalPages){
       this.currentPage.update(page => page + 1);
     }
@@ -72,14 +106,8 @@ export class ListProducts {
       this.currentCategory.update(cat => category);
     }
     console.log(this.currentCategory());
+
+    this.currentPage.set(1);
   }
-  
-  protected readonly product = toSignal(this.http.getProducts().pipe(
-    combineLatestWith(this.route.queryParamMap.pipe(startWith(this.route.snapshot.queryParamMap))),
-    map(([products, params]) => {
-      const q = params.get('q')?.toLowerCase().trim();
-      if (!q) return products;
-      return products.filter(p => (p.name ?? '').toLowerCase().includes(q));
-    })
-  ));
+
 }

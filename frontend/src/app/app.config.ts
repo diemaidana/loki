@@ -18,8 +18,8 @@ const LokiPreset = definePreset(Aura, {
             200: '#bcaeff',
             300: '#937aff',
             400: '#7244ff',
-            500: '#5F2ECC',  // <--- TU COLOR PRINCIPAL (Base)
-            600: '#4f1db5',  // <--- Hover (Un poco más oscuro)
+            500: '#5F2ECC',
+            600: '#4f1db5',  
             700: '#431796',
             800: '#38167a',
             900: '#301363',

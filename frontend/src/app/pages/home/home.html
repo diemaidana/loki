@@ -13,7 +13,7 @@
     >
       @for (item of products().slice(0,10); track item.id) {
         <swiper-slide>
-          <div class="slide-box">
+          <div class="slide-box" (click)="navigateTo(item.id)">
             <h3>{{ item.name }}</h3>
             <img src="{{item.image}}" alt="{{ item.name }}">
             <p>{{ item.price | currency:'ARS' }}</p>

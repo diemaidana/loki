@@ -14,6 +14,8 @@ export class ListProducts {
   private readonly http = inject(ProductService);
   private readonly router = inject(Router);
   private readonly products = toSignal(this.http.getProducts(), { initialValue: []});
+  private readonly searchTerm = toSignal(this.searchStateService.searchTerm, { initialValue: '' });
+
 
   /*
   private productsToRender = computed(() => {
@@ -31,22 +33,53 @@ export class ListProducts {
   private pageSize = 9;
   protected totalPages = 0;
 
+
+  // Filtra por queryParam y Categoria
+  protected readonly productFiltered = computed(() => {
+    const term = this.searchTerm()?.toLowerCase() || '';
+    const category = this.currentCategory();
+    let filtered = this.products();
+
+    // Filtro por Buscador
+    if (term) {
+      filtered = filtered.filter(p => 
+        (p.name?.toLowerCase().includes(term)) || 
+        (p.description?.toLowerCase().includes(term)) ||
+        (p.brand?.toLowerCase().includes(term)) ||
+        (p.category?.toLowerCase().includes(term))
+      );
+    }
+
+    // Filtro por Categoría
+    if (category) {
+      filtered = filtered.filter(p => p.category === category);
+    }
+
+    return filtered;
+  });
+
+
+  // Voy a refactorizar esta funcion.
   protected paginatedProducts = computed(() => {
     const page = this.currentPage();
-//    const allProducts = this.productsToRender;
-
     const start = (page - 1) * this.pageSize;
     const end = start + this.pageSize;
 
+    const filtered = this.productFiltered();
+    this.totalPages = Math.ceil(filtered.length / this.pageSize);
+    return filtered.slice(start, end);
+
+    /* 
     if(this.currentCategory() === ""){
-      this.totalPages = Math.ceil(this.products().length / this.pageSize);
+      const filtered = this.productFiltered();
+      this.totalPages = Math.ceil(filtered.length / this.pageSize);
       return this.products().slice(start, end);
     } else {
       const filteredProducts = this.products().filter(p => p.category === this.currentCategory());
       this.totalPages = Math.ceil(filteredProducts.length / this.pageSize);
       return filteredProducts.slice(start, end);
     }
-    
+    */ 
     //return this.products()?.slice(start, end);
   })
 
@@ -57,8 +90,8 @@ export class ListProducts {
   }
 
   nextPage() {
-    const pages = Math.ceil(this.paginatedProducts.length / this.pageSize);
-    console.log(this.totalPages);
+/*     const pages = Math.ceil(this.paginatedProducts.length / this.pageSize);
+    console.log(this.totalPages); */
     if(this.currentPage() < this.totalPages){
       this.currentPage.update(page => page + 1);
     }
@@ -71,6 +104,8 @@ export class ListProducts {
       this.currentCategory.update(cat => category);
     }
     console.log(this.currentCategory());
+
+    this.currentPage.set(1);
   }
 
   navigateTo(id: string | number | undefined){

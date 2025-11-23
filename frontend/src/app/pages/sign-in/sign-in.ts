@@ -3,9 +3,29 @@ import { FormBuilder, ReactiveFormsModule, Validators, ɵInternalFormsSharedModu
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../auth/service/auth-service';
 
+import { CardModule } from 'primeng/card';
+import { DividerModule } from 'primeng/divider';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
+import { ButtonModule } from 'primeng/button';
+import { MessageModule } from 'primeng/message';
+import { Dialog } from 'primeng/dialog';
+
 @Component({
   selector: 'app-sign-in',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [
+    ReactiveFormsModule,
+    RouterLink,
+    CardModule,
+    DividerModule,
+    FloatLabelModule,
+    InputTextModule,
+    PasswordModule,
+    ButtonModule,
+    MessageModule,
+    Dialog
+  ],
   templateUrl: './sign-in.html',
   styleUrl: './sign-in.css',
 })
@@ -17,6 +37,8 @@ export class SignIn {
 
   protected isLoading = signal(false);
   protected errorMessage = signal<string | null>(null);
+
+  protected visible: boolean = false;
 
   readonly formSignIn = this.formBuilder.nonNullable.group({
     email: ["", [Validators.required]],

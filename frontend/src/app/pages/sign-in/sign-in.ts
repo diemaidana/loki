@@ -9,6 +9,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
+import { MessageModule } from 'primeng/message';
 
 @Component({
   selector: 'app-sign-in',
@@ -20,7 +21,8 @@ import { ButtonModule } from 'primeng/button';
     FloatLabelModule,
     InputTextModule,
     PasswordModule,
-    ButtonModule
+    ButtonModule,
+    MessageModule
   ],
   templateUrl: './sign-in.html',
   styleUrl: './sign-in.css',

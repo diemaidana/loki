@@ -29,25 +29,35 @@
 <p-card class="card">
     <div class="card-container">
         <h2>Bienvenido!</h2>
-        <form [formGroup]="formSignIn" (ngSubmit)="handleSubmit()" class="form-container">
+        <form [formGroup]="formSignIn" class="form-container">
             <div class="form-inputs">
                 <p-floatlabel variant="in">
                     <input name="email" id="email" pInputText formControlName="email" />
                     <label for="email">Email</label>
+                    @if(email.invalid && email.touched){
+                        <p-message severity="error" variant="simple" size="small" >
+                            Debe ingresar un email
+                        </p-message>
+                    }
                 </p-floatlabel>
                 <p-floatlabel variant="in">
                     <p-password formControlName="password" inputId="in_label" />
                     <label for="in_label">Password</label>
+                    @if(password.invalid && password.touched){
+                        <p-message severity="error" variant="simple" size="small" >
+                            Debe ingresar una contraseña
+                        </p-message>
+                    }                    
                 </p-floatlabel>
                 <div class="forgot-password">
                     <p-button label="Olvido su contraseña?" link size="small"/>
                 </div>
             </div>
-            <p-button label="Iniciar sesion" [style]="{'width': '100%'}" />
+            <p-button (click)="handleSubmit()" label="Iniciar sesion" [style]="{'width': '100%'}" />
         </form>
         <p-divider />
         <h3>Todavia no te registraste?</h3>
         <p>Hazlo ahora, es <span>gratis!</span></p>
-        <p-button label="Registrarse" link size="large"/>
+        <p-button routerLink="/sign-up" label="Registrarse" link size="large"/>
     </div>
 </p-card>

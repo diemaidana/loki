@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { UserService } from '../../service/user-service';
-import { firstValueFrom } from 'rxjs';
+import { BehaviorSubject, catchError, firstValueFrom, map, Observable, tap, throwError } from 'rxjs';
+import { User } from '../../model/user';
 
 @Injectable({
   providedIn: 'root',
@@ -8,19 +9,63 @@ import { firstValueFrom } from 'rxjs';
 export class AuthService {
   private readonly userService = inject(UserService);
 
-  // devuelve Promise<boolean> indicando si las credenciales son válidas
-  async login(email: string, password: string): Promise<boolean> {
-    try {
-      const users = await firstValueFrom(this.userService.getUsers());
-      return users.some(u => u.email === email && u.password === password);
-    } catch (err) {
-      console.error('AuthService.login error', err);
-      return false;
+  // Fuente de verdad del estado del usuario
+  private userSubject = new BehaviorSubject<User | null>(null);
+  public userState$ = this.userSubject.asObservable();
+
+  constructor() {
+    this.checkInitialAuth();
+  }
+
+  private checkInitialAuth(): void {
+    const token = localStorage.getItem('auth_token');
+    const userData = localStorage.getItem('user_data');
+    if (token && userData) {
+      this.userSubject.next(JSON.parse(userData));
     }
   }
 
-  // placeholder para logout / estado / token
+  isLoggedIn(): boolean {
+    return !!this.userSubject.value; 
+  }
+
+  /**
+   * Valida el email y contraseña contra el json-server usando UserService.
+   */
+  login(email: string, password: string): Observable<User> {
+    // Llamamos al UserService para obtener los usuarios y filtramos
+    // Nota: Asumimos que userService.getUsers() retorna Observable<User[]>
+    return this.userService.getUsers().pipe(
+      map(users => {
+        // Buscamos el usuario que coincida con email y password
+        const user = users.find(u => u.email === email && (u as any).password === password);
+        
+        if (!user) {
+          throw new Error('Credenciales inválidas');
+        }
+        
+        return user;
+      }),
+      tap((user) => {
+        // Login exitoso: Actualizamos estado y localStorage
+        this.userSubject.next(user);
+        
+        // Usamos el ID del usuario como token simple o generamos uno
+        const token = `token_${(user as any).id || Date.now()}`;
+        
+        localStorage.setItem('auth_token', token);
+        localStorage.setItem('user_data', JSON.stringify(user));
+      }),
+      catchError(err => {
+        // Propagamos el error para que el componente lo maneje
+        return throwError(() => err);
+      })
+    );
+  }
+
   logout(): void {
-    // ...implementación si necesitas guardar token / estado...
+    localStorage.removeItem('auth_token');
+    localStorage.removeItem('user_data');
+    this.userSubject.next(null);
   }
 }

@@ -35,3 +35,9 @@
  .sign-in-btn {
     width: 100%;
  }
+
+ .warn-dialog {
+   display: flex;
+   gap: 10px;
+   align-items: center;
+ }

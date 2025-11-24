@@ -5,9 +5,26 @@ import { UserService } from '../../service/user-service';
 import { Router } from '@angular/router';
 import { passwordsMatchValidator } from '../../validator/password-match';
 
+import { CardModule } from 'primeng/card';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { MessageModule } from 'primeng/message';
+import { PasswordModule } from 'primeng/password';
+import { ButtonModule } from 'primeng/button';
+import { Dialog } from 'primeng/dialog';
+import { InputText } from "primeng/inputtext";
+
 @Component({
   selector: 'app-user-form',
-  imports: [ReactiveFormsModule],
+  imports: [
+    ReactiveFormsModule,
+    CardModule,
+    FloatLabelModule,
+    MessageModule,
+    PasswordModule,
+    ButtonModule,
+    Dialog,
+    InputText
+],
   templateUrl: './user-form.html',
   styleUrl: './user-form.css',
 })
@@ -16,6 +33,8 @@ export class UserForm {
   private readonly service = inject(UserService);
   @Input() protected readonly user?:User;
   private readonly router = inject(Router);
+
+  protected visible: boolean = false;
 
   protected readonly nations = [
     "Colombia",
@@ -93,7 +112,7 @@ export class UserForm {
 
   handleSubmit(){
     if(this.formSignUp.invalid){
-      alert("formulario invalido");
+      this.visible = true;
       return
       
     }else{
@@ -103,6 +122,8 @@ export class UserForm {
           alert("Usuario creado con exito");
           this.router.navigateByUrl("/sign-in");
         })
+      }else{
+        this.visible = true;
       }
     }
   }

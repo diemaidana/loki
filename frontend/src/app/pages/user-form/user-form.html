@@ -1,3 +1,5 @@
+<!--
+
 <div class="container form-container">
     <h2>Registrarse</h2>
 
@@ -71,3 +73,78 @@
         </div>
     </form>
 </div>
+-->
+
+
+<p-card class="card">
+    <div class="card-container">
+        <h2>Bienvenido!</h2>
+        <form [formGroup]="formSignUp" class="form-container">
+            <div class="form-inputs">
+                <p-floatlabel variant="in" class="input-label">
+                    <input name="email" id="email" pInputText formControlName="email" />
+                    <label for="email">Email</label>
+                    @if(email.invalid && email.touched){
+                        <p-message severity="error" variant="simple" size="small" class="error-msg">
+                            Debe ingresar un email
+                        </p-message>
+                    }
+                </p-floatlabel>
+                <p-floatlabel variant="in" class="input-label">
+                    <p-password formControlName="password" inputId="in_label" />
+                    <label for="in_label">Password</label>
+                    @if(password.invalid && password.touched){
+                        <p-message severity="error" variant="simple" size="small" class="error-msg">
+                            Debe ingresar una contraseña
+                        </p-message>
+                    }
+                </p-floatlabel>
+                <p-floatlabel variant="in" class="input-label">
+                    <input name="fullName" id="fullName" pInputText formControlName="fullName" />
+                    <label for="email">Nombre completo</label>
+                    @if(fullName.invalid && fullName.touched){
+                        <p-message severity="error" variant="simple" size="small" class="error-msg">
+                            Debe ingresar nombre y apellido
+                        </p-message>
+                    }
+                </p-floatlabel>
+                <p-floatlabel variant="in" class="input-label">
+                    <input name="DNI" id="DNI" pInputText formControlName="DNI" />
+                    <label for="DNI">DNI</label>
+                    @if(DNI.invalid && DNI.touched){
+                        <p-message severity="error" variant="simple" size="small" class="error-msg">
+                            Debe ingresar un dni
+                        </p-message>
+                    }
+                </p-floatlabel>
+                <p-floatlabel variant="in" class="input-label">
+                    <input name="phoneNumber" id="phoneNumber" pInputText formControlName="phoneNumber" />
+                    <label for="phoneNumber">Numero de telefono</label>
+                    @if(email.invalid && email.touched){
+                        <p-message severity="error" variant="simple" size="small" class="error-msg">
+                            Debe ingresar un numero de telefono
+                        </p-message>
+                    }
+                </p-floatlabel>
+                <p-floatlabel variant="in" class="input-label">
+                    <input name="address" id="address" pInputText formControlName="address" />
+                    <label for="address">Direccion</label>
+                    @if(address.invalid && address.touched){
+                        <p-message severity="error" variant="simple" size="small" class="error-msg">
+                            Debe ingresar una direccion
+                        </p-message>
+                    }
+                </p-floatlabel>
+            </div>
+            <p-button (click)="handleSubmit()" label="Registrar" [style]="{'width': '100%'}" />
+        </form>
+    </div>
+
+    <p-dialog header="Error inicio de sesion" [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }">
+        <div class="warn-dialog">
+            <i class="pi pi-exclamation-circle"></i>
+            <p>Error al registrar usuario.</p>
+        </div>
+    </p-dialog>
+
+</p-card>

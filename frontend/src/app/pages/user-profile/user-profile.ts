@@ -1,4 +1,4 @@
-import { Component, inject, linkedSignal } from '@angular/core';
+import { Component, computed, effect, inject, linkedSignal, signal } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { IconFieldModule } from 'primeng/iconfield';
@@ -8,6 +8,7 @@ import { UserService } from '../../service/user-service';
 import { ActivatedRoute } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { User } from '../../model/user';
+import { filter, map, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-user-profile',
@@ -20,13 +21,23 @@ export class UserProfile {
 
   private readonly service = inject(UserService);
   private readonly route = inject(ActivatedRoute);
-  private readonly params = this.route.snapshot.paramMap.get('id')!;
+  private readonly confirmationService = inject(ConfirmationService);
+  private readonly messageService = inject(MessageService);
 
-  private readonly userProvider = toSignal(this.service.getUserById(this.params));
+  private readonly userSource$ = this.route.paramMap.pipe(
+    map(params => params.get('id')),
+    filter((id): id is string => !!id),
+    switchMap(id => this.service.getUserById(id)) 
+  );
 
-  user = this.service.getUserById(this.params);
+  private readonly userResource = toSignal(this.userSource$, { initialValue: null });
+  userForm = signal<User | null>(null);
 
-  constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
+  isLoading = computed(() => this.userResource() === undefined);
+  hasError = computed(() => this.userResource() === null);
+
+
+
 
   confirm() {
     this.confirmationService.confirm({

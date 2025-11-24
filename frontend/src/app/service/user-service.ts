@@ -28,4 +28,24 @@ export class UserService {
         })
       );
   }
+  updateUser(id: string | number, user: Partial<User>): Observable<User> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.put<User>(`${this.urlApi}/${id}`, user, { headers, withCredentials: false })
+      .pipe(
+        catchError(err => {
+          console.error('UserService.updateUser error:', err);
+          return throwError(() => err);
+        })
+      );
+  }
+
+  deleteUser(id: string | number): Observable<void> {
+    return this.http.delete<void>(`${this.urlApi}/${id}`, { withCredentials: false })
+      .pipe(
+        catchError(err => {
+          console.error('UserService.deleteUser error:', err);
+          return throwError(() => err);
+        })
+      );
+  }
 }

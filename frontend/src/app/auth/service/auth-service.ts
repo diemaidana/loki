@@ -63,6 +63,14 @@ export class AuthService {
     );
   }
 
+  updateCurrentUser(user: User): void {
+    // 1. Emitimos el nuevo valor a todos los suscriptores (Header, etc.)
+    this.userSubject.next(user);
+    
+    // 2. Actualizamos la persistencia para que no se pierda al recargar
+    localStorage.setItem('user_data', JSON.stringify(user));
+  }
+  
   logout(): void {
     localStorage.removeItem('auth_token');
     localStorage.removeItem('user_data');

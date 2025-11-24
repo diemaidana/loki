@@ -1,22 +1,79 @@
 <div>
-
-</div>
-<div class="card flex justify-center">
-    <p-toast/>
-    <p-confirmdialog #cd>
-        <ng-template #headless let-message let-onAccept="onAccept" let-onReject="onReject">
-            <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded">
-                <div class="rounded-full bg-blue-500 text-white inline-flex justify-center items-center h-24 w-24 -mt-20 shadow-md">
-                    <i class="pi pi-question"></i>
+    <p-card [style]="{ width: '60%', overflow: 'hidden', textAlign: 'center', margin: '0 auto' }">
+        <ng-template #header>
+            <div class="flex justify-center">
+                <i class="pi pi-user" style="font-size: 4rem;"></i>
+            </div>
+        </ng-template>
+        <ng-template #title>
+            <h2>{{ currentUser()?.fullName }}</h2>
+        </ng-template>
+        <ng-template #content [formGroup]="profileForm">
+            <div class="p-fluid">
+                <div class="flex flex-col gap-5">
+                    @if(isEditing()){
+                        <label for="email">Email</label>
+                        <input pInputText id="email" type="email" pInputText formControlName="email" />
+                    }
+                    @else {
+                        <h4>{{ currentUser()?.email }}</h4>
+                    }
                 </div>
-                <span class="font-bold text-2xl block mb-2 mt-6">{{ message.header }}</span>
-                <p class="mb-0">{{ message.message }}</p>
-                <div class="flex items-center gap-2 mt-6">
-                    <p-button label="Save" (onClick)="onAccept()" styleClass="w-32"></p-button>
-                    <p-button label="Cancel" [outlined]="true" (onClick)="onReject()" styleClass="w-32"></p-button>
+                <div class="flex flex-col gap-5">
+                    @if(isEditing()){
+                        <label for="username">Usuario</label>
+                        <input pInputText id="username" type="text" pInputText formControlName="username" />
+                    }
+                    @else {
+                        <span>{{ currentUser()?.username }}</span>
+                    }
+                </div>
+                <div class="flex flex-col gap-5">
+                    @if(isEditing()){
+                        <label for="phoneNumber">Telefono</label>
+                        <input pInputText id="phoneNumber" type="text" pInputText formControlName="phoneNumber" />
+                    }
+                    @else {
+                        <span>{{ currentUser()?.phoneNumber }}</span>
+                    }
+                </div>
+                <div class="flex flex-col gap-5">
+                    @if(isEditing()){
+                        <label for="address">Direccion</label>
+                        <input pInputText id="address" type="text" pInputText formControlName="address" />
+                    }
+                    @else {
+                        <span>{{ currentUser()?.address }}</span>
+                    }
+                </div>
+                <div class="flex flex-col gap-5">
+                    @if(isEditing()){
+                        <label for="nationality">Nacionalidad</label>
+                        <input id="nationality" type="text" pInputText formControlName="nationality" />
+                    }
+                    @else {
+                        <span>{{ currentUser()?.nationality }}</span>
+                    }
                 </div>
             </div>
         </ng-template>
-    </p-confirmdialog>
-    <p-button (click)="confirm()" label="Save"/>
+        <ng-template #footer>
+            <div class="card flex justify-center">
+                @if(!isEditing()){
+                    <p-button (click)="toggleEdit()" label="Edit Profile"/>
+                }
+                @else{
+                    <p-toast />
+                    <p-confirmdialog>
+                        <ng-template #message let-message>
+                            <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
+                                <p>{{ message.message }}</p>
+                            </div>
+                        </ng-template>
+                    </p-confirmdialog>
+                    <p-button (click)="initiateSave()" label="Save" />
+                }
+            </div>
+        </ng-template>
+    </p-card>
 </div>

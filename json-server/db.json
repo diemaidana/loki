@@ -23,28 +23,13 @@
       "nationality": "Argentina"
     },
     {
-      "id": "f184",
-      "username": "Sonlegends",
+      "username": "Juan Carlos",
       "email": "lucascamino05@gmail.com",
-      "password": "123",
-      "repassword": "123",
       "fullName": "Lucas Camino",
-      "DNI": "41928079",
       "phoneNumber": "2266489025",
-      "address": "San Juan 2000",
-      "nationality": "Argentina"
-    },
-    {
-      "id": "257c",
-      "username": "valentinaog",
-      "email": "orianag001@gmail.com",
-      "password": "valentina170701",
-      "repassword": "valentina170701",
-      "fullName": "valentina oriana gonzalez ",
-      "DNI": "43742633",
-      "phoneNumber": "2901448875",
-      "address": "independenia 3247",
-      "nationality": "Argentina"
+      "address": "San Juan 200",
+      "nationality": "Argentina",
+      "id": "f184"
     }
   ],
   "products": [

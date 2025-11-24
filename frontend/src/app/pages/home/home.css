@@ -11,6 +11,7 @@
     display: flex;
     gap: 10px;
     justify-content: space-around;
+    align-items: center;
 }
 
 .msg {
@@ -19,6 +20,22 @@
     align-items: center;
     gap: 20px;
     width: auto;
+}
+
+.welcome-container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: 2rem;
+    gap: 15px;
+}
+
+.welcome-p {
+    font-size: 1.5rem;
+}
+
+.offer-msg {
+    font-weight: 700;
 }
 
 .wecolme-msg, .signin-msg{
@@ -38,4 +55,8 @@ img {
     height: 18vh;
     width: auto;
     object-fit: cover;
+}
+
+.slide-box {
+    cursor: pointer;
 }

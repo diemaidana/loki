@@ -11,6 +11,7 @@
     display: flex;
     gap: 10px;
     justify-content: space-around;
+    align-items: center;
 }
 
 .msg {
@@ -22,8 +23,11 @@
 }
 
 .welcome-container {
+    display: flex;
+    flex-direction: column;
     text-align: center;
     font-size: 2rem;
+    gap: 15px;
 }
 
 .welcome-p {
@@ -55,9 +59,4 @@ img {
 
 .slide-box {
     cursor: pointer;
-}
-
-.divider {
-    background-color: var(--font-primary);
-    padding: 1px
 }

@@ -3,6 +3,7 @@
   <div class="welcome-container">
     <h1 class="wecolme-msg">Bienvenidos a Loki!</h1>
     <p class="welcome-p">La plataforma donde comprar, es <span class="offer-msg">ofertar</span>.</p>
+    <p-button label="Ver todos los productos" [raised]="true" styleClass="user-btn" routerLink="/list-products" />
   </div>
 
   <swiper-container slides-per-view="3" space-between="10" navigation="true" pagination="false" loop="true">
@@ -18,14 +19,6 @@
   </swiper-container>
 
   <div class="geton-msg">
-    <div class="msg">
-      <h3>Busca, oferta o compra productos!</h3>
-      <p-button label="Ver todos los productos" [raised]="true" styleClass="user-btn" routerLink="/list-products" />
-    </div>
-  
-    <div class="divider">
-
-    </div>
 
     <div class="msg">
       <h3>Todavia no te sumaste?</h3>
@@ -35,6 +28,6 @@
         <p-button routerLink="/user-form" label="Inicia sesion" link size="large" />
       </div>
     </div>
-  
+
   </div>
 </div>

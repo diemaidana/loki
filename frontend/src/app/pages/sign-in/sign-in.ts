@@ -38,7 +38,7 @@ export class SignIn {
   protected isLoading = signal(false);
   protected errorMessage = signal<string | null>(null);
 
-  protected visible: boolean = false;
+  protected errorVisible = signal(false);
 
   readonly formSignIn = this.formBuilder.nonNullable.group({
     email: ["", [Validators.required]],
@@ -64,9 +64,11 @@ handleSubmit() {
     }
 
     this.isLoading.set(true);
-    this.errorMessage.set(null);
+    this.errorVisible.set(false); // Reiniciar estado del popup
 
-    const { email, password } = this.formSignIn.getRawValue();
+    const rawValues = this.formSignIn.getRawValue();
+    const email = rawValues.email.trim();
+    const password = rawValues.password.trim();
 
     // Nos suscribimos al Observable del login
     this.auth.login(email, password).subscribe({
@@ -75,13 +77,13 @@ handleSubmit() {
         this.isLoading.set(false);
         
         // Redirigir a la URL de retorno (si existe) o al Home
-        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-        void this.router.navigateByUrl(returnUrl);
+        this.router.navigateByUrl("/");
       },
       error: (err) => {
         // ❌ Login fallido
         console.error(err);
         this.isLoading.set(false);
+        this.errorVisible.set(true);        
         this.errorMessage.set('Credenciales inválidas. Intente nuevamente.');
       }
     });

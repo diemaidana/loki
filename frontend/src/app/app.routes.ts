@@ -14,5 +14,7 @@ export const routes: Routes = [
     {path: 'list-products', component: ListProducts},
     {path: 'product-detail/:id', component: ProductDetails},
     {path: 'profile/:id', component: UserProfile, canActivate: [authGuardGuard], title:"Mi Perfil"},
+    {path: 'offers', component: ListProducts, canActivate: [authGuardGuard], title:"Mis ofertas"},
+    {path: 'purchases', component: ListProducts, canActivate: [authGuardGuard], title:"Mis Compras"},
     {path: '**', redirectTo: ''}
 ];

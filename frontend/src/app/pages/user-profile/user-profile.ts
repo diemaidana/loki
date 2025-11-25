@@ -96,6 +96,7 @@ export class UserProfile {
     this.isEditing.update(val => !val);
     if (this.isEditing()) {
       this.profileForm.enable();
+      this.profileForm.controls['email'].disable();
       this.profileForm.controls['fullName'].disable();
       this.profileForm.controls['nationality'].disable();
     } else {
@@ -129,11 +130,6 @@ export class UserProfile {
         }
       }
     });
-  }
-
-  cancelEdit() {
-    this.messageService.add({ severity: 'info', summary: 'Cancelado', detail: 'No se realizaron cambios' });
-    this.isEditing.set(false);
   }
 
    private saveData() {

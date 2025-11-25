@@ -2,9 +2,7 @@
 
 <p-card styleClass="card-container">
     <ng-template #header>
-        <div class="flex justify-center">
-            <i class="pi pi-user" style="font-size: 4rem;"></i>
-        </div>
+        <i class="pi pi-user" style="font-size: 4rem;" ></i>
     </ng-template>
     <ng-template #title styleClass="title">
         <h2>{{ currentUser()?.fullName }}</h2>
@@ -12,80 +10,49 @@
     <ng-template #content [formGroup]="profileForm">
         <div class="form">
             <div class="input-label">
-                @if(isEditing()){
-                    <p-floatlabel variant="in">
-                        <input pInputText id="email" type="email" pInputText formControlName="email" class="w-full"/>
-                        <label for="email">Email</label>
-                    </p-floatlabel>
-                }
-                @else {
-                    <h4>{{ currentUser()?.email }}</h4>
-                }
+                <p-floatlabel variant="in">
+                    <input pInputText id="email" type="email" pInputText formControlName="email" class="w-full"/>
+                    <label for="email">Email</label>
+                </p-floatlabel>
             </div>
-            <div class=""input-label>
-                @if(isEditing()){
-                    <p-floatlabel variant="in">
-                        <input pInputText id="username" type="text" pInputText formControlName="username" />
-                        <label for="username">Usuario</label>
-                    </p-floatlabel>
-                }
-                @else {
-                    <span>{{ currentUser()?.username }}</span>
-                }
+            <div class="input-label">
+                <p-floatlabel variant="in">
+                    <input pInputText id="username" type="text" pInputText formControlName="username" />
+                    <label for="username">Usuario</label>
+                </p-floatlabel>
             </div>
-            <div class="">
-                @if(isEditing()){
-                    <p-floatlabel variant="in">
-                        <input pInputText id="phoneNumber" type="text" pInputText formControlName="phoneNumber" />
-                        <label for="phoneNumber">Telefono</label>
-                    </p-floatlabel>
-                }
-                @else {
-                    <span>{{ currentUser()?.phoneNumber }}</span>
-                }
+            <div class="input-label">
+                <p-floatlabel variant="in">
+                    <input pInputText id="phoneNumber" type="text" pInputText formControlName="phoneNumber" />
+                    <label for="phoneNumber">Telefono</label>
+                </p-floatlabel>
             </div>
-            <div class="">
-                @if(isEditing()){
-                    <p-floatlabel variant="in">
-                        <input pInputText id="address" type="text" pInputText formControlName="address" />
-                        <label for="address">Direccion</label>
-                    </p-floatlabel>
-                }
-                @else {
-                    <span>{{ currentUser()?.address }}</span>
-                }
+            <div class="input-label">
+                <p-floatlabel variant="in">
+                    <input pInputText id="address" type="text" pInputText formControlName="address" />
+                    <label for="address">Direccion</label>
+                </p-floatlabel>
             </div>
-            <div class="">
-                @if(isEditing()){
-                    <p-floatlabel variant="in">
-                        <input id="nationality" type="text" pInputText formControlName="nationality" />
-                        <label for="nationality">Nacionalidad</label>
-                    </p-floatlabel>
-                }
-                @else {
-                    <span>{{ currentUser()?.nationality }}</span>
-                }
+            <div class="input-label">
+                <p-floatlabel variant="in">
+                    <input id="nationality" type="text" pInputText formControlName="nationality" />
+                    <label for="nationality">Nacionalidad</label>
+                </p-floatlabel>
             </div>
         </div>
     </ng-template>
     <ng-template #footer>
         <div class="">
-            @if(!isEditing()){
-                <p-button (click)="toggleEdit()" label="Editar perfil"/>
-            }
-            @else{
-                <p-confirmdialog>
-                    <ng-template #message let-message>
-                        <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
-                            <p>{{ message.message }}</p>
-                        </div>
-                    </ng-template>
-                </p-confirmdialog>
-                <div class="action-btn">
-                    <p-button (click)="cancelEdit()" label="Cancelar" />
-                    <p-button (click)="initiateSave()" label="Guardar" />
-                </div>
-            }
+            <p-confirmdialog>
+                <ng-template #message let-message>
+                    <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
+                        <p>{{ message.message }}</p>
+                    </div>
+                </ng-template>
+            </p-confirmdialog>
+            <div class="action-btn">
+                <p-button (click)="initiateSave()" label="Guardar"/>
+            </div>
         </div>
     </ng-template>
 </p-card>

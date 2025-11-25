@@ -23,16 +23,37 @@
       "nationality": "Argentina"
     },
     {
-      "id": "f184",
+      "username": "Juan Carlos",
+      "email": "lucascamino05@gmail.com",
+      "fullName": "Lucas Camino",
+      "phoneNumber": "2266489025",
+      "address": "San Juan 200",
+      "nationality": "Argentina",
+      "id": "f184"
+    },
+    {
+      "id": "7b58",
       "username": "Sonlegends",
       "email": "lucascamino05@gmail.com",
-      "password": "123",
-      "repassword": "123",
+      "password": "1234",
+      "repassword": "1234",
       "fullName": "Lucas Camino",
       "DNI": "41928079",
-      "phoneNumber": "2266489025",
-      "address": "San Juan 2000",
-      "nationality": "Argentina"
+      "phoneNumber": "1234",
+      "address": "1234",
+      "nationality": "Brasil"
+    },
+    {
+      "id": "6a0d",
+      "username": "Sonlegends",
+      "email": "1234@gmail.com",
+      "password": "1234",
+      "repassword": "1234",
+      "fullName": "12345",
+      "DNI": "12345",
+      "phoneNumber": "12345",
+      "address": "123456",
+      "nationality": ""
     }
   ],
   "products": [

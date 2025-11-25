@@ -91,8 +91,8 @@
                     }
                 </p-floatlabel>
                 <p-floatlabel variant="in" class="input-label">
-                    <p-password formControlName="password" inputId="in_label" />
-                    <label for="in_label">Password</label>
+                    <p-password formControlName="password" inputId="password" />
+                    <label for="password">Password</label>
                     @if(password.invalid && password.touched){
                         <p-message severity="error" variant="simple" size="small" class="error-msg">
                             Debe ingresar una contraseña
@@ -100,8 +100,26 @@
                     }
                 </p-floatlabel>
                 <p-floatlabel variant="in" class="input-label">
+                    <p-password formControlName="repassword" inputId="repassword" />
+                    <label for="repassword">Confirmar contraseña</label>
+                    @if(repassword.invalid && repassword.touched){
+                        <p-message severity="error" variant="simple" size="small" class="error-msg">
+                            Las contraseñas deben coincidir
+                        </p-message>
+                    }
+                </p-floatlabel>
+                <p-floatlabel variant="in" class="input-label">
+                    <input name="username" id="username" pInputText formControlName="username" />
+                    <label for="username">Nombre de usuario</label>
+                    @if(username.invalid && username.touched){
+                        <p-message severity="error" variant="simple" size="small" class="error-msg">
+                            Debe ingresar nombre y apellido
+                        </p-message>
+                    }
+                </p-floatlabel>
+                <p-floatlabel variant="in" class="input-label">
                     <input name="fullName" id="fullName" pInputText formControlName="fullName" />
-                    <label for="email">Nombre completo</label>
+                    <label for="fullName">Nombre completo</label>
                     @if(fullName.invalid && fullName.touched){
                         <p-message severity="error" variant="simple" size="small" class="error-msg">
                             Debe ingresar nombre y apellido

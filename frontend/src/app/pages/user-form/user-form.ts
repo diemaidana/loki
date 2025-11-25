@@ -1,4 +1,4 @@
-import { Component, inject, Input, input } from '@angular/core';
+import { Component, inject, Input, input, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { User } from '../../model/user';
 import { UserService } from '../../service/user-service';
@@ -34,7 +34,7 @@ export class UserForm {
   @Input() protected readonly user?:User;
   private readonly router = inject(Router);
 
-  protected visible: boolean = false;
+  protected visible = signal(false);
 
   protected readonly nations = [
     "Colombia",
@@ -99,7 +99,7 @@ export class UserForm {
     DNI: ["", [Validators.required]],
     phoneNumber: [""],
     address: ["", [Validators.required]],
-    nationality: ["", [Validators.required]]
+    nationality: [""]
   }, { validators: [passwordsMatchValidator]});
 
   get formControls(){
@@ -112,7 +112,7 @@ export class UserForm {
 
   handleSubmit(){
     if(this.formSignUp.invalid){
-      this.visible = true;
+      this.visible.set(true);
       return
       
     }else{
@@ -123,7 +123,7 @@ export class UserForm {
           this.router.navigateByUrl("/sign-in");
         })
       }else{
-        this.visible = true;
+        this.visible.set(true);
       }
     }
   }

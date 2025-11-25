@@ -4,10 +4,7 @@
 
 :root{
     /* COLORS */
-    /*--primary-color: #5F2ECC;*/
-    /*--primary-color: #BE2A80;*/
-    /*--primary-color: #8D1D71;*/
-    --primary-color: #57155C;
+    --primary-color: #5F2ECC;
     --font-primary: #2D3748;
     --main-background-color: #E9E9E9;
     --container-color: #FAFAFA;
@@ -52,7 +49,7 @@ app-root {
 .container {
   width: 100%;
   max-width: 1200px;
-  margin: auto;
+  margin: 0 auto;
 }
 
 app-header,

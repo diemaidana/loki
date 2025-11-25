@@ -1,43 +1,33 @@
 <div class="main-container">
 
-  <div class="wecolme-msg">
-    <h1>Bienvenidos a Loki!</h1>
+  <div class="welcome-container">
+    <h1 class="wecolme-msg">Bienvenidos a Loki!</h1>
+    <p class="welcome-p">La plataforma donde comprar, es <span class="offer-msg">ofertar</span>.</p>
+    <p-button label="Ver todos los productos" [raised]="true" styleClass="user-btn" routerLink="/list-products" />
   </div>
 
-    <swiper-container
-      slides-per-view="3"
-      space-between="10"
-      navigation="true"
-      pagination="false"
-      loop="true"
-    >
-      @for (item of products().slice(0,10); track item.id) {
-        <swiper-slide>
-          <div class="slide-box" (click)="navigateTo(item.id)">
-            <h3>{{ item.name }}</h3>
-            <img src="{{item.image}}" alt="{{ item.name }}">
-            <p>{{ item.price | currency:'ARS' }}</p>
-            <div class="action-btns">
-              <button type="button" class="btn btn-offer" routerLink="/offer">Ver producto</button>
-            </div>
-          </div>
-        </swiper-slide>
-      }
-    </swiper-container>
+  <swiper-container slides-per-view="3" space-between="10" navigation="true" pagination="false" loop="true">
+    @for (item of products().slice(0,10); track item.id) {
+    <swiper-slide>
+      <div class="slide-box" (click)="navigateTo(item.id)">
+        <h3>{{ item.name }}</h3>
+        <img src="{{item.image}}" alt="{{ item.name }}">
+        <p>{{ item.price | currency:'ARS' }}</p>
+      </div>
+    </swiper-slide>
+    }
+  </swiper-container>
 
-    <div class="geton-msg">
-        <div class="msg">
-          <h3>Busca, oferta o compra productos!</h3>
-          <button type="button" class="btn btn-primary" routerLink="/list-products">Ver todos los productos</button>
-        </div>
-        <div class="msg">
-          <h3>Todavia no te sumaste?</h3>
-          <button routerLink="/user-form" class="btn btn-primary">Registrarse</button>
-          <div class="signin-msg">
-              <p>Ya tienes cuenta?</p>
-              <button type="button" routerLink="/user-form" class="signin-btn">Inicia sesion</button>
-          </div>
-        </div>
+  <div class="geton-msg">
+
+    <div class="msg">
+      <h3>Todavia no te sumaste?</h3>
+      <p-button label="Registrarse" [raised]="true" styleClass="user-btn" routerLink="/sign-up" />
+      <div class="signin-msg">
+        <p>Ya tienes cuenta?</p>
+        <p-button routerLink="/user-form" label="Inicia sesion" link size="large" />
+      </div>
     </div>
 
+  </div>
 </div>

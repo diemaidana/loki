@@ -5,9 +5,19 @@ import { CommonModule, CurrencyPipe, NgClass } from '@angular/common';
 import { Router } from '@angular/router';
 import { SearchStateService } from '../../service/search-state-service';
 
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
+import { PaginatorModule, PaginatorState } from 'primeng/paginator';
+
 @Component({
   selector: 'app-list-products',
-  imports: [CurrencyPipe, CommonModule],
+  imports: [
+    CurrencyPipe,
+    CommonModule,
+    CardModule,
+    ButtonModule,
+    PaginatorModule
+  ],
   templateUrl: './list-products.html',
   styleUrl: './list-products.css',
 })
@@ -18,12 +28,6 @@ export class ListProducts {
   private searchStateService = inject(SearchStateService);
   private readonly searchTerm = toSignal(this.searchStateService.searchTerm, { initialValue: '' });
 
-
-  /*
-  private productsToRender = computed(() => {
-    return [...this.products()];
-  })
-  */
   protected categories = computed(() => {
     const prods = this.products();
     return [...new Set(prods?.map(p => p.category))];
@@ -35,7 +39,10 @@ export class ListProducts {
   private pageSize = 9;
   protected totalPages = 0;
 
+  protected first: number = 0;
 
+  protected rows: number = 9;
+  
   // Filtra por queryParam y Categoria
   protected readonly productFiltered = computed(() => {
     const term = this.searchTerm()?.toLowerCase() || '';
@@ -70,33 +77,20 @@ export class ListProducts {
     const filtered = this.productFiltered();
     this.totalPages = Math.ceil(filtered.length / this.pageSize);
     return filtered.slice(start, end);
-
-    /* 
-    if(this.currentCategory() === ""){
-      const filtered = this.productFiltered();
-      this.totalPages = Math.ceil(filtered.length / this.pageSize);
-      return this.products().slice(start, end);
-    } else {
-      const filteredProducts = this.products().filter(p => p.category === this.currentCategory());
-      this.totalPages = Math.ceil(filteredProducts.length / this.pageSize);
-      return filteredProducts.slice(start, end);
-    }
-    */ 
-    //return this.products()?.slice(start, end);
   })
 
-  previousPage() {
-    if(this.currentPage() > 1){
-      this.currentPage.update(page => page - 1);
-    }
-  }
+  onPageChange(event: PaginatorState) {
+    this.first = event.first ?? 0;
+    this.rows = event.rows ?? 9;
 
-  nextPage() {
-/*     const pages = Math.ceil(this.paginatedProducts.length / this.pageSize);
-    console.log(this.totalPages); */
-    if(this.currentPage() < this.totalPages){
-      this.currentPage.update(page => page + 1);
-    }
+    const pageIndex = Math.floor(this.first / this.rows);
+
+    this.currentPage.set(pageIndex + 1);
+
+    window.scrollTo({ 
+        top: 0, 
+        behavior: 'smooth'
+    });
   }
 
   changeCategory(category: string){
@@ -114,3 +108,4 @@ export class ListProducts {
     this.router.navigateByUrl(`/product-detail/${id}`);
   }
 }
+

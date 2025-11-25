@@ -65,8 +65,14 @@
     </ng-template>
     <ng-template #end>
         <div class="btn-actions">
-            <p-button label="Registrarse" [raised]="true" styleClass="user-btn" routerLink="/sign-up" />
-            <p-button label="Iniciar sesion" [raised]="true" styleClass="user-btn" routerLink="/sign-in"/>
+            @if (isLoggedIn) {
+                    <p-splitbutton [label]="currentUser?.fullName || 'Mi cuenta'" [model]="items"/>
+            } @else {
+                <p-button label="Registrarse" [raised]="true" styleClass="user-btn" routerLink="/sign-up" />
+                <p-button label="Iniciar sesion" [raised]="true" styleClass="user-btn" routerLink="/sign-in"/>
+            }
+<!--             <p-button label="Registrarse" [raised]="true" styleClass="user-btn" routerLink="/sign-up" />
+            <p-button label="Iniciar sesion" [raised]="true" styleClass="user-btn" routerLink="/sign-in"/> -->
         </div>
     </ng-template>
 </p-toolbar>

@@ -24,6 +24,7 @@
     },
     {
       "username": "Juan Carlos",
+<<<<<<< HEAD
       "email": "lucascamino05@gmail.com",
       "fullName": "Lucas Camino",
       "phoneNumber": "2266489025",
@@ -54,6 +55,14 @@
       "phoneNumber": "12345",
       "address": "123456",
       "nationality": ""
+=======
+      "email": "lucascamino05@gmail.com",
+      "fullName": "Lucas Camino",
+      "phoneNumber": "2266489025",
+      "address": "San Juan 200",
+      "nationality": "Argentina",
+      "id": "f184"
+>>>>>>> main
     }
   ],
   "products": [

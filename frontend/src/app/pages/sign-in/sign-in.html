@@ -17,7 +17,7 @@
             <input type="password" name="password" id="password" formControlName="password">
         </div>
         <div class="registrarseField">
-            <span>¿No tiene una nueva? <a routerLink="/sign-up">Unirse</a></span>
+            <span>¿No tiene una cuenta? <a routerLink="/sign-up">Unirse</a></span>
         </div>
         <div class="action-btns">
             <button type="submit" class="btn btn-primary">Iniciar sesion</button>
@@ -61,7 +61,7 @@
         <p-button routerLink="/sign-up" label="Registrarse" link size="large"/>
     </div>
 
-    <p-dialog header="Error inicio de sesion" [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }">
+    <p-dialog header="Error inicio de sesion" [(visible)]="errorVisible" [modal]="true" [style]="{ width: '25rem' }">
         <div class="warn-dialog">
             <i class="pi pi-exclamation-circle"></i>
             <p>Datos incorrectos o inexistentes</p>

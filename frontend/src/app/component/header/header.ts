@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterLink } from "@angular/router";
 
 import { ToolbarModule } from 'primeng/toolbar';
@@ -6,11 +6,14 @@ import { ButtonModule } from 'primeng/button';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { ToastModule } from 'primeng/toast';
 
 import { User } from '../../model/user';
 import { SearchBar } from '../search-bar/search-bar';
 import { AuthService } from '../../auth/service/auth-service';
 import { SearchStateService } from '../../service/search-state-service';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-header',
@@ -21,26 +24,28 @@ import { SearchStateService } from '../../service/search-state-service';
     ButtonModule,
     IconFieldModule,
     InputIconModule,
-    InputTextModule
+    InputTextModule,
+    SplitButtonModule,
+    ToastModule
   ],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
-export class Header {
+export class Header implements OnInit{
   private readonly router = inject(Router);
   private readonly authService = inject(AuthService);
   private readonly searchStateService = inject(SearchStateService);
   
   // Valores default sin usuario logueado
   protected isLoggedIn : boolean = false;
-  protected currentUser: User | null = null;
+  currentUser: User | null = null;
 
-  /* ngOnInit(): void{
-    this.authService.loginState.subscribe((user) => {
+  ngOnInit(): void{
+    this.authService.userState$.subscribe((user) => {
       this.isLoggedIn = !!user;
       this.currentUser = user;
     });
-  } */
+  }
 
   onSearchUpdated(term: string) {
     // 1. Enviamos el término al servicio (para que ListProducts se entere)
@@ -53,8 +58,56 @@ export class Header {
     }
   }
 
-  logout(){
+  logout(): void{
+    // Limpiamos el estado del AuthService
     this.authService.logout();
-    void this.router.navigateByUrl('/');
+    this.router.navigateByUrl("/");
   }
+
+  goToProfile(user: User | null): void{
+    this.router.navigateByUrl("/profile/" + user?.id), {queryParams: {id : user!.id} };
+  }
+
+
+  items: MenuItem[];
+
+    constructor() {
+        this.items = [
+          {
+              label: 'Perfil',
+              icon: 'pi pi-fw pi-user',
+              command: () => this.goToProfile(this.currentUser)
+          },
+          {
+            label: 'Edit',
+            icon: 'pi pi-fw pi-pencil',
+            items: [
+                {
+                  label: 'Left',
+                  icon: 'pi pi-fw pi-align-left'
+                },
+                {
+                  label: 'Right',
+                  icon: 'pi pi-fw pi-align-right'
+                },
+                {
+                  label: 'Center',
+                  icon: 'pi pi-fw pi-align-center'
+                },
+                {
+                  label: 'Justify',
+                  icon: 'pi pi-fw pi-align-justify'
+                }
+              ]
+            },
+            {
+                separator: true
+            },
+            {
+                label: 'Quit',
+                icon: 'pi pi-fw pi-power-off',
+                command: () => this.logout()
+            }
+        ];
+    }
 }

@@ -74,31 +74,14 @@ export class Header implements OnInit{
     constructor() {
         this.items = [
           {
-              label: 'Perfil',
-              icon: 'pi pi-fw pi-user',
-              command: () => this.goToProfile()
+              label: 'Ofertas',
+              icon: 'pi pi-fw pi-shopping-bag',
+              command: () => this.router.navigateByUrl("/offers")
           },
           {
-            label: 'Edit',
-            icon: 'pi pi-fw pi-pencil',
-            items: [
-                {
-                  label: 'Left',
-                  icon: 'pi pi-fw pi-align-left'
-                },
-                {
-                  label: 'Right',
-                  icon: 'pi pi-fw pi-align-right'
-                },
-                {
-                  label: 'Center',
-                  icon: 'pi pi-fw pi-align-center'
-                },
-                {
-                  label: 'Justify',
-                  icon: 'pi pi-fw pi-align-justify'
-                }
-              ]
+            label: 'Compras',
+            icon: 'pi pi-fw pi-shopping-cart',
+            command: () => this.router.navigateByUrl("/purchases")
             },
             {
                 separator: true

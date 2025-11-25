@@ -15,16 +15,50 @@
     <div class="products-container">
         <div class="cards">
             @for (product of paginatedProducts(); track $index) {
+                <!--
             <div class="product-card" (click)="navigateTo(product.id)">
                 <h3>{{ product.name }}</h3>
                 <img src="{{product.image}}" alt="{{ product.name }}">
                 <p>{{ product.price | currency:'ARS' }}</p>
             </div>
+            -->
+
+            <p-card [style]="{ width: '20rem', overflow: 'hidden' }" (click)="navigateTo(product.id)">
+                <ng-template #header>
+                    <img src="{{product.image}}" alt="{{ product.name }}" />
+                </ng-template>
+                <ng-template #title> {{ product.name }} </ng-template>
+                <ng-template #subtitle>{{ product.price | currency:'ARS' }}</ng-template>
+                <ng-template #footer>
+                    <div class="action-btn">
+                        <p-button label="Ver producto" [outlined]="true"/>
+                    </div>
+                </ng-template>
+            </p-card>
+
             }
         </div>
+        
+        <!--
         <div class="action-btns">
             <button (click)="previousPage()" [disabled]="currentPage() === 1">Anterior</button>
             <button (click)="nextPage()" [disabled]="currentPage() === totalPages">Siguiente</button>
         </div>
-    </div>
+        -->
+    </div>    
+</div>
+
+<div>
+    <p-paginator
+        (onPageChange)="onPageChange($event)"
+        [first]="first"
+        [rows]="rows"
+        [totalRecords]="productFiltered().length"
+        [showCurrentPageReport]="true"
+        [showPageLinks]="false"
+        [showJumpToPageDropdown]="false"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords}"
+        [showFirstLastIcon]="false"
+        styleClass="paginator"
+    />
 </div>

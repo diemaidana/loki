@@ -64,8 +64,8 @@ export class Header implements OnInit{
     this.router.navigateByUrl("/");
   }
 
-  goToProfile(user: User | null): void{
-    this.router.navigateByUrl("/profile/" + user?.id), {queryParams: {id : user!.id} };
+  goToProfile(): void{
+    this.router.navigateByUrl("/profile/" + this.currentUser?.id), {queryParams: {id : this.currentUser!.id} };
   }
 
 
@@ -76,7 +76,7 @@ export class Header implements OnInit{
           {
               label: 'Perfil',
               icon: 'pi pi-fw pi-user',
-              command: () => this.goToProfile(this.currentUser)
+              command: () => this.goToProfile()
           },
           {
             label: 'Edit',
@@ -104,8 +104,8 @@ export class Header implements OnInit{
                 separator: true
             },
             {
-                label: 'Quit',
-                icon: 'pi pi-fw pi-power-off',
+                label: 'Cerrar sesion',
+                icon: 'pi pi-fw pi-sign-out',
                 command: () => this.logout()
             }
         ];

@@ -1,0 +1,29 @@
+:host ::ng-deep .card-container {
+    width: fit-content;
+    overflow: hidden;
+    text-align: center;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1rem 0;
+    text-align: left;
+}
+
+.input-label {
+    width: 100%;
+}
+
+.w-full {
+    width: 100%;
+}
+
+.action-btn {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}

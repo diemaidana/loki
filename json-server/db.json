@@ -1,35 +1,33 @@
 {
   "users": [
     {
-      "id": "1",
       "username": "diego_m",
       "email": "diego@mail.com",
-      "password": "123456",
-      "fullname": "Diego Maidana",
-      "dni": "40111222",
-      "phonenumber": "+54 223 555 1234",
+      "password": "123",
+      "phoneNumber": "",
       "address": "Av. Independencia 1234, Mar del Plata",
-      "nationality": "Argentina"
-    },
-    {
-      "id": "2",
-      "username": "loki_seller",
-      "email": "seller@mail.com",
-      "password": "abcdef",
-      "fullname": "Loki Seller",
-      "dni": "38999888",
-      "phonenumber": "+54 11 4444 5555",
-      "address": "Calle Falsa 123, Buenos Aires",
-      "nationality": "Argentina"
-    },
-    {
-      "username": "Juan Carlos",
-      "email": "lucascamino05@gmail.com",
-      "fullName": "Lucas Camino",
-      "phoneNumber": "2266489025",
-      "address": "San Juan 200",
       "nationality": "Argentina",
-      "id": "f184"
+      "id": "1"
+    },
+    {
+      "username": "loki_seller1",
+      "email": "seller@mail.com",
+      "phoneNumber": "123",
+      "address": "Calle Falsa 123, Buenos Aires",
+      "nationality": "Argentina",
+      "id": "2"
+    },
+    {
+      "id": "f184",
+      "username": "Sonlegends",
+      "email": "lucascamino05@gmail.com",
+      "password": "123",
+      "repassword": "123",
+      "fullName": "Lucas Camino",
+      "DNI": "41928079",
+      "phoneNumber": "2266489025",
+      "address": "San Juan 2000",
+      "nationality": "Argentina"
     }
   ],
   "products": [

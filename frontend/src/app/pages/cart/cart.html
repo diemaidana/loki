@@ -45,6 +45,8 @@
                     <td colspan="6">Cantidad de productos {{ cartService.items().length }}.</td>
                     <td colspan="3">Total: {{ cartService.totalAmount() | currency: 'ARS' }}</td>
                     <td>
+                        <p-toast />
+                        <p-confirmdialog />
                         <p-button label="Pagar" icon="pi pi-wallet" class="w-full" (onClick)="proceedToPayment()"/>
                     </td>
                 }

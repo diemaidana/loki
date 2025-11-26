@@ -4,9 +4,20 @@ import { ProductService } from '../../service/product';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { CurrencyPipe } from '@angular/common';
 
+import { ImageModule } from 'primeng/image';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { InputNumberModule } from 'primeng/inputnumber';
+
 @Component({
   selector: 'app-product-details',
-  imports: [CurrencyPipe],
+  imports: [
+    CurrencyPipe,
+    ImageModule,
+    ButtonModule,
+    DialogModule,
+    InputNumberModule
+  ],
   templateUrl: './product-details.html',
   styleUrl: './product-details.css',
 })
@@ -22,13 +33,16 @@ export class ProductDetails {
   protected showOfferInput = signal(false);
   protected minAmount = 0;
 
+  protected dialogVisible: boolean = false;
+
   changeOffer() {
-    this.showOfferInput.update(v => !v);
+    this.dialogVisible = !this.dialogVisible;
   }
 
   offer() {
     alert("La oferta por el producto: "+this.product()?.name! + " se realizo con exito");
     this.router.navigateByUrl("/");
+    this.dialogVisible = false;
   }
 
   buy(){
@@ -39,16 +53,13 @@ export class ProductDetails {
       return;
     }
 
-    // 2. Llamar al servicio para obtener el link de pago
     this.productService.generateMercadoPagoLink(productData.id!).subscribe({
       next: (checkoutUrl) => {
-        // 3. Redirección final
         alert('Redirigiendo a Mercado Pago...');
         window.location.href = checkoutUrl;
       },
       error: (err) => {
         console.error('Error al generar el link de pago:', err);
-        // 4. Mostrar error si falla la comunicación con el backend
         alert('Error: No se pudo generar el link de pago. Intente de nuevo más tarde.');
       }
     });

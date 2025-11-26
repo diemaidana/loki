@@ -16,6 +16,8 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { FloatLabelModule } from 'primeng/floatlabel';
+import { PasswordModule } from 'primeng/password';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-user-profile',
@@ -25,6 +27,8 @@ import { FloatLabelModule } from 'primeng/floatlabel';
     ToastModule,
     IconFieldModule,
     ReactiveFormsModule,
+    FormsModule,
+    PasswordModule,
     CardModule,
     InputTextModule,
     FloatLabelModule
@@ -64,6 +68,8 @@ export class UserProfile {
     username: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     fullName: ['', Validators.required],
+    password: ['', Validators.required],
+    DNI: [''],
     phoneNumber: [''],
     address: [''],
     nationality: ['']
@@ -85,19 +91,19 @@ export class UserProfile {
       username: user.username,
       email: user.email,
       fullName: user.fullName,
+      password: user.password,
+      DNI: user.DNI || '',
       phoneNumber: user.phoneNumber || '',
       address: user.address || '',
       nationality: user.nationality || ''
     });
-    this.profileForm.disable(); // Empieza en modo lectura
   }
 
   toggleEdit() {
     this.isEditing.update(val => !val);
     if (this.isEditing()) {
       this.profileForm.enable();
-      this.profileForm.controls['email'].disable();
-      this.profileForm.controls['fullName'].disable();
+      this.profileForm.controls['DNI'].disable();
       this.profileForm.controls['nationality'].disable();
     } else {
       this.profileForm.disable();

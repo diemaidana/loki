@@ -17,25 +17,43 @@
             </div>
             <div class="input-label">
                 <p-floatlabel variant="in">
-                    <input pInputText id="username" type="text" pInputText formControlName="username" />
+                    <input pInputText id="username" type="text" pInputText formControlName="username" class="w-full"/>
                     <label for="username">Usuario</label>
                 </p-floatlabel>
             </div>
             <div class="input-label">
                 <p-floatlabel variant="in">
-                    <input pInputText id="phoneNumber" type="text" pInputText formControlName="phoneNumber" />
+                    <input pInputText id="fullName" type="text" pInputText formControlName="fullName" class="w-full"/>
+                    <label for="fullName">Nombre Completo</label>
+                </p-floatlabel>
+            </div>
+            <div class="input-label">
+                <p-floatlabel variant="in">
+                    <p-password id="password" [toggleMask]="true" pInputId="password" formControlName="password" />
+                    <label for="password">Contraseña</label>
+                </p-floatlabel>
+            </div>
+            <div class="input-label">
+                <p-floatlabel variant="in">
+                    <input pInputText id="DNI" type="text" pInputText formControlName="DNI" class="w-full"/>
+                    <label for="DNI">DNI</label>
+                </p-floatlabel>
+            </div>
+            <div class="input-label">
+                <p-floatlabel variant="in">
+                    <input pInputText id="phoneNumber" type="text" pInputText formControlName="phoneNumber" class="w-full"/>
                     <label for="phoneNumber">Telefono</label>
                 </p-floatlabel>
             </div>
             <div class="input-label">
                 <p-floatlabel variant="in">
-                    <input pInputText id="address" type="text" pInputText formControlName="address" />
+                    <input pInputText id="address" type="text" pInputText formControlName="address" class="w-full"/>
                     <label for="address">Direccion</label>
                 </p-floatlabel>
             </div>
             <div class="input-label">
                 <p-floatlabel variant="in">
-                    <input id="nationality" type="text" pInputText formControlName="nationality" />
+                    <input id="nationality" type="text" pInputText formControlName="nationality" class="w-full"/>
                     <label for="nationality">Nacionalidad</label>
                 </p-floatlabel>
             </div>

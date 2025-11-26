@@ -1,0 +1,42 @@
+<div class="card">
+    <p-table [value]="cartService.items()" [tableStyle]="{ 'min-width': '60rem' }">
+        <ng-template #caption>
+            <div class="flex items-center justify-between">
+                <span class="text-xl font-bold">Productos</span>
+            </div>
+        </ng-template>
+        <ng-template #header>
+            <tr>
+                <th>Nombre</th>
+                <th>Imagen</th>
+                <th>Precio</th>
+                <th>Categoria</th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-product>
+            <tr>
+                <td>{{ product.name }}</td>
+                <td>
+                    <img
+                        [src]="product.image"
+                        [alt]="product.name"
+                        class="w-24 rounded"
+                    />
+                </td>
+                <td>{{ product.price | currency: 'ARS' }}</td>
+                <td>{{ product.category }}</td>
+
+            </tr>
+        </ng-template>
+        <ng-template #footer>
+            <tr>
+                @if (cartService.items().length >= 1) {
+                    <td colspan="6">Cantidad de productos {{ cartService.items().length }}.</td>
+                }
+                @else {
+                    <td colspan="6">No hay productos en el carrito.</td>
+                }
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

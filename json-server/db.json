@@ -32,16 +32,15 @@
       "id": "f184"
     },
     {
-      "id": "7b58",
       "username": "Sonlegends",
       "email": "lucascamino05@gmail.com",
-      "password": "1234",
-      "repassword": "1234",
       "fullName": "Lucas Camino",
+      "password": "123456",
       "DNI": "41928079",
       "phoneNumber": "1234",
       "address": "1234",
-      "nationality": "Brasil"
+      "nationality": "Argentina",
+      "id": "7b58"
     },
     {
       "id": "6a0d",
@@ -89,6 +88,18 @@
       "DNI": "1234",
       "phoneNumber": "1234",
       "address": "1234",
+      "nationality": ""
+    },
+    {
+      "id": "3409",
+      "username": "123",
+      "email": "lucascamino05@gmail.com",
+      "password": "123",
+      "repassword": "123",
+      "fullName": "123",
+      "DNI": "123",
+      "phoneNumber": "123",
+      "address": "123",
       "nationality": ""
     }
   ],

@@ -64,8 +64,8 @@ export class Header implements OnInit{
     this.router.navigateByUrl("/");
   }
 
-  goToProfile(user: User | null): void{
-    this.router.navigateByUrl("/profile/" + user?.id), {queryParams: {id : user!.id} };
+  goToProfile(): void{
+    this.router.navigateByUrl("/profile/" + this.currentUser?.fullName), {queryParams: {fullName  : this.currentUser!.fullName} };
   }
 
 
@@ -74,38 +74,21 @@ export class Header implements OnInit{
     constructor() {
         this.items = [
           {
-              label: 'Perfil',
-              icon: 'pi pi-fw pi-user',
-              command: () => this.goToProfile(this.currentUser)
+              label: 'Ofertas',
+              icon: 'pi pi-fw pi-shopping-bag',
+              command: () => this.router.navigateByUrl("/"+this.currentUser?.fullName+"/offers")
           },
           {
-            label: 'Edit',
-            icon: 'pi pi-fw pi-pencil',
-            items: [
-                {
-                  label: 'Left',
-                  icon: 'pi pi-fw pi-align-left'
-                },
-                {
-                  label: 'Right',
-                  icon: 'pi pi-fw pi-align-right'
-                },
-                {
-                  label: 'Center',
-                  icon: 'pi pi-fw pi-align-center'
-                },
-                {
-                  label: 'Justify',
-                  icon: 'pi pi-fw pi-align-justify'
-                }
-              ]
+            label: 'Compras',
+            icon: 'pi pi-fw pi-shopping-cart',
+            command: () => this.router.navigateByUrl("/"+this.currentUser?.fullName+"/purchases")
             },
             {
                 separator: true
             },
             {
-                label: 'Quit',
-                icon: 'pi pi-fw pi-power-off',
+                label: 'Cerrar sesion',
+                icon: 'pi pi-fw pi-sign-out',
                 command: () => this.logout()
             }
         ];

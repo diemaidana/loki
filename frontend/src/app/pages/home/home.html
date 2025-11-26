@@ -18,6 +18,7 @@
     }
   </swiper-container>
 
+  @if(!isLoggedIn) {
   <div class="geton-msg">
 
     <div class="msg">
@@ -25,9 +26,10 @@
       <p-button label="Registrarse" [raised]="true" styleClass="user-btn" routerLink="/sign-up" />
       <div class="signin-msg">
         <p>Ya tienes cuenta?</p>
-        <p-button routerLink="/user-form" label="Inicia sesion" link size="large" />
+        <p-button routerLink="/sign-in" label="Inicia sesion" link size="large" />
       </div>
     </div>
 
   </div>
+  }
 </div>

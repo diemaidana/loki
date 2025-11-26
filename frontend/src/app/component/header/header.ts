@@ -65,7 +65,7 @@ export class Header implements OnInit{
   }
 
   goToProfile(): void{
-    this.router.navigateByUrl("/profile/" + this.currentUser?.id), {queryParams: {id : this.currentUser!.id} };
+    this.router.navigateByUrl("/profile/" + this.currentUser?.fullName), {queryParams: {fullName  : this.currentUser!.fullName} };
   }
 
 
@@ -76,12 +76,12 @@ export class Header implements OnInit{
           {
               label: 'Ofertas',
               icon: 'pi pi-fw pi-shopping-bag',
-              command: () => this.router.navigateByUrl("/offers")
+              command: () => this.router.navigateByUrl("/"+this.currentUser?.fullName+"/offers")
           },
           {
             label: 'Compras',
             icon: 'pi pi-fw pi-shopping-cart',
-            command: () => this.router.navigateByUrl("/purchases")
+            command: () => this.router.navigateByUrl("/"+this.currentUser?.fullName+"/purchases")
             },
             {
                 separator: true

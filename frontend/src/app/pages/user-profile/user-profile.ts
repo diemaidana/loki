@@ -1,23 +1,42 @@
 import { Component, inject, signal } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { filter, map, switchMap } from 'rxjs';
+import { AuthService } from '../../auth/service/auth-service';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+
+import { UserService } from '../../service/user-service';
+import { User } from '../../model/user';
+
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { InputTextModule } from 'primeng/inputtext';
 import { CardModule } from 'primeng/card';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { IconFieldModule } from 'primeng/iconfield';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
-import { UserService } from '../../service/user-service';
-import { ActivatedRoute } from '@angular/router';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { User } from '../../model/user';
-import { filter, map, switchMap } from 'rxjs';
-import { AuthService } from '../../auth/service/auth-service';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { InputTextModule } from 'primeng/inputtext';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { PasswordModule } from 'primeng/password';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-user-profile',
-  imports: [ConfirmDialogModule, ButtonModule, ToastModule, IconFieldModule, ReactiveFormsModule, CardModule,InputTextModule],
-  providers: [ConfirmationService, MessageService],
+  imports: [
+    ConfirmDialogModule,
+    ButtonModule,
+    ToastModule,
+    IconFieldModule,
+    ReactiveFormsModule,
+    FormsModule,
+    PasswordModule,
+    CardModule,
+    InputTextModule,
+    FloatLabelModule
+  ],
+  providers: [
+    ConfirmationService,
+    MessageService
+  ],
   templateUrl: './user-profile.html',
   styleUrl: './user-profile.css',
 })
@@ -46,24 +65,22 @@ export class UserProfile {
 
   // Formulario Reactivo
   profileForm = this.profileFormEdit.group({
-    username: ['', Validators.required],
+/*     username: ['', Validators.required], */
     email: ['', [Validators.required, Validators.email]],
     fullName: ['', Validators.required],
+    password: ['', Validators.required],
+    DNI: [''],
     phoneNumber: [''],
     address: [''],
     nationality: ['']
   });
 
   ngOnInit() {
-    // Simulamos carga de datos del usuario logueado
     this.authService.userState$.subscribe(user => {
       if (user) {
-        // Simulamos un delay para mostrar el Skeleton
-        setTimeout(() => {
-          this.currentUser.set(user);
-          this.patchForm(user);
-          this.isLoading.set(false);
-        }, 1000);
+        this.currentUser.set(user);
+        this.patchForm(user);
+        this.isLoading.set(false);
       }
     });
   }
@@ -71,21 +88,22 @@ export class UserProfile {
   // Rellenar formulario con datos existentes
   private patchForm(user: User) {
     this.profileForm.patchValue({
-      username: user.username,
+/*       username: user.username, */
       email: user.email,
       fullName: user.fullName,
+      password: user.password,
+      DNI: user.DNI || '',
       phoneNumber: user.phoneNumber || '',
       address: user.address || '',
       nationality: user.nationality || ''
     });
-    this.profileForm.disable(); // Empieza en modo lectura
   }
 
   toggleEdit() {
     this.isEditing.update(val => !val);
     if (this.isEditing()) {
       this.profileForm.enable();
-      this.profileForm.controls['fullName'].disable();
+      this.profileForm.controls['DNI'].disable();
       this.profileForm.controls['nationality'].disable();
     } else {
       this.profileForm.disable();
@@ -112,6 +130,10 @@ export class UserProfile {
       },
       reject: () => {
         this.messageService.add({ severity: 'info', summary: 'Cancelado', detail: 'No se realizaron cambios' });
+        this.isEditing.set(false);
+        if (this.currentUser()) {
+            this.patchForm(this.currentUser()!);
+        }
       }
     });
   }
@@ -128,8 +150,9 @@ export class UserProfile {
         this.patchForm(updatedUser);
         this.isEditing.set(false);
         this.isLoading.set(false);
-        this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Perfil actualizado' });
         this.authService.updateCurrentUser(updatedUser);
+        console.log("Mostrar mensaje");
+        this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Perfil actualizado' });
       },
       error: (err) => {
         this.isLoading.set(false);

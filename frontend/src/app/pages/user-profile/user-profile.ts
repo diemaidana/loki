@@ -65,7 +65,7 @@ export class UserProfile {
 
   // Formulario Reactivo
   profileForm = this.profileFormEdit.group({
-    username: ['', Validators.required],
+/*     username: ['', Validators.required], */
     email: ['', [Validators.required, Validators.email]],
     fullName: ['', Validators.required],
     password: ['', Validators.required],
@@ -88,7 +88,7 @@ export class UserProfile {
   // Rellenar formulario con datos existentes
   private patchForm(user: User) {
     this.profileForm.patchValue({
-      username: user.username,
+/*       username: user.username, */
       email: user.email,
       fullName: user.fullName,
       password: user.password,

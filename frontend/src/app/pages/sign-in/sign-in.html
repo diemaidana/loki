@@ -31,20 +31,20 @@
         <h2>Bienvenido!</h2>
         <form [formGroup]="formSignIn" class="form-container">
             <div class="form-inputs">
-                <p-floatlabel variant="in">
+                <p-floatlabel variant="in" class="input-label">
                     <input name="email" id="email" pInputText formControlName="email" />
                     <label for="email">Email</label>
                     @if(email.invalid && email.touched){
-                        <p-message severity="error" variant="simple" size="small" >
+                        <p-message severity="error" variant="simple" size="small" class="error-msg">
                             Debe ingresar un email
                         </p-message>
                     }
                 </p-floatlabel>
-                <p-floatlabel variant="in">
+                <p-floatlabel variant="in" class="input-label">
                     <p-password formControlName="password" inputId="in_label" />
                     <label for="in_label">Password</label>
                     @if(password.invalid && password.touched){
-                        <p-message severity="error" variant="simple" size="small" >
+                        <p-message severity="error" variant="simple" size="small" class="error-msg">
                             Debe ingresar una contraseña
                         </p-message>
                     }                    

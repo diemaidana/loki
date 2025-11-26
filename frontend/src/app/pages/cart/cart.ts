@@ -11,10 +11,15 @@ import { ButtonModule } from 'primeng/button';
 import { ImageModule } from 'primeng/image';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
-import { ConfirmDialog, ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from "primeng/toast";
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CheckoutService } from '../../service/checkoutService';
+import { AuthService } from '../../auth/service/auth-service';
+import { UserService } from '../../service/user-service';
+import { User } from '../../model/user';
+import { Checkout } from '../../model/checkout';
 
 
 @Component({
@@ -41,6 +46,17 @@ export class Cart {
   private confirmationService = inject(ConfirmationService);
   private messageService = inject(MessageService);
 
+  private readonly checkoutService = inject(CheckoutService);
+
+  private readonly authService = inject(AuthService);
+
+  currentUser: User | null = null;
+
+  ngOnInit() {
+    // Necesitamos al usuario para asignarle el id_buyer
+    this.authService.userState$.subscribe(user => this.currentUser = user);
+  }
+
   removeItem(productId: string) {
     this.cartService.removeFromCart(productId);
   }
@@ -58,7 +74,6 @@ export class Cart {
         // this.paymentService.init(this.cartService.items())...
     }
   }
-
 
   confirm1(event: Event) {
         this.confirmationService.confirm({
@@ -85,8 +100,7 @@ export class Cart {
                 });
 
                 setTimeout(() => {
-                    this.router.navigateByUrl("/");
-                    this.cartService.clearCart();
+                    this.createSingleOrder();
                 }, 2000);
             },
             reject: () => {
@@ -99,4 +113,64 @@ export class Cart {
             },
         });
     }
+
+
+  /* Esta funcion aca no deberia ir. Pero bueno ahora mismo no se me ocurre en que lugar lo tendria que hacer. Ya que Oferta y Carrito la usan. */
+  private createSingleOrder() {
+    if (!this.currentUser) return;
+
+    const items = this.cartService.items();
+
+    // Obtenemos los IDs de los vendedores
+    const sellersSet = this.getSellerIds();
+
+    // Creamos la onder de compra.
+    const newOrder: Checkout = {
+        id_buyer: this.currentUser.id!, // ID del comprador
+        id_sellers: Array.from(sellersSet), // obtenemos un listado de IDs de vendedores
+        date: new Date().toISOString(), // fecha actual en formato STRING e ISO
+        items: items, 
+        totalAmount: this.cartService.totalAmount(),
+    };
+
+    // Guardamos en el Json-server
+    this.checkoutService.savePurchase(newOrder).subscribe({
+        next: () => {
+            this.messageService.add({ 
+                severity: 'success', 
+                summary: '¡Compra Exitosa!', 
+                detail: 'Tu pedido ha sido procesado correctamente.' 
+            });
+
+            // Esperar 2 segundos para que el usuario vea el mensaje
+            setTimeout(() => {
+                  this.checkoutService.savePurchase(newOrder).subscribe( () => {
+                  this.cartService.clearCart(); // Vaciamos el carrito local
+                  this.router.navigateByUrl("/"); // Volvemos al home
+                });
+            }, 2000);
+        },
+        error: (err) => {
+            console.error('Error al procesar compra:', err);
+            this.messageService.add({ 
+                severity: 'error', 
+                summary: 'Error', 
+                detail: 'Hubo un problema al procesar el pago. Intente más tarde.' 
+            });
+        }
+    });
+  }
+
+
+  private getSellerIds(): (string | number)[] {
+    const items = this.cartService.items();
+    const sellersSet = new Set<string | number>();
+    items.forEach(item => {
+        const sellerId = (item.product as any).id_seller;
+        if (sellerId) {
+            sellersSet.add(sellerId);
+        }
+    });
+    return Array.from(sellersSet);
+  }
 }

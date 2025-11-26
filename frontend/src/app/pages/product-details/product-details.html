@@ -7,7 +7,7 @@
         <p class="product-brand">{{ product()?.brand }}</p>
         <p>{{ product()?.description }}</p>
         <p class="price">{{ product()?.price | currency: 'ARS'}}</p>
-        <div class="action-btns">
+        <div class="btns-container">
             <p-button label="Ofertar" severity="warn" icon="pi pi-dollar" (click)="changeOffer()" />
                 <p-dialog header="Realizar oferta" [modal]="true" [(visible)]="dialogVisible" [style]="{ width: '25rem' }" styleClass="dialog-container">
                     <div class="dialog-container">

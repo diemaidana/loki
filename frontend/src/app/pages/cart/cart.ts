@@ -6,10 +6,22 @@ import { TagModule } from 'primeng/tag';
 import { RatingModule } from 'primeng/rating';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
+import { ImageModule } from 'primeng/image';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-cart',
-  imports: [TableModule, TagModule, RatingModule, ButtonModule, CommonModule],
+  imports: [
+    TableModule,
+    TagModule,
+    RatingModule,
+    ButtonModule,
+    CommonModule,
+    ImageModule,
+    InputNumberModule,
+    FormsModule
+  ],
   templateUrl: './cart.html',
   styleUrl: './cart.css',
 })
@@ -24,6 +36,7 @@ export class Cart {
   updateQty(productId: string, qty: number) {
     this.cartService.updateQuantity(productId, qty);
   }
+
 
   // Aquí iría la lógica final de compra (Mercado Pago)
   proceedToPayment() {

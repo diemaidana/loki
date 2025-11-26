@@ -1,28 +1,25 @@
 <div class="product-container container">
     <div class="img-container">
-        <img src="{{ product()?.image }}" alt="{{ product()?.name }}">
+        <p-image src="{{ product()?.image }}" alt="{{ product()?.name }}" width="500" [preview]="true" />
     </div>
     <div class="detail-container">
-        <h2>{{ product()?.name }}</h2>
-        <p>{{ product()?.brand }}</p>
+        <h2 class="product-title">{{ product()?.name }}</h2>
+        <p class="product-brand">{{ product()?.brand }}</p>
         <p>{{ product()?.description }}</p>
         <p class="price">{{ product()?.price | currency: 'ARS'}}</p>
-        @if(showOfferInput()){
-            <div class="offer">
-                <div class="input-offer">
-                    <label for="">Ingresar oferta:</label>
-                    <input type="number" [min]="minAmount">
-                </div>
-                <div class="offer-btns">
-                    <button class="btn btn-cancel" (click)="changeOffer()">Cancelar</button>
-                    <button class="btn btn-offer" (click)="offer()">Ofertar</button>
-                </div>
-            </div>
-        } @else {
-            <div class="action-btns">
-                <button class="btn btn-offer" (click)="changeOffer()">Ofertar</button>
-                <button class="btn btn-buy" (click)="buy()">Comprar</button>
-            </div>
-        } 
+        <div class="action-btns">
+            <p-button label="Ofertar" severity="warn" icon="pi pi-dollar" (click)="changeOffer()" />
+                <p-dialog header="Realizar oferta" [modal]="true" [(visible)]="dialogVisible" [style]="{ width: '25rem' }" styleClass="dialog-container">
+                    <div class="dialog-container">
+                        <label for="price">Ingresar precio</label>
+                        <p-inputnumber placeholder="100" inputId="price" mode="currency" currency="ARS" locale="es-AR"   />
+                    </div>
+                    <div class="btn-actions">
+                        <p-button label="Cancelar" severity="secondary" (click)="changeOffer()" />
+                        <p-button label="Ofertar" (click)="offer()" />
+                    </div>
+                </p-dialog>
+            <p-button label="Agregar al carrito" icon="pi pi-cart-plus" (click)="buy()" />
+        </div>
     </div>
 </div>

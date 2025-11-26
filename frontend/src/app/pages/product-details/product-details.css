@@ -8,6 +8,16 @@
     padding: 20px;
 }
 
+.product-title {
+    font-weight: 900;
+    font-size: 3rem;
+}
+
+.product-brand {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
 .detail-container {
     display: flex;
     flex-direction: column;
@@ -21,16 +31,10 @@
     margin: 40px 0;
 }
 
-.img-container img {
-    height: 50vh;
-    width: auto;
-    object-fit: cover;
-}
-
 .price {
     margin-top: 20px;
-    font-weight: 800;
-    font-size: 2rem;
+    font-weight: 500;
+    font-size: 2.5rem;
 }
 
 .offer {
@@ -76,5 +80,16 @@ input {
     border: 2px solid var(--cancel-color);
 }
 
+:host ::ng-deep .dialog-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 
+}
+
+.btn-actions {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
 

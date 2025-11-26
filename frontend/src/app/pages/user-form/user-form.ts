@@ -1,13 +1,36 @@
-import { Component, inject, Input, input } from '@angular/core';
+import { Component, inject, Input, input, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { User } from '../../model/user';
 import { UserService } from '../../service/user-service';
 import { Router } from '@angular/router';
 import { passwordsMatchValidator } from '../../validator/password-match';
 
+import { CardModule } from 'primeng/card';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { MessageModule } from 'primeng/message';
+import { PasswordModule } from 'primeng/password';
+import { ButtonModule } from 'primeng/button';
+import { Dialog } from 'primeng/dialog';
+import { InputText } from "primeng/inputtext";
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { Toast } from "primeng/toast";
+import { ConfirmDialog } from "primeng/confirmdialog";
+
 @Component({
   selector: 'app-user-form',
-  imports: [ReactiveFormsModule],
+  imports: [
+    ReactiveFormsModule,
+    CardModule,
+    FloatLabelModule,
+    MessageModule,
+    PasswordModule,
+    ButtonModule,
+    Dialog,
+    InputText,
+    Toast,
+    ConfirmDialog
+],
+  providers: [MessageService, ConfirmationService],
   templateUrl: './user-form.html',
   styleUrl: './user-form.css',
 })
@@ -16,6 +39,10 @@ export class UserForm {
   private readonly service = inject(UserService);
   @Input() protected readonly user?:User;
   private readonly router = inject(Router);
+  private readonly confirmationService = inject(ConfirmationService);
+  private readonly messageService = inject(MessageService);
+
+  protected visible = signal(false);
 
   protected readonly nations = [
     "Colombia",
@@ -80,7 +107,7 @@ export class UserForm {
     DNI: ["", [Validators.required]],
     phoneNumber: [""],
     address: ["", [Validators.required]],
-    nationality: ["", [Validators.required]]
+    nationality: [""]
   }, { validators: [passwordsMatchValidator]});
 
   get formControls(){
@@ -92,8 +119,31 @@ export class UserForm {
   }
 
   handleSubmit(){
+    if (this.formSignUp.invalid) {
+        this.messageService.add({severity:'error', summary:'Error', detail:'Formulario inválido'});
+        return;
+    }
+
+    this.confirmationService.confirm({
+      header: 'Confirmar Registro',
+      message: '¿Estás seguro de que deseas registrarte?',
+      icon: 'pi pi-exclamation-triangle',
+      
+      accept: () => {
+        this.service.postUser(this.formSignUp.getRawValue()).subscribe(() => {
+          this.messageService.add({ severity: 'success', summary: 'Confirmado', detail: 'Usuario registrado con éxito' });
+          this.router.navigateByUrl("/sign-in");
+        });
+      },
+      reject: () => {
+        this.messageService.add({ severity: 'info', summary: 'Cancelado', detail: 'No se realizaron cambios' });
+      }
+    });
+  }
+
+/* 
     if(this.formSignUp.invalid){
-      alert("formulario invalido");
+      this.visible.set(true);
       return
       
     }else{
@@ -103,8 +153,10 @@ export class UserForm {
           alert("Usuario creado con exito");
           this.router.navigateByUrl("/sign-in");
         })
+      }else{
+        this.visible.set(true);
       }
     }
   }
-
+*/
 }

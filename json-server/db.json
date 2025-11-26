@@ -30,6 +30,66 @@
       "address": "San Juan 200",
       "nationality": "Argentina",
       "id": "f184"
+    },
+    {
+      "id": "7b58",
+      "username": "Sonlegends",
+      "email": "lucascamino05@gmail.com",
+      "password": "1234",
+      "repassword": "1234",
+      "fullName": "Lucas Camino",
+      "DNI": "41928079",
+      "phoneNumber": "1234",
+      "address": "1234",
+      "nationality": "Brasil"
+    },
+    {
+      "id": "6a0d",
+      "username": "Sonlegends",
+      "email": "1234@gmail.com",
+      "password": "1234",
+      "repassword": "1234",
+      "fullName": "12345",
+      "DNI": "12345",
+      "phoneNumber": "12345",
+      "address": "123456",
+      "nationality": ""
+    },
+    {
+      "id": "413b",
+      "username": "123",
+      "email": "123456@gmail.com",
+      "password": "123",
+      "repassword": "123",
+      "fullName": "123",
+      "DNI": "123",
+      "phoneNumber": "123",
+      "address": "1234",
+      "nationality": ""
+    },
+    {
+      "id": "8929",
+      "username": "1234",
+      "email": "1234567@gmail.com",
+      "password": "1234",
+      "repassword": "1234",
+      "fullName": "1234",
+      "DNI": "1234",
+      "phoneNumber": "1234",
+      "address": "1234",
+      "nationality": ""
+    },
+    {
+      "id": "18ed",
+      "username": "1234",
+      "email": "seller1@mail.com",
+      "password": "1234",
+      "repassword": "1234",
+      "fullName": "1234",
+      "DNI": "1234",
+      "phoneNumber": "1234",
+      "address": "1234",
+      "nationality": ""
     }
   ],
   "products": [

@@ -107,7 +107,6 @@ export class UserProfile {
       message: '¿Estás seguro de que deseas guardar los cambios?',
       icon: 'pi pi-exclamation-triangle',
       
-      // 2. Aquí está la magia: Si el usuario dice SÍ (accept), ejecutamos saveData
       accept: () => {
         this.saveData();
       },

@@ -1,4 +1,5 @@
 import { CartItem } from "./cart-item";
+import { CheckoutItemDetail } from "./check-out-item-detail";
 
 export interface Checkout {
     id?: number | string | undefined;
@@ -7,5 +8,5 @@ export interface Checkout {
     
     totalAmount: number;
     date: string;
-    items: CartItem[];
+    items: CheckoutItemDetail[];
 }

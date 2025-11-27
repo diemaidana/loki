@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CartService } from '../../service/cart-service';
 
 
@@ -20,6 +20,7 @@ import { AuthService } from '../../auth/service/auth-service';
 import { UserService } from '../../service/user-service';
 import { User } from '../../model/user';
 import { Checkout } from '../../model/checkout';
+import { CheckoutItemDetail } from '../../model/check-out-item-detail';
 
 
 @Component({
@@ -51,7 +52,7 @@ export class Cart {
   private readonly authService = inject(AuthService);
 
   currentUser: User | null = null;
-
+  isProcessing = signal(false); // Señal para bloquear el botón durante el proceso de pago
   ngOnInit() {
     // Necesitamos al usuario para asignarle el id_buyer
     this.authService.userState$.subscribe(user => this.currentUser = user);
@@ -66,110 +67,113 @@ export class Cart {
   }
 
 
-  // Aquí iría la lógica final de compra (conexion con MP)
-  proceedToPayment() {
-    if (this.cartService.count() > 0) {
-        console.log("Iniciando pago por monto: ", this.cartService.totalAmount());
-        this.confirm1(new Event('click'));
-        // this.paymentService.init(this.cartService.items())...
+  proceedToPayment(event: Event) {
+    // Validaciones previas
+    if (this.cartService.count() === 0) return;
+    if (this.isProcessing()) return; // ⛔ Evita clicks dobles
+
+    if (!this.currentUser) {
+        this.messageService.add({ severity: 'warn', summary: 'Atención', detail: 'Inicia sesión para comprar.' });
+        return;
     }
+
+    this.confirmPayment(event);
   }
 
-  confirm1(event: Event) {
-        this.confirmationService.confirm({
-            target: event.target as EventTarget,
-            message: 'Quiere proceder con el pago?',
-            header: 'Confirmation',
-            closable: true,
-            closeOnEscape: true,
-            icon: 'pi pi-exclamation-triangle',
-            rejectButtonProps: {
-                label: 'Cancelar',
-                severity: 'secondary',
-                outlined: true,
-            },
-            acceptButtonProps: {
-                label: 'Pagar',
-                icon: 'pi pi-check',
-            },
-            accept: () => {
-                this.messageService.add({
-                  severity: 'success',
-                  summary: 'Pago exitoso',
-                  detail: 'Pago aceptado. Redirigiendo' 
-                });
+  confirmPayment(event: Event) {
+    this.confirmationService.confirm({
+        target: event.target as EventTarget,
+        message: `¿Confirmar pago total de $${this.cartService.totalAmount()}?`,
+        header: 'Confirmación',
+        icon: 'pi pi-exclamation-triangle',
+        acceptLabel: 'Pagar',
+        rejectLabel: 'Cancelar',
+        acceptButtonStyleClass: 'p-button-success',
+        rejectButtonStyleClass: 'p-button-outlined p-button-secondary',
+        
+        accept: () => {
+            // ✅ Iniciamos el proceso y BLOQUEAMOS inmediatamente
+            this.isProcessing.set(true); 
+            this.createSingleOrder();
+        },
+        reject: () => {
+            this.messageService.add({
+                severity: 'info',
+                summary: 'Cancelado',
+                detail: 'Operación cancelada',
+                life: 3000,
+            });
+        },
+    });
+  }
 
-                setTimeout(() => {
-                    this.createSingleOrder();
-                }, 2000);
-            },
-            reject: () => {
-                this.messageService.add({
-                    severity: 'error',
-                    summary: 'Cancelado',
-                    detail: 'Pago cancelado',
-                    life: 3000,
-                });
-            },
-        });
-    }
-
-
-  /* Esta funcion aca no deberia ir. Pero bueno ahora mismo no se me ocurre en que lugar lo tendria que hacer. Ya que Oferta y Carrito la usan. */
   private createSingleOrder() {
     if (!this.currentUser) return;
 
-    const items = this.cartService.items();
-
-    // Obtenemos los IDs de los vendedores
+    // 1. IMPORTANTE: Usamos la función de mapeo para obtener solo lo necesario
+    // Esto evita que se guarden los objetos 'Product' completos (imágenes, descripciones, etc.)
+    const checkoutItems = this.getCartItemsForCheckout(); 
+    
     const sellersSet = this.getSellerIds();
 
-    // Creamos la onder de compra.
     const newOrder: Checkout = {
-        id_buyer: this.currentUser.id!, // ID del comprador
-        id_sellers: Array.from(sellersSet), // obtenemos un listado de IDs de vendedores
-        date: new Date().toISOString(), // fecha actual en formato STRING e ISO
-        items: items, 
+        id_buyer: this.currentUser.id!,
+        id_sellers: Array.from(sellersSet),
+        date: new Date().toISOString(),
+        items: checkoutItems, // 👈 USAMOS LA VARIABLE MAPEADA, NO this.cartService.items()
         totalAmount: this.cartService.totalAmount(),
+        // status: 'completed' 
     };
 
-    // Guardamos en el Json-server
     this.checkoutService.savePurchase(newOrder).subscribe({
         next: () => {
             this.messageService.add({ 
                 severity: 'success', 
-                summary: '¡Compra Exitosa!', 
-                detail: 'Tu pedido ha sido procesado correctamente.' 
+                summary: '¡Pago Exitoso!', 
+                detail: 'Redirigiendo al inicio...' 
             });
 
-            // Esperar 2 segundos para que el usuario vea el mensaje
             setTimeout(() => {
-                  this.checkoutService.savePurchase(newOrder).subscribe( () => {
-                  this.cartService.clearCart(); // Vaciamos el carrito local
-                  this.router.navigateByUrl("/"); // Volvemos al home
-                });
+                this.cartService.clearCart(); 
+                this.router.navigateByUrl("/"); 
+                // No hace falta poner isProcessing en false porque cambiamos de página
             }, 2000);
         },
         error: (err) => {
-            console.error('Error al procesar compra:', err);
+            console.error('Error compra:', err);
+            // Si falla, DESBLOQUEAMOS para que pueda intentar de nuevo
+            this.isProcessing.set(false); 
+            
             this.messageService.add({ 
                 severity: 'error', 
                 summary: 'Error', 
-                detail: 'Hubo un problema al procesar el pago. Intente más tarde.' 
+                detail: 'No se pudo procesar el pago.' 
             });
         }
     });
   }
 
+  // --- Métodos Auxiliares ---
+
+  /** * Transforma items complejos del carrito a objetos simples {productId, quantity, price} 
+   * para guardar en la base de datos.
+   */
+  private getCartItemsForCheckout(): CheckoutItemDetail[] {
+    return this.cartService.items().map(item => {
+        return {
+            productId: (item.product as any).id, 
+            quantity: item.quantity,
+            price: item.product.price
+        };
+    });
+  }
 
   private getSellerIds(): (string | number)[] {
     const items = this.cartService.items();
     const sellersSet = new Set<string | number>();
     items.forEach(item => {
         const sellerId = (item.product as any).id_seller;
-        if (sellerId) {
-            sellersSet.add(sellerId);
-        }
+        if (sellerId) sellersSet.add(sellerId);
     });
     return Array.from(sellersSet);
   }

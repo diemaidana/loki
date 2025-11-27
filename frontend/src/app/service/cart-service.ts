@@ -62,7 +62,7 @@ export class CartService {
 
     this.itemsSignal.update(items =>
       items.map(item => 
-        item.product.id === productId ? { ...item, quantity } : item
+        String(item.product.id) === String(productId) ? { ...item, quantity } : item
       )
     );
     this.saveCartToStorage();

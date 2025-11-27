@@ -7,6 +7,7 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { SplitButtonModule } from 'primeng/splitbutton';
+import { BadgeModule } from 'primeng/badge';
 import { ToastModule } from 'primeng/toast';
 
 import { User } from '../../model/user';
@@ -14,6 +15,7 @@ import { SearchBar } from '../search-bar/search-bar';
 import { AuthService } from '../../auth/service/auth-service';
 import { SearchStateService } from '../../service/search-state-service';
 import { MenuItem } from 'primeng/api';
+import { CartService } from '../../service/cart-service';
 
 @Component({
   selector: 'app-header',
@@ -26,6 +28,7 @@ import { MenuItem } from 'primeng/api';
     InputIconModule,
     InputTextModule,
     SplitButtonModule,
+    BadgeModule,
     ToastModule
   ],
   templateUrl: './header.html',
@@ -38,7 +41,9 @@ export class Header implements OnInit{
   
   // Valores default sin usuario logueado
   protected isLoggedIn : boolean = false;
+  protected cartService = inject(CartService);
   currentUser: User | null = null;
+
 
   ngOnInit(): void{
     this.authService.userState$.subscribe((user) => {
@@ -68,29 +73,26 @@ export class Header implements OnInit{
     this.router.navigateByUrl("/profile/" + this.currentUser?.fullName), {queryParams: {fullName  : this.currentUser!.fullName} };
   }
 
-
+  goToCart(): void{
+    this.router.navigateByUrl("/"+ this.currentUser?.fullName+"/cart");
+  }
   items: MenuItem[];
 
     constructor() {
         this.items = [
           {
-              label: 'Ofertas',
-              icon: 'pi pi-fw pi-shopping-bag',
-              command: () => this.router.navigateByUrl("/"+this.currentUser?.fullName+"/offers")
+              label: 'Dashboard',
+              icon: 'pi pi-fw pi-clipboard',
+              command: () => this.router.navigateByUrl("/"+this.currentUser?.fullName+"/dashboard")
           },
           {
-            label: 'Compras',
-            icon: 'pi pi-fw pi-shopping-cart',
-            command: () => this.router.navigateByUrl("/"+this.currentUser?.fullName+"/purchases")
-            },
-            {
-                separator: true
-            },
-            {
-                label: 'Cerrar sesion',
-                icon: 'pi pi-fw pi-sign-out',
-                command: () => this.logout()
-            }
+              separator: true
+          },
+          {
+              label: 'Cerrar sesion',
+              icon: 'pi pi-fw pi-sign-out',
+              command: () => this.logout()
+          }
         ];
     }
 }

@@ -33,18 +33,4 @@ export class ProductService {
   deleteProduct(id: string | number){
     return this.http.delete<Product>(`${this.apiUrl}/${id}`);
   }
-
-    generateMercadoPagoLink(productId: string | number): Observable<string> {
-    // 🛑 ADVERTENCIA: Esta es una SIMULACIÓN. 
-    // En producción, aquí harías una llamada HTTP POST a tu propio backend:
-    // return this.http.post<{ checkoutUrl: string }>(`${this.apiUrl}/checkout`, { productId })
-    //   .pipe(map(response => response.checkoutUrl));
-    
-    // SIMULACIÓN (Ejemplo de Mercado Pago Sandbox URL):
-    const mockCheckoutUrl = 'https://sandbox.mercadopago.com.ar/checkout/v1/redirect?pref_id=YOUR_PREFERENCE_ID';
-
-    return of(mockCheckoutUrl).pipe(
-      delay(1500) // Simular latencia de red
-    );
-  }
 }

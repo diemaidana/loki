@@ -32,16 +32,15 @@
       "id": "f184"
     },
     {
-      "id": "7b58",
       "username": "Sonlegends",
       "email": "lucascamino05@gmail.com",
-      "password": "1234",
-      "repassword": "1234",
       "fullName": "Lucas Camino",
+      "password": "123456",
       "DNI": "41928079",
       "phoneNumber": "1234",
       "address": "1234",
-      "nationality": "Brasil"
+      "nationality": "Argentina",
+      "id": "7b58"
     },
     {
       "id": "6a0d",
@@ -89,6 +88,18 @@
       "DNI": "1234",
       "phoneNumber": "1234",
       "address": "1234",
+      "nationality": ""
+    },
+    {
+      "id": "3409",
+      "username": "123",
+      "email": "lucascamino05@gmail.com",
+      "password": "123",
+      "repassword": "123",
+      "fullName": "123",
+      "DNI": "123",
+      "phoneNumber": "123",
+      "address": "123",
       "nationality": ""
     }
   ],
@@ -302,6 +313,61 @@
       "image": "https://images.unsplash.com/photo-1551818014-7c8ace9c1b5c?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "price": 12000,
       "id_seller": "2"
+    }
+  ],
+  "purchases": [
+    {
+      "id": "f355",
+      "id_buyer": "1",
+      "id_sellers": [
+        1
+      ],
+      "date": "2025-11-27T15:51:18.720Z",
+      "items": [
+        {
+          "productId": "3",
+          "quantity": 1,
+          "price": 12000
+        }
+      ],
+      "totalAmount": 12000
+    },
+    {
+      "id": "e1c7",
+      "id_buyer": "1",
+      "id_sellers": [
+        1
+      ],
+      "date": "2025-11-27T15:51:38.974Z",
+      "items": [
+        {
+          "productId": "2",
+          "quantity": 1,
+          "price": 950000
+        }
+      ],
+      "totalAmount": 950000
+    },
+    {
+      "id": "ffee",
+      "id_buyer": "1",
+      "id_sellers": [
+        1
+      ],
+      "date": "2025-11-27T15:52:17.308Z",
+      "items": [
+        {
+          "productId": "2",
+          "quantity": 1,
+          "price": 950000
+        },
+        {
+          "productId": "3",
+          "quantity": 1,
+          "price": 12000
+        }
+      ],
+      "totalAmount": 962000
     }
   ]
 }

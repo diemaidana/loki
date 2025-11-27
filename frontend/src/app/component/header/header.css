@@ -21,6 +21,15 @@ img {
     gap: 10px
 }
 
+.cart-btn {
+    position: relative;
+    --btn-padding: 0.7rem 1rem;
+    --btn-font-size: 1rem;
+    --btn-border-radius: 8px;
+    --btn-background: var(--primary-color);
+    --btn-color: var(--on-primary-color);
+
+}
 /* .header-search {
     display: flex;
     flex-grow: 1;

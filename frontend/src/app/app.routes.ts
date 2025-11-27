@@ -6,6 +6,7 @@ import { ListProducts } from './pages/list-products/list-products';
 import { ProductDetails } from './pages/product-details/product-details';
 import { authGuardGuard } from './auth/guards/auth-guard-guard';
 import { UserProfile } from './pages/user-profile/user-profile';
+import { SellerDash } from './pages/seller-dash/seller-dash';
 
 export const routes: Routes = [
     {path: '', component: Home},
@@ -16,5 +17,6 @@ export const routes: Routes = [
     {path: 'profile/:id', component: UserProfile, canActivate: [authGuardGuard], title:"Mi Perfil"},
     {path: ':id/offers', component: ListProducts, canActivate: [authGuardGuard], title:"Mis ofertas"},
     {path: ':id/purchases', component: ListProducts, canActivate: [authGuardGuard], title:"Mis Compras"},
+    {path: ':id/seller-dash', component: SellerDash, canActivate: [authGuardGuard], title: "Dashboard"},
     {path: '**', redirectTo: ''}
 ];

@@ -18,12 +18,16 @@ export class ProductService {
     return this.http.get<Product>(`${this.apiUrl}/${id}`);
   }
 
+  getProductsBySellerId(sellerID: number | string){
+    return this.http.get<Product[]>(`${this.apiUrl}?id_seller=${sellerID}`);
+  }
+
   addProduct(product: Product){
     return this.http.post<Product>(this.apiUrl, product);
   }
 
   updateProduct(id: string | number, product: Product){
-    return this.http.put<Product>(this.apiUrl, product);
+    return this.http.put<Product>(`${this.apiUrl}/${id}`, product);
   }
 
   deleteProduct(id: string | number){

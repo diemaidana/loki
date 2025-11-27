@@ -83,7 +83,7 @@ export class Header implements OnInit{
           {
               label: 'Dashboard',
               icon: 'pi pi-fw pi-clipboard',
-              command: () => this.router.navigateByUrl("/"+this.currentUser?.fullName+"/dashboard")
+              command: () => this.router.navigateByUrl("/"+this.currentUser?.fullName+"/seller-dash")
           },
           {
               separator: true

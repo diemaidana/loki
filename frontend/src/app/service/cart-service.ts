@@ -8,7 +8,7 @@ import { Product } from '../model/product';
 export class CartService {
   
   // Leemos el LocalStorage
-  private itemsSignal = signal<CartItem[]>(this.loadCartFromStorage());
+  private itemsSignal = signal<CartItem[]>([]);
 
   // Mostramos el listado de items en modo lectura
   readonly items = this.itemsSignal.asReadonly();

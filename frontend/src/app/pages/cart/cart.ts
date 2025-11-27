@@ -14,10 +14,9 @@ import { FormsModule } from '@angular/forms';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from "primeng/toast";
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { CheckoutService } from '../../service/checkoutService';
 import { AuthService } from '../../auth/service/auth-service';
-import { UserService } from '../../service/user-service';
 import { User } from '../../model/user';
 import { Checkout } from '../../model/checkout';
 import { CheckoutItemDetail } from '../../model/check-out-item-detail';
@@ -70,7 +69,7 @@ export class Cart {
   proceedToPayment(event: Event) {
     // Validaciones previas
     if (this.cartService.count() === 0) return;
-    if (this.isProcessing()) return; // ⛔ Evita clicks dobles
+    if (this.isProcessing()) return;
 
     if (!this.currentUser) {
         this.messageService.add({ severity: 'warn', summary: 'Atención', detail: 'Inicia sesión para comprar.' });
@@ -92,7 +91,6 @@ export class Cart {
         rejectButtonStyleClass: 'p-button-outlined p-button-secondary',
         
         accept: () => {
-            // ✅ Iniciamos el proceso y BLOQUEAMOS inmediatamente
             this.isProcessing.set(true); 
             this.createSingleOrder();
         },
@@ -110,8 +108,6 @@ export class Cart {
   private createSingleOrder() {
     if (!this.currentUser) return;
 
-    // 1. IMPORTANTE: Usamos la función de mapeo para obtener solo lo necesario
-    // Esto evita que se guarden los objetos 'Product' completos (imágenes, descripciones, etc.)
     const checkoutItems = this.getCartItemsForCheckout(); 
     
     const sellersSet = this.getSellerIds();
@@ -120,9 +116,8 @@ export class Cart {
         id_buyer: this.currentUser.id!,
         id_sellers: Array.from(sellersSet),
         date: new Date().toISOString(),
-        items: checkoutItems, // 👈 USAMOS LA VARIABLE MAPEADA, NO this.cartService.items()
-        totalAmount: this.cartService.totalAmount(),
-        // status: 'completed' 
+        items: checkoutItems,
+        totalAmount: this.cartService.totalAmount(), 
     };
 
     this.checkoutService.savePurchase(newOrder).subscribe({
@@ -134,9 +129,8 @@ export class Cart {
             });
 
             setTimeout(() => {
-                this.cartService.clearCart(); 
+                this.cartService.clearCart();
                 this.router.navigateByUrl("/"); 
-                // No hace falta poner isProcessing en false porque cambiamos de página
             }, 2000);
         },
         error: (err) => {

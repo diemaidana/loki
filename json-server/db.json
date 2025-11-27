@@ -307,306 +307,12 @@
   ],
   "purchases": [
     {
-      "id": "59e1",
-      "id_buyer": "3409",
-      "id_sellers": [
-        2
-      ],
-      "date": "2025-11-27T14:47:01.942Z",
-      "items": [
-        {
-          "product": {
-            "id": "1",
-            "name": "Auriculares Bluetooth",
-            "description": "Auriculares inalámbricos con cancelación de ruido.",
-            "price": 25000,
-            "id_seller": 2,
-            "brand": "Sony",
-            "image": "/assets/products/auriculares.jpg",
-            "category": "Electronica"
-          },
-          "quantity": 1
-        }
-      ],
-      "totalAmount": 25000
-    },
-    {
-      "id": "2d29",
-      "id_buyer": "3409",
-      "id_sellers": [
-        2
-      ],
-      "date": "2025-11-27T14:47:01.942Z",
-      "items": [
-        {
-          "product": {
-            "id": "1",
-            "name": "Auriculares Bluetooth",
-            "description": "Auriculares inalámbricos con cancelación de ruido.",
-            "price": 25000,
-            "id_seller": 2,
-            "brand": "Sony",
-            "image": "/assets/products/auriculares.jpg",
-            "category": "Electronica"
-          },
-          "quantity": 1
-        }
-      ],
-      "totalAmount": 25000
-    },
-    {
-      "id": "85f2",
-      "id_buyer": "3409",
-      "id_sellers": [
-        2
-      ],
-      "date": "2025-11-27T14:49:09.298Z",
-      "items": [
-        {
-          "product": {
-            "id": "8",
-            "name": "Parlante Bluetooth",
-            "description": "Parlante portátil resistente al agua.",
-            "price": 35000,
-            "id_seller": 2,
-            "brand": "JBL",
-            "image": "/assets/products/parlante.jpg",
-            "category": "Electronica"
-          },
-          "quantity": 1
-        },
-        {
-          "product": {
-            "id": "12",
-            "name": "Impresora Multifunción",
-            "description": "Imprime, escanea y fotocopia.",
-            "price": 60000,
-            "id_seller": 2,
-            "brand": "HP",
-            "image": "/assets/products/impresora.jpg",
-            "category": "Electronica"
-          },
-          "quantity": 1
-        }
-      ],
-      "totalAmount": 95000
-    },
-    {
-      "id": "e58b",
-      "id_buyer": "3409",
-      "id_sellers": [
-        2
-      ],
-      "date": "2025-11-27T14:49:09.298Z",
-      "items": [
-        {
-          "product": {
-            "id": "8",
-            "name": "Parlante Bluetooth",
-            "description": "Parlante portátil resistente al agua.",
-            "price": 35000,
-            "id_seller": 2,
-            "brand": "JBL",
-            "image": "/assets/products/parlante.jpg",
-            "category": "Electronica"
-          },
-          "quantity": 1
-        },
-        {
-          "product": {
-            "id": "12",
-            "name": "Impresora Multifunción",
-            "description": "Imprime, escanea y fotocopia.",
-            "price": 60000,
-            "id_seller": 2,
-            "brand": "HP",
-            "image": "/assets/products/impresora.jpg",
-            "category": "Electronica"
-          },
-          "quantity": 1
-        }
-      ],
-      "totalAmount": 95000
-    },
-    {
-      "id": "224c",
-      "id_buyer": "3409",
+      "id": "f355",
+      "id_buyer": "1",
       "id_sellers": [
         1
       ],
-      "date": "2025-11-27T14:50:11.407Z",
-      "items": [
-        {
-          "product": {
-            "id": "3",
-            "name": "Mouse Inalámbrico",
-            "description": "Mouse ergonómico ideal para trabajar todo el día.",
-            "price": 12000,
-            "id_seller": 1,
-            "brand": "Logitech",
-            "image": "/assets/products/mouse.jpg",
-            "category": "Electronica"
-          },
-          "quantity": 1
-        }
-      ],
-      "totalAmount": 12000
-    },
-    {
-      "id": "1ef5",
-      "id_buyer": "3409",
-      "id_sellers": [
-        1
-      ],
-      "date": "2025-11-27T14:50:11.407Z",
-      "items": [
-        {
-          "product": {
-            "id": "3",
-            "name": "Mouse Inalámbrico",
-            "description": "Mouse ergonómico ideal para trabajar todo el día.",
-            "price": 12000,
-            "id_seller": 1,
-            "brand": "Logitech",
-            "image": "/assets/products/mouse.jpg",
-            "category": "Electronica"
-          },
-          "quantity": 1
-        }
-      ],
-      "totalAmount": 12000
-    },
-    {
-      "id": "65c6",
-      "id_buyer": "3409",
-      "id_sellers": [
-        1,
-        2
-      ],
-      "date": "2025-11-27T14:59:50.678Z",
-      "items": [
-        {
-          "product": {
-            "id": "2",
-            "name": "Macbook Pro",
-            "description": "Laptop gamer con RTX 4060 y 16GB de RAM.",
-            "price": 950000,
-            "id_seller": 1,
-            "brand": "Apple",
-            "image": "/assets/products/notebook.jpg",
-            "category": "Electronica"
-          },
-          "quantity": 2
-        },
-        {
-          "product": {
-            "id": "1",
-            "name": "Auriculares Bluetooth",
-            "description": "Auriculares inalámbricos con cancelación de ruido.",
-            "price": 25000,
-            "id_seller": 2,
-            "brand": "Sony",
-            "image": "/assets/products/auriculares.jpg",
-            "category": "Electronica"
-          },
-          "quantity": 2
-        }
-      ],
-      "totalAmount": 1950000
-    },
-    {
-      "id": "65f4",
-      "id_buyer": "3409",
-      "id_sellers": [
-        1,
-        2
-      ],
-      "date": "2025-11-27T14:59:50.678Z",
-      "items": [
-        {
-          "product": {
-            "id": "2",
-            "name": "Macbook Pro",
-            "description": "Laptop gamer con RTX 4060 y 16GB de RAM.",
-            "price": 950000,
-            "id_seller": 1,
-            "brand": "Apple",
-            "image": "/assets/products/notebook.jpg",
-            "category": "Electronica"
-          },
-          "quantity": 2
-        },
-        {
-          "product": {
-            "id": "1",
-            "name": "Auriculares Bluetooth",
-            "description": "Auriculares inalámbricos con cancelación de ruido.",
-            "price": 25000,
-            "id_seller": 2,
-            "brand": "Sony",
-            "image": "/assets/products/auriculares.jpg",
-            "category": "Electronica"
-          },
-          "quantity": 2
-        }
-      ],
-      "totalAmount": 1950000
-    },
-    {
-      "id": "eead",
-      "id_buyer": "3409",
-      "id_sellers": [
-        1
-      ],
-      "date": "2025-11-27T15:11:43.408Z",
-      "items": [
-        {
-          "product": {
-            "id": "3",
-            "name": "Mouse Inalámbrico",
-            "description": "Mouse ergonómico ideal para trabajar todo el día.",
-            "price": 12000,
-            "id_seller": 1,
-            "brand": "Logitech",
-            "image": "/assets/products/mouse.jpg",
-            "category": "Electronica"
-          },
-          "quantity": 1
-        }
-      ],
-      "totalAmount": 12000
-    },
-    {
-      "id": "978b",
-      "id_buyer": "3409",
-      "id_sellers": [
-        1
-      ],
-      "date": "2025-11-27T15:11:43.408Z",
-      "items": [
-        {
-          "product": {
-            "id": "3",
-            "name": "Mouse Inalámbrico",
-            "description": "Mouse ergonómico ideal para trabajar todo el día.",
-            "price": 12000,
-            "id_seller": 1,
-            "brand": "Logitech",
-            "image": "/assets/products/mouse.jpg",
-            "category": "Electronica"
-          },
-          "quantity": 1
-        }
-      ],
-      "totalAmount": 12000
-    },
-    {
-      "id": "f78f",
-      "id_buyer": "3409",
-      "id_sellers": [
-        1
-      ],
-      "date": "2025-11-27T15:12:18.682Z",
+      "date": "2025-11-27T15:51:18.720Z",
       "items": [
         {
           "productId": "3",
@@ -617,12 +323,12 @@
       "totalAmount": 12000
     },
     {
-      "id": "cc94",
-      "id_buyer": "3409",
+      "id": "e1c7",
+      "id_buyer": "1",
       "id_sellers": [
         1
       ],
-      "date": "2025-11-27T15:17:56.879Z",
+      "date": "2025-11-27T15:51:38.974Z",
       "items": [
         {
           "productId": "2",
@@ -633,84 +339,25 @@
       "totalAmount": 950000
     },
     {
-      "id": "189c",
-      "id_buyer": "3409",
-      "id_sellers": [
-        2
-      ],
-      "date": "2025-11-27T15:31:01.170Z",
-      "items": [
-        {
-          "productId": "1",
-          "quantity": 1,
-          "price": 25000
-        }
-      ],
-      "totalAmount": 25000
-    },
-    {
-      "id": "4bb1",
-      "id_buyer": "3409",
+      "id": "ffee",
+      "id_buyer": "1",
       "id_sellers": [
         1
       ],
-      "date": "2025-11-27T15:31:27.721Z",
+      "date": "2025-11-27T15:52:17.308Z",
       "items": [
         {
           "productId": "2",
           "quantity": 1,
           "price": 950000
-        }
-      ],
-      "totalAmount": 950000
-    },
-    {
-      "id": "bc18",
-      "id_buyer": "3409",
-      "id_sellers": [
-        2
-      ],
-      "date": "2025-11-27T15:33:15.878Z",
-      "items": [
-        {
-          "productId": "1",
-          "quantity": 1,
-          "price": 25000
-        }
-      ],
-      "totalAmount": 25000
-    },
-    {
-      "id": "7d02",
-      "id_buyer": "1",
-      "id_sellers": [
-        1
-      ],
-      "date": "2025-11-27T15:38:10.183Z",
-      "items": [
+        },
         {
           "productId": "3",
           "quantity": 1,
           "price": 12000
         }
       ],
-      "totalAmount": 12000
-    },
-    {
-      "id": "2f31",
-      "id_buyer": "1",
-      "id_sellers": [
-        1
-      ],
-      "date": "2025-11-27T15:39:26.380Z",
-      "items": [
-        {
-          "productId": "3",
-          "quantity": 1,
-          "price": 12000
-        }
-      ],
-      "totalAmount": 12000
+      "totalAmount": 962000
     }
   ]
 }

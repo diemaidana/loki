@@ -170,7 +170,59 @@
                 </p-table>
             </p-tabpanel>
             <p-tabpanel value="3">
-
+                <p-table [value]="myOffers()" [tableStyle]="{ 'min-width': '60rem' }">
+                    <ng-template #header>
+                        <tr>
+                            <th>Date</th>
+                            <th>Producto</th>
+                            <th>Estado</th>
+                            <th>Precio ofertado</th>
+                            <th>Aceptar</th>
+                            <th>Ofertar</th>
+                            <th>Rechazar</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-offer>
+                        <tr>
+                            <td>{{ offer.date| date:'dd/MM/yyyy' }}</td>
+                            <td>
+                                {{ offer.productName }}
+                            </td>
+                            <td>
+                                {{ offer.status }}
+                            </td>
+                            <td class="price-offer">
+                                ${{ offer.amount }}
+                            </td>
+                            <td>
+                                <p-button icon="pi pi-check" [rounded]="true" [text]="true" severity="success" (click)="acceptOffer(offer)"/>
+                            </td>
+                            <td>
+                                <p-button icon="pi pi-pen-to-square" [rounded]="true" [text]="true" severity="info" (click)="showEditDialog(offer)"/>
+                                <p-dialog header="Actualizar oferta" [modal]="true" [(visible)]="editOfferDialog" [style]="{ width: '25rem' }" >
+                                    <p-floatlabel variant="in">
+                                        <div class="dialog">
+                                            <p-inputnumber #priceOffer inputId="currency-us" mode="currency" currency="ARS" locale="es-AR" />
+                                            <label for="username" class="">Precio nuevo</label>
+                                            <div class="action-btns">
+                                                <p-button label="Cancelar" [text]="true" severity="secondary" (click)="editOfferDialog = false" />
+                                                <p-button label="Enviar nueva oferta" (click)="editOffer(offer, $any(priceOffer.value))" />
+                                            </div>
+                                        </div>
+                                    </p-floatlabel>
+                                </p-dialog>
+                            </td>
+                            <td>
+                                <p-button icon="pi pi-times" [rounded]="true" [text]="true" severity="danger" (click)="rejectOffer(offer)"/>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template #footer>
+                        <tr>
+                            <td colspan="6">Cantidad total de ventas: {{ mySales().length }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
             </p-tabpanel>
             <p-tabpanel value="4">
 

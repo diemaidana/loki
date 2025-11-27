@@ -21,6 +21,9 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { AuthService } from '../../auth/service/auth-service';
 import { Checkout } from '../../model/checkout';
 import { CheckoutService } from '../../service/checkoutService';
+import { Offer } from '../../model/offer';
+import { OfferService } from '../../service/offer-service';
+import { DialogModule } from "primeng/dialog";
 
 
 
@@ -40,8 +43,9 @@ import { CheckoutService } from '../../service/checkoutService';
     InputTextModule,
     TextareaModule,
     InputNumberModule,
-    DatePipe
-  ],
+    DatePipe,
+    DialogModule
+],
   providers: [MessageService, ConfirmationService],
   templateUrl: './seller-dash.html',
   styleUrl: './seller-dash.css',
@@ -50,12 +54,13 @@ export class SellerDash implements OnInit{
 
   private productService = inject(ProductService);
   private checkoutService = inject(CheckoutService);
+  private offerService = inject(OfferService);
   private readonly authService = inject(AuthService);
   protected currentUser = toSignal(this.authService.userState$);
 
   protected products = signal<Product[]>([]);
   protected purchases = signal<Checkout[]>([]);
-protected mySales = computed(() => {
+  protected mySales = computed(() => {
     const sellerId = this.currentUser()?.id;
     
     if (!sellerId || !this.purchases().length) return [];
@@ -78,6 +83,8 @@ protected mySales = computed(() => {
       .filter(order => order !== null) as Checkout[]; 
   });
 
+  protected myOffers = signal<Offer[]>([]);
+
   @Input() protected readonly product?:Product;
 
   private formBuilder = inject(FormBuilder);
@@ -96,6 +103,8 @@ protected mySales = computed(() => {
   activeTab = signal<string>('0');
   isEditing = signal<boolean>(false);
   editingProductId: string | number | null = null;
+
+  protected editOfferDialog = false;
 
   get name() {
     return this.productForm.controls.name;
@@ -133,6 +142,10 @@ protected mySales = computed(() => {
     this.checkoutService.getPurchases().subscribe((data) => {
       this.purchases.set(data);
     })
+
+    this.offerService.getOffersBySeller(this.currentUser()?.id!).subscribe((data) => {
+      this.myOffers.set(data);
+    });
   }
 
   saveProduct(){
@@ -241,4 +254,47 @@ protected mySales = computed(() => {
     })
   }
 
+  private updateOffer(offer: Offer) {
+    if(offer.status === 'aceptada'){
+      this.messageService.add({ severity: 'success', summary: 'Confirmado', detail: 'Oferta aceptada con éxito' });
+      this.offerService.updateOfferStatus(offer.id!, offer.status);
+
+      this.myOffers.update(currentList => 
+        currentList.map(o => o.id === offer.id ? { ...o, status: 'aceptada' } : o)
+      );
+    }else if (offer.status === 'pendiente'){
+      this.messageService.add({ severity: 'success', summary: 'Confirmado', detail: 'Contra-Oferta enviada con éxito' });
+      this.offerService.updateOffer(offer);
+      
+      this.myOffers.update(currentList => 
+        currentList.map(o => o.id === offer.id ? offer : o)
+      );
+    }else {
+      this.messageService.add({ severity: 'success', summary: 'Confirmado', detail: 'Oferta rechazada con éxito' });
+      this.offerService.updateOfferStatus(offer.id!, offer.status);
+
+      this.myOffers.update(currentList => 
+        currentList.map(o => o.id === offer.id ? { ...o, status: 'rechazada' } : o)
+      );
+    }
+  }
+
+  acceptOffer(offer: Offer){
+    offer.status = 'aceptada';
+    this.updateOffer(offer);
+  }
+
+  editOffer(offer: Offer, priceOffer: number){
+    offer.amount = priceOffer;
+    this.updateOffer(offer);
+  }
+
+  rejectOffer(offer: Offer){
+    offer.status = 'rechazada'
+    this.updateOffer(offer);
+  }
+
+  showEditDialog(offer: Offer) {
+    this.editOfferDialog = true;
+  }
 }

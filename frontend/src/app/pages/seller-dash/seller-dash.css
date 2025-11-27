@@ -31,3 +31,18 @@
     flex-direction: column;
     height: fit-content;
 }
+
+.price-offer {
+    font-weight: 700;
+}
+
+.dialog {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.action-btns {
+    display: flex;
+    justify-content: center;
+}

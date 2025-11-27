@@ -1,0 +1,63 @@
+<div class="card">
+    <p-table [value]="cartService.items()" [tableStyle]="{ 'min-width': '60rem' }">
+        <ng-template #caption>
+            <div class="flex items-center justify-between">
+                <span class="text-xl font-bold">Productos</span>
+            </div>
+        </ng-template>
+        <ng-template #header>
+            <tr>
+                <th>Nombre</th>
+                <th>Imagen</th>
+                <th>Precio</th>
+                <th>Categoria</th>
+                <th>Cantidad</th>
+                <th>Eliminar</th>
+                <th colspan="5">Precio Total</th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-product>
+            <tr>
+                <td>{{ product.product.name }}</td>
+                <td>
+                    <p-image [src]="product.product.image" alt="Image" width="100" height="100" style="object-fit: cover;" />
+                </td>
+                <td>{{ product.product.category }}</td>
+                <td>{{ product.product.price | currency: 'ARS' }}</td>
+                <td>
+                    <p-inputnumber [(ngModel)]="product.quantity" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="1" [min]="1" (ngModelChange)="updateQty(product.product.id, product.quantity)" [inputSize]="1">
+                        <ng-template #incrementbuttonicon>
+                            <span class="pi pi-plus"></span>
+                        </ng-template>
+                        <ng-template #decrementbuttonicon>
+                            <span class="pi pi-minus"></span>
+                        </ng-template>
+                    </p-inputnumber>
+                </td>
+                <td><button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="removeItem(product.product.id)"></button></td>
+                <td colspan="5">{{ (product.product.price * product.quantity) | currency: 'ARS' }}</td>
+
+            </tr>
+        </ng-template>
+        <ng-template #footer>
+            <tr>
+                @if (cartService.items().length >= 1) {
+                    <td colspan="6">Cantidad de productos {{ cartService.items().length }}.</td>
+                    <td colspan="3">Total: {{ cartService.totalAmount() | currency: 'ARS' }}</td>
+                    <td>
+                        <p-toast />
+                        <p-confirmdialog />
+                        <p-button label="Pagar" icon="pi pi-wallet" class="w-full" (onClick)="proceedToPayment($event)"/>
+                    </td>
+                }
+                @else {
+                    <td colspan="6">No hay productos en el carrito.</td>
+                    <td colspan="3">Total: {{ 0 | currency: 'ARS' }}</td>
+                    <td>
+                        <p-button label="Pagar" icon="pi pi-wallet" class="w-full" disabled=""/>
+                    </td>
+                }
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

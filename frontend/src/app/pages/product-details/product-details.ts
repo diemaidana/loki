@@ -8,6 +8,7 @@ import { ImageModule } from 'primeng/image';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { CartService } from '../../service/cart-service';
 
 @Component({
   selector: 'app-product-details',
@@ -25,6 +26,7 @@ export class ProductDetails {
   private readonly productService = inject(ProductService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
+  private readonly cartService = inject(CartService);
 
   private readonly id = this.route.snapshot.paramMap.get('id');
 
@@ -53,15 +55,7 @@ export class ProductDetails {
       return;
     }
 
-    this.productService.generateMercadoPagoLink(productData.id!).subscribe({
-      next: (checkoutUrl) => {
-        alert('Redirigiendo a Mercado Pago...');
-        window.location.href = checkoutUrl;
-      },
-      error: (err) => {
-        console.error('Error al generar el link de pago:', err);
-        alert('Error: No se pudo generar el link de pago. Intente de nuevo más tarde.');
-      }
-    });
+    this.cartService.addToCart(productData);
+    this.router.navigateByUrl('/');
   }
 }

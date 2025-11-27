@@ -6,6 +6,7 @@ import { ListProducts } from './pages/list-products/list-products';
 import { ProductDetails } from './pages/product-details/product-details';
 import { authGuardGuard } from './auth/guards/auth-guard-guard';
 import { UserProfile } from './pages/user-profile/user-profile';
+import { SellerDash } from './pages/seller-dash/seller-dash';
 import { Cart } from './pages/cart/cart';
 
 export const routes: Routes = [
@@ -15,7 +16,7 @@ export const routes: Routes = [
     {path: 'list-products', component: ListProducts},
     {path: 'product-detail/:id', component: ProductDetails},
     {path: 'profile/:id', component: UserProfile, canActivate: [authGuardGuard], title:"Mi Perfil"},
-    {path: ':id/dashboard', component: ListProducts, canActivate: [authGuardGuard], title:"Mis ofertas"},
+    {path: ':id/seller-dash', component: SellerDash, canActivate: [authGuardGuard], title: "Dashboard"},
     {path: ':id/cart', component: Cart, canActivate: [authGuardGuard], title:"Carrito"},
     {path: '**', redirectTo: ''}
 ];

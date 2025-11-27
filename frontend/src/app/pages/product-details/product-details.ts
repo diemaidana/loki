@@ -130,11 +130,12 @@ export class ProductDetails {
 
     const newOffer: Offer = {
         productId: p.id!,        
-        userId: buyer.id!,      
+        userId: buyer.id!,
+        productName: p.name,      
         sellerId: sellerId,     
         amount: amount,         
         date: new Date().toISOString(),
-        status: 'pending'       
+        status: 'pendiente'       
     };
 
     this.offerService.createOffer(newOffer).subscribe({

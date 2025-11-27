@@ -12,15 +12,14 @@
       "nationality": "Argentina"
     },
     {
-      "id": "2",
-      "username": "loki_seller",
       "email": "seller@mail.com",
+      "fullName": "Vendedor Loki",
       "password": "abcdef",
-      "fullname": "Loki Seller",
-      "dni": "38999888",
-      "phonenumber": "+54 11 4444 5555",
+      "DNI": "",
+      "phoneNumber": "",
       "address": "Calle Falsa 123, Buenos Aires",
-      "nationality": "Argentina"
+      "nationality": "Argentina",
+      "id": "2"
     },
     {
       "username": "Juan Carlos",
@@ -105,14 +104,14 @@
   ],
   "products": [
     {
-      "id": "1",
       "name": "Auriculares Bluetooth",
-      "description": "Auriculares inalámbricos con cancelación de ruido.",
-      "price": 25000,
-      "id_seller": 2,
       "brand": "Sony",
+      "description": "Auriculares inalámbricos con cancelación de ruido.",
+      "category": "Electronica",
       "image": "/assets/products/auriculares.jpg",
-      "category": "Electronica"
+      "price": 25000,
+      "id": "1",
+      "id_seller": "2"
     },
     {
       "id": "2",
@@ -303,61 +302,61 @@
       "brand": "Nike",
       "image": "/assets/products/zapatillas.jpg",
       "category": "Indumentaria"
+    },
+    {
+      "id": "ccfa",
+      "name": "USB",
+      "brand": "HyperX",
+      "description": "USB de 64gb",
+      "category": "Electronica",
+      "image": "https://images.unsplash.com/photo-1551818014-7c8ace9c1b5c?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "price": 12000,
+      "id_seller": "2"
     }
   ],
   "purchases": [
     {
-      "id": "f355",
-      "id_buyer": "1",
-      "id_sellers": [
-        1
-      ],
-      "date": "2025-11-27T15:51:18.720Z",
-      "items": [
-        {
-          "productId": "3",
-          "quantity": 1,
-          "price": 12000
-        }
-      ],
-      "totalAmount": 12000
-    },
-    {
-      "id": "e1c7",
-      "id_buyer": "1",
-      "id_sellers": [
-        1
-      ],
-      "date": "2025-11-27T15:51:38.974Z",
+      "id": "00f7",
+      "id_buyer": "6a0d",
+      "date": "2025-11-27T17:57:21.831Z",
       "items": [
         {
           "productId": "2",
           "quantity": 1,
-          "price": 950000
-        }
-      ],
-      "totalAmount": 950000
-    },
-    {
-      "id": "ffee",
-      "id_buyer": "1",
-      "id_sellers": [
-        1
-      ],
-      "date": "2025-11-27T15:52:17.308Z",
-      "items": [
-        {
-          "productId": "2",
-          "quantity": 1,
-          "price": 950000
+          "price": 950000,
+          "idSeller": 1,
+          "productName": "Macbook Pro"
         },
         {
-          "productId": "3",
+          "productId": "15",
           "quantity": 1,
-          "price": 12000
+          "price": 650000,
+          "idSeller": 1,
+          "productName": "Heladera No Frost"
+        },
+        {
+          "productId": "7",
+          "quantity": 1,
+          "price": 45000,
+          "idSeller": 1,
+          "productName": "Smartwatch"
+        },
+        {
+          "productId": "1",
+          "quantity": 1,
+          "price": 25000,
+          "idSeller": "2",
+          "productName": "Auriculares Bluetooth"
+        },
+        {
+          "productId": "5",
+          "quantity": 1,
+          "price": 200000,
+          "idSeller": 1,
+          "productName": "Monitor 27''"
         }
       ],
-      "totalAmount": 962000
+      "totalAmount": 1870000
     }
   ],
   "offers": [

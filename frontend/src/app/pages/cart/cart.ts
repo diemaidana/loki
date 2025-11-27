@@ -110,12 +110,9 @@ export class Cart {
     if (!this.currentUser) return;
 
     const checkoutItems = this.getCartItemsForCheckout(); 
-    
-    const sellersSet = this.getSellerIds();
 
     const newOrder: Checkout = {
         id_buyer: this.currentUser.id!,
-        id_sellers: Array.from(sellersSet),
         date: new Date().toISOString(),
         items: checkoutItems,
         totalAmount: this.cartService.totalAmount(), 
@@ -167,11 +164,14 @@ export class Cart {
         return {
             productId: (item.product as any).id, 
             quantity: item.quantity,
-            price: item.product.price
+            price: item.product.price,
+            idSeller: item.product.id_seller!,
+            productName: item.product.name
         };
     });
   }
 
+  /*
   private getSellerIds(): (string | number)[] {
     const items = this.cartService.items();
     const sellersSet = new Set<string | number>();
@@ -181,4 +181,5 @@ export class Cart {
     });
     return Array.from(sellersSet);
   }
+  */
 }

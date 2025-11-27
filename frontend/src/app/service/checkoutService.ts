@@ -16,8 +16,15 @@ export class CheckoutService {
     return this.http.post<Checkout>(this.apiUrl, checkout );
   }
 
-  /* Obtener el historial de compras de un comprador específico */
-  getPurchasesById(id: string | number): Observable<Checkout[]> {
-    return this.http.get<Checkout[]>(`${this.apiUrl}/${id}`);
+  getPurchases() {
+    return this.http.get<Checkout[]>(this.apiUrl);
   }
+
+  /* Obtener el historial de compras de un comprador específico */
+  /*getPurchasesBySellerId(id: string | number): Observable<Checkout[]> {
+    return this.getPurchases().subscribe((data) => {
+      data.filter(p => p.id_sellers.find( s => s === id));
+    })
+  }
+    */
 }

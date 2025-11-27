@@ -1,0 +1,48 @@
+.form-container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+
+.card-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+}
+
+.input-label {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+}
+
+.error-msg {
+    position: absolute;
+    bottom: -20px;
+    left: 0; 
+}
+
+.products-name {
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+}
+
+.price-offer {
+    font-weight: 700;
+}
+
+.dialog {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.action-btns {
+    display: flex;
+    justify-content: center;
+}

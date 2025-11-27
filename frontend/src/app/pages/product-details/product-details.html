@@ -8,18 +8,18 @@
         <p>{{ product()?.description }}</p>
         <p class="price">{{ product()?.price | currency: 'ARS'}}</p>
         <div class="btns-container">
-            <p-button label="Ofertar" severity="warn" icon="pi pi-dollar" (click)="changeOffer()" />
-                <p-dialog header="Realizar oferta" [modal]="true" [(visible)]="dialogVisible" [style]="{ width: '25rem' }" styleClass="dialog-container">
+            <p-button label="Ofertar" severity="warn" icon="pi pi-dollar" (click)="openOfferDialog()" />
+                <p-dialog header="Realizar oferta" [modal]="true" [(visible)]="showOfferDialog" [style]="{ width: '25rem' }" styleClass="dialog-container">
                     <div class="dialog-container">
                         <label for="price">Ingresar precio</label>
-                        <p-inputnumber placeholder="100" inputId="price" mode="currency" currency="ARS" locale="es-AR"   />
+                        <p-inputnumber (placeholder)="offerAmount()" inputId="price" mode="currency" currency="ARS" locale="es-AR"   />
                     </div>
                     <div class="btn-actions">
                         <p-button label="Cancelar" severity="secondary" (click)="changeOffer()" />
-                        <p-button label="Ofertar" (click)="offer()" />
+                        <p-button label="Ofertar" (click)="submitOffer()" />
                     </div>
                 </p-dialog>
-            <p-button label="Agregar al carrito" icon="pi pi-cart-plus" (click)="buy()" />
+            <p-button label="Agregar al carrito" icon="pi pi-cart-plus" (click)="addToCart()" />
         </div>
     </div>
 </div>

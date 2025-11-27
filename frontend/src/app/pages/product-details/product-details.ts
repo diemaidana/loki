@@ -9,6 +9,11 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { CartService } from '../../service/cart-service';
+import { Offer } from '../../model/offer';
+import { MessageService } from 'primeng/api';
+import { OfferService } from '../../service/offer-service';
+import { AuthService } from '../../auth/service/auth-service';
+import { User } from '../../model/user';
 
 @Component({
   selector: 'app-product-details',
@@ -26,36 +31,125 @@ export class ProductDetails {
   private readonly productService = inject(ProductService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
+  private readonly messageService = inject(MessageService);
   private readonly cartService = inject(CartService);
+  private readonly offerService = inject(OfferService);
+  private readonly authService = inject(AuthService);
 
   private readonly id = this.route.snapshot.paramMap.get('id');
 
-  protected product = toSignal(this.productService.getProductsById(this.id!));
+  // Datos del producto (Signal)
+  protected product = toSignal(this.productService.getProductsById(this.id!), { initialValue: null });
+  
+  // Usuario actual (Comprador)
+  protected currentUser: User | null = null;
+  
+  // Estado del Modal de Oferta
+  protected showOfferDialog = signal(false);
+  protected offerAmount = signal<number | null>(null);
+  protected isSubmittingOffer = signal(false);
 
-  protected showOfferInput = signal(false);
-  protected minAmount = 0;
-
-  protected dialogVisible: boolean = false;
-
-  changeOffer() {
-    this.dialogVisible = !this.dialogVisible;
+  ngOnInit() {
+    this.authService.userState$.subscribe(user => this.currentUser = user);
   }
 
-  offer() {
-    alert("La oferta por el producto: "+this.product()?.name! + " se realizo con exito");
-    this.router.navigateByUrl("/");
-    this.dialogVisible = false;
-  }
-
-  buy(){
-    const productData = this.product();
-    
-    if (!productData) {
-      alert('Error: El producto no está cargado.');
-      return;
+  // --- Lógica del Carrito ---
+  
+  addToCart() {
+    const p = this.product();
+    if (!p) {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Producto no disponible.' });
+        return;
     }
 
-    this.cartService.addToCart(productData);
-    this.router.navigateByUrl('/');
+    this.cartService.addToCart(p);
+    this.messageService.add({ severity: 'success', summary: 'Agregado', detail: 'Producto agregado al carrito' });
+    
+    // Una vez agregado al carrito, redirigir al listado de productos
+    setTimeout(() => this.router.navigate(['/list-products']), 500);
+  }
+
+  // --- Lógica de Ofertas ---
+
+  openOfferDialog() {
+    // Validamos que este logeado.
+    if (!this.currentUser) {
+        this.messageService.add({ severity: 'warn', summary: 'Atención', detail: 'Debes iniciar sesión para ofertar.' });
+
+        const currentUrl = this.router.url;
+        setTimeout(() => this.router.navigate(['/sign-in'], { queryParams: { returnUrl: currentUrl } }), 1000);
+        return;
+    }
+    
+    const p = this.product();
+    if (!p) return;
+
+    // 2. Sugerir precio (10% de descuento)
+    this.offerAmount.set(p.price * 0.9); 
+    this.showOfferDialog.set(true);
+  }
+
+  changeOffer() {
+    this.showOfferDialog.set(false);
+    this.offerAmount.set(null);
+    this.messageService.add({ severity: 'info', summary: 'Cancelado', detail: 'La oferta ha sido cancelada.' });
+  }
+
+  submitOffer() {
+    const p = this.product();
+    const amount = this.offerAmount();
+    const buyer = this.currentUser;
+
+    // Validaciones de formulario
+    if (!p || !buyer || !amount) return;
+
+    if (amount <= 0) {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'El monto debe ser mayor a 0.' });
+        return;
+    }
+
+    if (amount >= p.price) {
+         this.messageService.add({ severity: 'info', summary: 'Consejo', detail: 'Puedes comprar directamente si ofreces el precio total.' });
+    }
+
+    this.isSubmittingOffer.set(true);
+
+    // 3. Obtener ID del Vendedor (Requerido por el nuevo modelo)
+    // Usamos 'as any' temporalmente si la interfaz Product no tiene 'id_seller' explícito
+    const sellerId = (p as any).id_seller;
+
+    if (!sellerId) {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Este producto no tiene un vendedor asignado.' });
+        this.isSubmittingOffer.set(false);
+        return;
+    }
+
+    // Construir el objeto Offer
+    const newOffer: Offer = {
+        productId: p.id!,        
+        userId: buyer.id!,      
+        sellerId: sellerId,     
+        amount: amount,         
+        date: new Date().toISOString(),
+        status: 'pending'       
+    };
+
+    // 5. Llamar al Servicio (Solo hace el POST)
+    this.offerService.createOffer(newOffer).subscribe({
+        next: () => {
+            this.messageService.add({ 
+                severity: 'success', 
+                summary: 'Oferta Enviada', 
+                detail: `Has ofertado $${amount}. El vendedor será notificado.` 
+            });
+            this.isSubmittingOffer.set(false);
+            this.showOfferDialog.set(false); // Cerrar modal
+        },
+        error: (err) => {
+            console.error('Error creando oferta:', err);
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo enviar la oferta. Intente más tarde.' });
+            this.isSubmittingOffer.set(false);
+        }
+    });
   }
 }

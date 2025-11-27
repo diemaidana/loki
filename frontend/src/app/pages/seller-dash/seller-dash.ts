@@ -1,7 +1,7 @@
-import { Component, effect, inject, Input, OnInit, signal, untracked } from '@angular/core';
+import { Component, computed, effect, inject, Input, OnInit, signal, untracked } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { filter, switchMap } from 'rxjs/operators';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import { Product } from '../../model/product';
 
@@ -19,6 +19,8 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { TextareaModule } from 'primeng/textarea';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { AuthService } from '../../auth/service/auth-service';
+import { Checkout } from '../../model/checkout';
+import { CheckoutService } from '../../service/checkoutService';
 
 
 
@@ -37,7 +39,8 @@ import { AuthService } from '../../auth/service/auth-service';
     MessageModule,
     InputTextModule,
     TextareaModule,
-    InputNumberModule
+    InputNumberModule,
+    DatePipe
   ],
   providers: [MessageService, ConfirmationService],
   templateUrl: './seller-dash.html',
@@ -46,10 +49,34 @@ import { AuthService } from '../../auth/service/auth-service';
 export class SellerDash implements OnInit{
 
   private productService = inject(ProductService);
+  private checkoutService = inject(CheckoutService);
   private readonly authService = inject(AuthService);
   protected currentUser = toSignal(this.authService.userState$);
 
   protected products = signal<Product[]>([]);
+  protected purchases = signal<Checkout[]>([]);
+protected mySales = computed(() => {
+    const sellerId = this.currentUser()?.id;
+    
+    if (!sellerId || !this.purchases().length) return [];
+
+    return this.purchases()
+      .map(order => {
+
+        const myItems = order.items.filter(item => item.idSeller == sellerId);
+
+        if (myItems.length === 0) return null;
+
+        const myTotal = myItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+
+        return {
+          ...order,
+          items: myItems,
+          totalAmount: myTotal
+        };
+      })
+      .filter(order => order !== null) as Checkout[]; 
+  });
 
   @Input() protected readonly product?:Product;
 
@@ -101,6 +128,10 @@ export class SellerDash implements OnInit{
   ngOnInit(): void {
     this.productService.getProductsBySellerId(this.currentUser()?.id!).subscribe((data) => {
       this.products.set(data);
+    })
+
+    this.checkoutService.getPurchases().subscribe((data) => {
+      this.purchases.set(data);
     })
   }
 

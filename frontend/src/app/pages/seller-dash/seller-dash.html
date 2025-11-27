@@ -134,7 +134,40 @@
                 </div>
             </p-tabpanel>
             <p-tabpanel value="2">
+                <p-table [value]="mySales()" [tableStyle]="{ 'min-width': '60rem' }">
+                    <ng-template #header>
+                        <tr>
 
+                            <th>Date</th>
+                            <th>Cantidad</th>
+                            <th>Producto</th>
+                            <th>Precio final</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-purchase>
+                        <tr>
+                            <td>{{ purchase.date| date:'dd/MM/yyyy' }}</td>
+                            <td>
+                                {{ purchase.items.length }}
+                            </td>
+                            <td>
+                                    @for(p of purchase.items; track $index) {
+                                        <div class="products-name">
+                                            {{ p.productName }}
+                                        </div>
+                                    }
+                            </td>
+                            <td>
+                                ${{ purchase.totalAmount }}
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template #footer>
+                        <tr>
+                            <td colspan="6">Cantidad total de ventas: {{ mySales().length }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
             </p-tabpanel>
             <p-tabpanel value="3">
 

@@ -17,6 +17,6 @@ export const routes: Routes = [
     {path: 'product-detail/:id', component: ProductDetails},
     {path: 'profile/:id', component: UserProfile, canActivate: [authGuardGuard], title:"Mi Perfil"},
     {path: ':id/seller-dash', component: SellerDash, canActivate: [authGuardGuard], title: "Dashboard"},
-    {path: ':id/cart', component: Cart, canActivate: [authGuardGuard], title:"Carrito de Compras"},
+    {path: ':id/cart', component: Cart, canActivate: [authGuardGuard], title:"Carrito"},
     {path: '**', redirectTo: ''}
 ];

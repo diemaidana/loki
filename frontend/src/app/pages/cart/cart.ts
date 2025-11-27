@@ -110,7 +110,7 @@ export class Cart {
     if (!this.currentUser) return;
 
     const checkoutItems = this.getCartItemsForCheckout(); 
-
+    const sellerIds = this.getSellerIds();
     const newOrder: Checkout = {
         id_buyer: this.currentUser.id!,
         date: new Date().toISOString(),
@@ -119,15 +119,21 @@ export class Cart {
     };
 
     this.checkoutService.savePurchase(newOrder).subscribe({
-        next: (savedOrder) => {
-            const buyerName = this.currentUser?.username || 'Un comprador';
+        next: () => {
+            this.cartService.items().forEach(cartItem => {
+                const product = cartItem.product;
+                const sellerId = (product as any).id_seller;
 
-            sellersSet.forEach(sellerId => {
-                this.notificationService.notifySellerOfPurchase(
-                    sellerId, 
-                    buyerName, 
-                    savedOrder.id!
-                ).subscribe(); // No esperamos respuesta, es "fire and forget"
+                if (sellerId) {
+                    this.notificationService.notifySellerOfPurchase(
+                        sellerId,               // Vendedor
+                        this.currentUser!.id!,  // Comprador (Sender)
+                        product.name,           // Nombre del Producto
+                        product.id!              // ID del Producto
+                    ).subscribe({
+                        error: (e) => console.error(`Fallo al notificar venta de ${product.name}`, e)
+                    });
+                }
             });
             this.messageService.add({ 
                 severity: 'success', 
@@ -156,9 +162,6 @@ export class Cart {
 
   // --- Métodos Auxiliares ---
 
-  /** * Transforma items complejos del carrito a objetos simples {productId, quantity, price} 
-   * para guardar en la base de datos.
-   */
   private getCartItemsForCheckout(): CheckoutItemDetail[] {
     return this.cartService.items().map(item => {
         return {
@@ -171,7 +174,6 @@ export class Cart {
     });
   }
 
-  /*
   private getSellerIds(): (string | number)[] {
     const items = this.cartService.items();
     const sellersSet = new Set<string | number>();
@@ -181,5 +183,5 @@ export class Cart {
     });
     return Array.from(sellersSet);
   }
-  */
+
 }

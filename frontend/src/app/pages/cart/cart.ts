@@ -20,6 +20,7 @@ import { AuthService } from '../../auth/service/auth-service';
 import { User } from '../../model/user';
 import { Checkout } from '../../model/checkout';
 import { CheckoutItemDetail } from '../../model/check-out-item-detail';
+import { NotificationService } from '../../service/notification-service';
 
 
 @Component({
@@ -45,7 +46,7 @@ export class Cart {
   public readonly cartService = inject(CartService);
   private confirmationService = inject(ConfirmationService);
   private messageService = inject(MessageService);
-
+  private notificationService = inject(NotificationService);
   private readonly checkoutService = inject(CheckoutService);
 
   private readonly authService = inject(AuthService);
@@ -121,7 +122,16 @@ export class Cart {
     };
 
     this.checkoutService.savePurchase(newOrder).subscribe({
-        next: () => {
+        next: (savedOrder) => {
+            const buyerName = this.currentUser?.username || 'Un comprador';
+
+            sellersSet.forEach(sellerId => {
+                this.notificationService.notifySellerOfPurchase(
+                    sellerId, 
+                    buyerName, 
+                    savedOrder.id!
+                ).subscribe(); // No esperamos respuesta, es "fire and forget"
+            });
             this.messageService.add({ 
                 severity: 'success', 
                 summary: '¡Pago Exitoso!', 

@@ -1,3 +1,5 @@
+<p-toast position="top-right"/>
+<p-confirmdialog />
 <div class="product-container container">
     <div class="img-container">
         <p-image src="{{ product()?.image }}" alt="{{ product()?.name }}" width="500" [preview]="true" />
@@ -11,8 +13,9 @@
             <p-button label="Ofertar" severity="warn" icon="pi pi-dollar" (click)="openOfferDialog()" />
                 <p-dialog header="Realizar oferta" [modal]="true" [(visible)]="showOfferDialog" [style]="{ width: '25rem' }" styleClass="dialog-container">
                     <div class="dialog-container">
+
                         <label for="price">Ingresar precio</label>
-                        <p-inputnumber (placeholder)="offerAmount()" inputId="price" mode="currency" currency="ARS" locale="es-AR"   />
+                        <p-inputnumber [ngModel]="offerAmount()" (ngModelChange)="offerAmount.set($event)" inputId="price" mode="currency" currency="ARS" locale="es-AR"   />
                     </div>
                     <div class="btn-actions">
                         <p-button label="Cancelar" severity="secondary" (click)="changeOffer()" />

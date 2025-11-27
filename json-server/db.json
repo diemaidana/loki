@@ -360,5 +360,114 @@
       "totalAmount": 962000
     }
   ],
-  "offers": []
+  "offers": [
+    {
+      "id": "239d",
+      "productId": "2",
+      "userId": "3409",
+      "sellerId": 1,
+      "amount": 855000,
+      "date": "2025-11-27T16:55:03.640Z",
+      "status": "pending"
+    },
+    {
+      "id": "1295",
+      "productId": "2",
+      "userId": "3409",
+      "sellerId": 1,
+      "amount": 855000,
+      "date": "2025-11-27T18:14:18.332Z",
+      "status": "pending"
+    },
+    {
+      "id": "7dc4",
+      "productId": "4",
+      "userId": "3409",
+      "sellerId": 2,
+      "amount": 27000,
+      "date": "2025-11-27T18:14:49.292Z",
+      "status": "pending"
+    },
+    {
+      "id": "eedd",
+      "productId": "5",
+      "userId": "3409",
+      "sellerId": 1,
+      "amount": 180000,
+      "date": "2025-11-27T18:15:01.294Z",
+      "status": "pending"
+    },
+    {
+      "id": "d57f",
+      "productId": "5",
+      "userId": "3409",
+      "sellerId": 1,
+      "amount": 180000,
+      "date": "2025-11-27T18:16:11.449Z",
+      "status": "pending"
+    },
+    {
+      "id": "cf7c",
+      "productId": "5",
+      "userId": "3409",
+      "sellerId": 1,
+      "amount": 2,
+      "date": "2025-11-27T18:21:00.532Z",
+      "status": "pending"
+    },
+    {
+      "id": "1b1f",
+      "productId": "5",
+      "userId": "3409",
+      "sellerId": 1,
+      "amount": 3,
+      "date": "2025-11-27T18:23:04.389Z",
+      "status": "pending"
+    },
+    {
+      "id": "5b5c",
+      "productId": "5",
+      "userId": "3409",
+      "sellerId": 1,
+      "amount": 180000,
+      "date": "2025-11-27T18:23:25.647Z",
+      "status": "pending"
+    },
+    {
+      "id": "2add",
+      "productId": "3",
+      "userId": "3409",
+      "sellerId": 1,
+      "amount": 10800,
+      "date": "2025-11-27T18:25:41.883Z",
+      "status": "pending"
+    },
+    {
+      "id": "e039",
+      "productId": "3",
+      "userId": "3409",
+      "sellerId": 1,
+      "amount": 10800,
+      "date": "2025-11-27T18:27:14.032Z",
+      "status": "pending"
+    },
+    {
+      "id": "faab",
+      "productId": "2",
+      "userId": "3409",
+      "sellerId": 1,
+      "amount": 855000,
+      "date": "2025-11-27T18:27:22.971Z",
+      "status": "pending"
+    },
+    {
+      "id": "aa3f",
+      "productId": "1",
+      "userId": "3409",
+      "sellerId": 2,
+      "amount": 22500,
+      "date": "2025-11-27T18:27:32.615Z",
+      "status": "pending"
+    }
+  ]
 }

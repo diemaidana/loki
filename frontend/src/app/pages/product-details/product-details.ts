@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, Input, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ProductService } from '../../service/product';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -10,10 +10,13 @@ import { DialogModule } from 'primeng/dialog';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { CartService } from '../../service/cart-service';
 import { Offer } from '../../model/offer';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { OfferService } from '../../service/offer-service';
 import { AuthService } from '../../auth/service/auth-service';
 import { User } from '../../model/user';
+import { FormsModule } from '@angular/forms';
+import { Toast } from "primeng/toast";
+import { ConfirmDialog } from "primeng/confirmdialog";
 
 @Component({
   selector: 'app-product-details',
@@ -22,8 +25,12 @@ import { User } from '../../model/user';
     ImageModule,
     ButtonModule,
     DialogModule,
-    InputNumberModule
-  ],
+    InputNumberModule,
+    FormsModule,
+    Toast,
+    ConfirmDialog
+],
+  providers: [MessageService, ConfirmationService],
   templateUrl: './product-details.html',
   styleUrl: './product-details.css',
 })
@@ -46,7 +53,7 @@ export class ProductDetails {
   
   // Estado del Modal de Oferta
   protected showOfferDialog = signal(false);
-  protected offerAmount = signal<number | null>(null);
+  @Input() offerAmount = signal<number | null>(null);
   protected isSubmittingOffer = signal(false);
 
   ngOnInit() {
@@ -54,7 +61,7 @@ export class ProductDetails {
   }
 
   // --- Lógica del Carrito ---
-  
+
   addToCart() {
     const p = this.product();
     if (!p) {
@@ -92,7 +99,7 @@ export class ProductDetails {
   changeOffer() {
     this.showOfferDialog.set(false);
     this.offerAmount.set(null);
-    this.messageService.add({ severity: 'info', summary: 'Cancelado', detail: 'La oferta ha sido cancelada.' });
+    this.messageService.add({ severity: 'warn', summary: 'Cancelado', detail: 'La oferta ha sido cancelada.' });
   }
 
   submitOffer() {
@@ -100,7 +107,6 @@ export class ProductDetails {
     const amount = this.offerAmount();
     const buyer = this.currentUser;
 
-    // Validaciones de formulario
     if (!p || !buyer || !amount) return;
 
     if (amount <= 0) {
@@ -114,8 +120,6 @@ export class ProductDetails {
 
     this.isSubmittingOffer.set(true);
 
-    // 3. Obtener ID del Vendedor (Requerido por el nuevo modelo)
-    // Usamos 'as any' temporalmente si la interfaz Product no tiene 'id_seller' explícito
     const sellerId = (p as any).id_seller;
 
     if (!sellerId) {
@@ -124,7 +128,6 @@ export class ProductDetails {
         return;
     }
 
-    // Construir el objeto Offer
     const newOffer: Offer = {
         productId: p.id!,        
         userId: buyer.id!,      
@@ -134,7 +137,6 @@ export class ProductDetails {
         status: 'pending'       
     };
 
-    // 5. Llamar al Servicio (Solo hace el POST)
     this.offerService.createOffer(newOffer).subscribe({
         next: () => {
             this.messageService.add({ 
@@ -142,8 +144,12 @@ export class ProductDetails {
                 summary: 'Oferta Enviada', 
                 detail: `Has ofertado $${amount}. El vendedor será notificado.` 
             });
+
             this.isSubmittingOffer.set(false);
             this.showOfferDialog.set(false); // Cerrar modal
+            setTimeout(() => {
+              this.router.navigateByUrl("/list-products");
+            }, 2000);
         },
         error: (err) => {
             console.error('Error creando oferta:', err);

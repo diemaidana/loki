@@ -225,7 +225,29 @@
                 </p-table>
             </p-tabpanel>
             <p-tabpanel value="4">
-
+                <p-table [value]="notifications()" [tableStyle]="{ 'min-width': '60rem' }">
+                    <ng-template #header>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Producto</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-notification>
+                        <tr>
+                            <td>{{ notification.type }}</td>
+                            <td>{{ notification.date| date:'dd/MM/yyyy' }}</td>
+                            <td>
+                                {{ notification.productName }}
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template #footer>
+                        <tr>
+                            <td colspan="6">Cantidad total de notificaciones: {{ notifications().length }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
             </p-tabpanel>
         </p-tabpanels>
     </p-tabs>

@@ -20,6 +20,7 @@ import { AuthService } from '../../auth/service/auth-service';
 import { User } from '../../model/user';
 import { Checkout } from '../../model/checkout';
 import { CheckoutItemDetail } from '../../model/check-out-item-detail';
+import { NotificationService } from '../../service/notification-service';
 
 
 @Component({
@@ -45,7 +46,7 @@ export class Cart {
   public readonly cartService = inject(CartService);
   private confirmationService = inject(ConfirmationService);
   private messageService = inject(MessageService);
-
+  private notificationService = inject(NotificationService);
   private readonly checkoutService = inject(CheckoutService);
 
   private readonly authService = inject(AuthService);
@@ -109,7 +110,7 @@ export class Cart {
     if (!this.currentUser) return;
 
     const checkoutItems = this.getCartItemsForCheckout(); 
-
+    const sellerIds = this.getSellerIds();
     const newOrder: Checkout = {
         id_buyer: this.currentUser.id!,
         date: new Date().toISOString(),
@@ -119,6 +120,21 @@ export class Cart {
 
     this.checkoutService.savePurchase(newOrder).subscribe({
         next: () => {
+            this.cartService.items().forEach(cartItem => {
+                const product = cartItem.product;
+                const sellerId = (product as any).id_seller;
+
+                if (sellerId) {
+                    this.notificationService.notifySellerOfPurchase(
+                        sellerId,               // Vendedor
+                        this.currentUser!.id!,  // Comprador (Sender)
+                        product.name,           // Nombre del Producto
+                        product.id!              // ID del Producto
+                    ).subscribe({
+                        error: (e) => console.error(`Fallo al notificar venta de ${product.name}`, e)
+                    });
+                }
+            });
             this.messageService.add({ 
                 severity: 'success', 
                 summary: '¡Pago Exitoso!', 
@@ -146,9 +162,6 @@ export class Cart {
 
   // --- Métodos Auxiliares ---
 
-  /** * Transforma items complejos del carrito a objetos simples {productId, quantity, price} 
-   * para guardar en la base de datos.
-   */
   private getCartItemsForCheckout(): CheckoutItemDetail[] {
     return this.cartService.items().map(item => {
         return {
@@ -161,7 +174,6 @@ export class Cart {
     });
   }
 
-  /*
   private getSellerIds(): (string | number)[] {
     const items = this.cartService.items();
     const sellersSet = new Set<string | number>();
@@ -171,5 +183,5 @@ export class Cart {
     });
     return Array.from(sellersSet);
   }
-  */
+
 }

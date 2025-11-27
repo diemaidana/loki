@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { Router, RouterLink } from "@angular/router";
 
 import { ToolbarModule } from 'primeng/toolbar';
@@ -16,6 +16,7 @@ import { AuthService } from '../../auth/service/auth-service';
 import { SearchStateService } from '../../service/search-state-service';
 import { MenuItem } from 'primeng/api';
 import { CartService } from '../../service/cart-service';
+import { NotificationService } from '../../service/notification-service';
 
 @Component({
   selector: 'app-header',
@@ -42,6 +43,9 @@ export class Header implements OnInit{
   // Valores default sin usuario logueado
   protected isLoggedIn : boolean = false;
   protected cartService = inject(CartService);
+  protected notificationService = inject(NotificationService);
+  protected notificationCount = signal(0);
+
   currentUser: User | null = null;
 
 
@@ -49,6 +53,11 @@ export class Header implements OnInit{
     this.authService.userState$.subscribe((user) => {
       this.isLoggedIn = !!user;
       this.currentUser = user;
+      if (this.isLoggedIn) {
+        this.loadNotifications(); // ✅ Cargar notificaciones al loguearse
+      } else {
+        this.notificationCount.set(0);
+      }
     });
   }
 
@@ -76,6 +85,24 @@ export class Header implements OnInit{
   goToCart(): void{
     this.router.navigateByUrl("/"+ this.currentUser?.fullName+"/cart");
   }
+
+  goToDashboard(){
+    this.router.navigateByUrl("/"+this.currentUser?.fullName+"/seller-dash");
+  }
+
+  private loadNotifications() {
+    if (!this.currentUser?.id) return;
+
+    this.notificationService.getUserNotifications(this.currentUser.id).subscribe({
+      next: (notifs) => {
+        // Filtramos las no leídas si tuviéramos esa propiedad, 
+        // o simplemente mostramos el total por ahora.
+        this.notificationCount.set(notifs.length);
+      },
+      error: (e) => console.error('Error cargando notificaciones', e)
+    });
+  }
+
   items: MenuItem[];
 
     constructor() {

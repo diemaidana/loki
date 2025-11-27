@@ -66,14 +66,15 @@
     <ng-template #end>
         <div class="btn-actions">
             @if (isLoggedIn) {
+                <p-button (click)="goToDashboard()" pRipple [raised]="true"> 
+                    <i class="pi pi-bell" pBadge [value]="notificationCount().toString()" severity="danger" style="font-size: 1rem;"></i>
+                </p-button>
                 <p-button (onClick)="goToCart()" pRipple [raised]="true"> 
-                    <!-- muestro cantidad de items en el carrito -->
                     @if(cartService.count() > 0){
-                        <i class="pi pi-shopping-cart" pBadge [value]="cartService.count().toString()" severity="danger" style="font-size: 1.5rem;"></i>
+                        <i class="pi pi-shopping-cart" pBadge [value]="cartService.count().toString()" severity="danger" style="font-size: 1rem;"></i>
                     }
-                    <!-- Si no hay items en el carrito muestro solamente el icono -->
                     @else {
-                        <i class="pi pi-shopping-cart"></i>
+                        <i class="pi pi-shopping-cart" pBadge style="font-size: 1rem;"></i>
                     }
                 </p-button>
                 <p-splitbutton [label]="currentUser?.fullName || 'Mi cuenta'" (onClick)="goToProfile()" [model]="items"/>

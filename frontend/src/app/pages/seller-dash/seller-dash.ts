@@ -24,6 +24,8 @@ import { CheckoutService } from '../../service/checkoutService';
 import { Offer } from '../../model/offer';
 import { OfferService } from '../../service/offer-service';
 import { DialogModule } from "primeng/dialog";
+import { NotificationService } from '../../service/notification-service';
+import { Notification } from '../../model/notification';
 
 
 
@@ -56,8 +58,11 @@ export class SellerDash implements OnInit{
   private checkoutService = inject(CheckoutService);
   private offerService = inject(OfferService);
   private readonly authService = inject(AuthService);
+  private notificationService = inject(NotificationService);
   protected currentUser = toSignal(this.authService.userState$);
 
+  protected notifications = signal<Notification[]>([]);
+  protected isLoading = signal<boolean>(true);
   protected products = signal<Product[]>([]);
   protected purchases = signal<Checkout[]>([]);
   protected mySales = computed(() => {
@@ -146,6 +151,11 @@ export class SellerDash implements OnInit{
     this.offerService.getOffersBySeller(this.currentUser()?.id!).subscribe((data) => {
       this.myOffers.set(data);
     });
+    if (this.currentUser()) {
+      this.loadNotifications(this.currentUser()?.id!);
+    } else {
+      this.isLoading.set(false);
+    }
   }
 
   saveProduct(){
@@ -296,5 +306,22 @@ export class SellerDash implements OnInit{
 
   showEditDialog(offer: Offer) {
     this.editOfferDialog = true;
+  }
+
+  loadNotifications(userId: string | number) {
+    this.isLoading.set(true);
+    
+    this.notificationService.getUserNotifications(userId).subscribe({
+      next: (data) => {
+        const sorted = [...data].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+        
+        this.notifications.set(sorted);
+        this.isLoading.set(false);
+      },
+      error: (err) => {
+        console.error('Error cargando notificaciones', err);
+        this.isLoading.set(false);
+      }
+    });
   }
 }

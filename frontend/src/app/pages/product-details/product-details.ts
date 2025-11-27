@@ -17,6 +17,7 @@ import { User } from '../../model/user';
 import { FormsModule } from '@angular/forms';
 import { Toast } from "primeng/toast";
 import { ConfirmDialog } from "primeng/confirmdialog";
+import { NotificationService } from '../../service/notification-service';
 
 @Component({
   selector: 'app-product-details',
@@ -42,12 +43,12 @@ export class ProductDetails {
   private readonly cartService = inject(CartService);
   private readonly offerService = inject(OfferService);
   private readonly authService = inject(AuthService);
+  private readonly notificationService = inject(NotificationService);
 
   private readonly id = this.route.snapshot.paramMap.get('id');
 
   // Datos del producto (Signal)
   protected product = toSignal(this.productService.getProductsById(this.id!), { initialValue: null });
-  
   // Usuario actual (Comprador)
   protected currentUser: User | null = null;
   
@@ -144,6 +145,15 @@ export class ProductDetails {
                 severity: 'success', 
                 summary: 'Oferta Enviada', 
                 detail: `Has ofertado $${amount}. El vendedor será notificado.` 
+            });
+
+            this.notificationService.notifySellerOfOffer(
+                sellerId, 
+                buyer.id!,        // Sender ID (Comprador)
+                p.name,           // Nombre Producto
+                p.id!             // ID Producto
+            ).subscribe({
+                error: (e) => console.error('Fallo al notificar oferta', e)
             });
 
             this.isSubmittingOffer.set(false);

@@ -357,6 +357,21 @@
         }
       ],
       "totalAmount": 1870000
+    },
+    {
+      "id": "e3b6",
+      "id_buyer": "3409",
+      "date": "2025-11-27T20:29:30.182Z",
+      "items": [
+        {
+          "productId": "2",
+          "quantity": 1,
+          "price": 950000,
+          "idSeller": 1,
+          "productName": "Macbook Pro"
+        }
+      ],
+      "totalAmount": 950000
     }
   ],
   "offers": [
@@ -467,6 +482,36 @@
       "amount": 22500,
       "date": "2025-11-27T18:27:32.615Z",
       "status": "pending"
+    },
+    {
+      "id": "1be6",
+      "productId": "1",
+      "userId": "3409",
+      "productName": "Auriculares Bluetooth",
+      "sellerId": "2",
+      "amount": 22500,
+      "date": "2025-11-27T20:29:35.830Z",
+      "status": "pendiente"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "ff3d",
+      "recipientId": 1,
+      "senderId": "3409",
+      "type": "compra",
+      "productName": "Macbook Pro",
+      "productId": "2",
+      "date": "2025-11-27T20:29:30.201Z"
+    },
+    {
+      "id": "c7b7",
+      "recipientId": "2",
+      "senderId": "3409",
+      "type": "oferta",
+      "productName": "Auriculares Bluetooth",
+      "productId": "1",
+      "date": "2025-11-27T20:29:35.842Z"
     }
   ]
 }

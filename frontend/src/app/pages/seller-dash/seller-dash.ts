@@ -104,7 +104,7 @@ export class SellerDash implements OnInit{
   });
 
   constructor() {
-    // ✅ CORRECCIÓN 1: Usamos effect() para reaccionar cuando el usuario cargue
+    // Usamos effect() para reaccionar cuando el usuario cargue
     effect(() => {
       const user = this.currentUser();
       // untracked evita bucles infinitos si modificamos otras señales dentro

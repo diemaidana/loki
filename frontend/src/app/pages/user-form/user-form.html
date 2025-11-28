@@ -135,15 +135,7 @@
                         </p-message>
                     }
                 </p-floatlabel>
-                <div class="field-checkbox">
-                    <p-checkbox 
-                        formControlName="isSeller" 
-                        [binary]="true" 
-                        inputId="isSeller"
-                        label="Quiero crear una cuenta de Vendedor">
-                    </p-checkbox>
-                    <label for="isSeller">Crear cuenta Vendedor</label>
-                </div>
+
                 <p-floatlabel variant="in" class="input-label">
                     <input name="phoneNumber" id="phoneNumber" pInputText formControlName="phoneNumber" />
                     <label for="phoneNumber">Numero de telefono</label>
@@ -162,6 +154,15 @@
                         </p-message>
                     }
                 </p-floatlabel>
+                <div class="field-checkbox">
+                    <p-checkbox 
+                        formControlName="isSeller" 
+                        [binary]="true" 
+                        inputId="isSeller"
+                        label="Quiero crear una cuenta de Vendedor">
+                    </p-checkbox>
+                    <label for="isSeller">Crear cuenta Vendedor</label>
+                </div>
             </div>
             <p-button (click)="handleSubmit()" label="Registrar" [style]="{'width': '100%'}" />
         </form>

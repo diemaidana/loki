@@ -123,3 +123,12 @@ docker compose run --rm angular-loki npm install chart.js --save --legacy-peer-d
 
 # Luego reiniciar el servicio
 docker compose restart angular-loki
+```
+[Angular-shield]: https://img.shields.io/badge/angular-%23DD0031.svg?style=for-the-badge&logo=angular&logoColor=white
+[Angular-url]: https://angular.io/
+[PrimeNG-shield]: https://img.shields.io/badge/PrimeNG-v20-%235F2ECC?style=for-the-badge
+[PrimeNG-url]: https://primeng.org/
+[Docker-shield]: https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white
+[Docker-url]: https://www.docker.com/
+[TypeScript-shield]: https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white
+[TypeScript-url]: https://www.typescriptlang.org/

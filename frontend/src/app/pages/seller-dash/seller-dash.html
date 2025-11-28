@@ -1,254 +1,390 @@
 <p-toast  position="top-right"/>
 
 <div class="card">
-    <p-tabs [(value)]="activeTab" (valueChange)="onTabChange($event)" scrollable>
-        <p-tablist>
-            <ng-template #previcon>
-                <i class="pi pi-minus"></i>
-            </ng-template>
-            <p-tab value="0">
-                <span>Productos</span>
-            </p-tab>
-            <p-tab value="1">
-                <span>{{ isEditing() ? 'Editar Producto' : 'Agregar Producto' }}</span>
-            </p-tab>
-            <p-tab value="2">
-                <span>Ventas</span>
-            </p-tab>
-            <p-tab value="3">
-                <span>Ofertas</span>
-            </p-tab>
-            <p-tab value="4">
-                <span>Notificaciones</span>
-            </p-tab>
+    @if(currentUser()?.isSeller){
+        <p-tabs [(value)]="activeTab" (valueChange)="onTabChange($event)" scrollable>
+            <p-tablist>
+                <ng-template #previcon>
+                    <i class="pi pi-minus"></i>
+                </ng-template>
+                <p-tab value="0">
+                    <span>Productos</span>
+                </p-tab>
+                <p-tab value="1">
+                    <span>{{ isEditing() ? 'Editar Producto' : 'Agregar Producto' }}</span>
+                </p-tab>
+                <p-tab value="2">
+                    <span>Ventas</span>
+                </p-tab>
+                <p-tab value="3">
+                    <span>Ofertas</span>
+                </p-tab>
+                <p-tab value="4">
+                    <span>Notificaciones</span>
+                </p-tab>
 
-            <ng-template #nexticon>
-                <i class="pi pi-plus"></i>
-            </ng-template>
-        </p-tablist>
-        <p-tabpanels>
-            <p-tabpanel value="0">
-                <p-table [value]="products()" [tableStyle]="{ 'min-width': '60rem' }">
-                    <ng-template #header>
-                        <tr>
+                <ng-template #nexticon>
+                    <i class="pi pi-plus"></i>
+                </ng-template>
+            </p-tablist>
+            <p-tabpanels>
+                <p-tabpanel value="0">
+                    <p-table [value]="products()" [tableStyle]="{ 'min-width': '60rem' }">
+                        <ng-template #header>
+                            <tr>
 
-                            <th>Nombre</th>
-                            <th>Marca</th>
-                            <th>Imagen</th>
-                            <th>Categoria</th>
-                            <th>Precio</th>
-                            <th>Editar</th>
-                            <th>Eliminar</th>
-                        </tr>
-                    </ng-template>
-                    <ng-template #body let-product>
-                        <tr>
-                            <td>{{ product.name }}</td>
-                            <td>{{ product.brand }}</td>
-                            <td>
-                                <p-image [src]="product.image" [alt]="product.name" width="100" height="65" style="object-fit: cover;"/>
-                            </td>
-                            <td>{{ product.category }}</td>
-                            <td>{{ product.price | currency: '$' }}</td>
-                            <td><p-button icon="pi pi-pen-to-square" [rounded]="true" [text]="true" severity="info" (click)="editProduct(product)" /></td>
+                                <th>Nombre</th>
+                                <th>Marca</th>
+                                <th>Imagen</th>
+                                <th>Categoria</th>
+                                <th>Precio</th>
+                                <th>Editar</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template #body let-product>
+                            <tr>
+                                <td>{{ product.name }}</td>
+                                <td>{{ product.brand }}</td>
+                                <td>
+                                    <p-image [src]="product.image" [alt]="product.name" width="100" height="65" style="object-fit: cover;"/>
+                                </td>
+                                <td>{{ product.category }}</td>
+                                <td>{{ product.price | currency: '$' }}</td>
+                                <td><p-button icon="pi pi-pen-to-square" [rounded]="true" [text]="true" severity="info" (click)="editProduct(product)" /></td>
 
-                            <td><p-button icon="pi pi-times" [rounded]="true" [text]="true" severity="danger" (click)="deleteProduct(product)" /></td>
-                        </tr>
-                    </ng-template>
-                    <ng-template #footer>
-                        <tr>
-                            <td colspan="6">Cantidad total de productos: {{ products().length }}</td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-            </p-tabpanel>
-            <p-tabpanel value="1">
-                <div style="display: flex; justify-content: center; width: 100%;">
-                    <div class="card-container">
-                        <h2>Agregar producto</h2>
-                        <form [formGroup]="productForm" class="form-container">
-                            <div class="form-inputs">
-                                <p-floatlabel variant="in" class="input-label">
-                                    <input name="name" id="name" pInputText formControlName="name"/>
-                                    <label for="name">Nombre</label>
-                                    @if(name.invalid && name.touched){
-                                        <p-message severity="error" variant="simple" size="small" class="error-msg">
-                                            Debe ingresar un nombre
-                                        </p-message>
-                                    }
-                                </p-floatlabel>
-                                <p-floatlabel variant="in" class="input-label">
-                                    <input name="brand" id="brand" pInputText formControlName="brand"/>
-                                    <label for="brand">Marca</label>
-                                    @if(brand.invalid && brand.touched){
-                                        <p-message severity="error" variant="simple" size="small" class="error-msg">
-                                            Debe ingresar una marca
-                                        </p-message>
-                                    }
-                                </p-floatlabel>
-                                <p-floatlabel variant="in" class="input-label">
-                                    <textarea pTextarea name="description" id="description" formControlName="description" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
-                                    <label for="description">Descripcion</label>
-                                    @if(description.invalid && description.touched){
-                                        <p-message severity="error" variant="simple" size="small" class="error-msg">
-                                            Debe ingresar una descripcion
-                                        </p-message>
-                                    }
-                                </p-floatlabel>
-                                <p-floatlabel variant="in" class="input-label">
-                                    <input name="category" id="category" pInputText formControlName="category"/>
-                                    <label for="category">Categoria</label>
-                                    @if(cateegory.invalid && cateegory.touched){
-                                        <p-message severity="error" variant="simple" size="small" class="error-msg">
-                                            Debe ingresar una categoria
-                                        </p-message>
-                                    }
-                                </p-floatlabel>
-                                <p-floatlabel variant="in" class="input-label">
-                                    <input name="image" id="image" pInputText formControlName="image"/>
-                                    <label for="image">Imagen</label>
-                                    @if(image.invalid && image.touched){
-                                        <p-message severity="error" variant="simple" size="small" class="error-msg">
-                                            Debe ingresar la URL de la imagen
-                                        </p-message>
-                                    }
-                                </p-floatlabel>
-                                <p-floatlabel variant="in" class="input-label">
-                                    <p-inputnumber formControlName="price" name="price" id="price" mode="currency" currency="ARS" />
-                                    <label for="price">Precio</label>
-                                    @if(price.invalid && price.touched){
-                                        <p-message severity="error" variant="simple" size="small" class="error-msg">
-                                            Debe ingresar el precio
-                                        </p-message>
-                                    }
-                                </p-floatlabel>
-                            </div>
-                            <div class="action-btns">
-                                @if(isEditing()){
-                                    <p-button label="Cancelar" severity="secondary" [outlined]="true" (click)="resetForm()" [style]="{'width': '100%'}" />
-                                }
-                                <p-button (click)="saveProduct()" [label]="isEditing() ? 'Guardar Cambios' : 'Agregar'" [style]="{'width': '100%'}" />
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </p-tabpanel>
-            <p-tabpanel value="2">
-                <p-table [value]="mySales()" [tableStyle]="{ 'min-width': '60rem' }">
-                    <ng-template #header>
-                        <tr>
-
-                            <th>Date</th>
-                            <th>Cantidad</th>
-                            <th>Producto</th>
-                            <th>Precio final</th>
-                        </tr>
-                    </ng-template>
-                    <ng-template #body let-purchase>
-                        <tr>
-                            <td>{{ purchase.date| date:'dd/MM/yyyy' }}</td>
-                            <td>
-                                {{ purchase.items.length }}
-                            </td>
-                            <td>
-                                    @for(p of purchase.items; track $index) {
-                                        <div class="products-name">
-                                            {{ p.productName }}
-                                        </div>
-                                    }
-                            </td>
-                            <td>
-                                ${{ purchase.totalAmount }}
-                            </td>
-                        </tr>
-                    </ng-template>
-                    <ng-template #footer>
-                        <tr>
-                            <td colspan="6">Cantidad total de ventas: {{ mySales().length }}</td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-            </p-tabpanel>
-            <p-tabpanel value="3">
-                <p-table [value]="myOffers()" [tableStyle]="{ 'min-width': '60rem' }">
-                    <ng-template #header>
-                        <tr>
-                            <th>Date</th>
-                            <th>Producto</th>
-                            <th>Estado</th>
-                            <th>Precio ofertado</th>
-                            <th>Aceptar</th>
-                            <th>Ofertar</th>
-                            <th>Rechazar</th>
-                        </tr>
-                    </ng-template>
-                    <ng-template #body let-offer>
-                        <tr>
-                            <td>{{ offer.date| date:'dd/MM/yyyy' }}</td>
-                            <td>
-                                {{ offer.productName }}
-                            </td>
-                            <td>
-                                {{ offer.status }}
-                            </td>
-                            <td class="price-offer">
-                                ${{ offer.amount }}
-                            </td>
-                            <td>
-                                <p-button icon="pi pi-check" [rounded]="true" [text]="true" severity="success" (click)="acceptOffer(offer)"/>
-                            </td>
-                            <td>
-                                <p-button icon="pi pi-pen-to-square" [rounded]="true" [text]="true" severity="info" (click)="showEditDialog(offer)"/>
-                                <p-dialog header="Actualizar oferta" [modal]="true" [(visible)]="editOfferDialog" [style]="{ width: '25rem' }" >
-                                    <p-floatlabel variant="in">
-                                        <div class="dialog">
-                                            <p-inputnumber #priceOffer inputId="currency-us" mode="currency" currency="ARS" locale="es-AR" />
-                                            <label for="username" class="">Precio nuevo</label>
-                                            <div class="action-btns">
-                                                <p-button label="Cancelar" [text]="true" severity="secondary" (click)="editOfferDialog = false" />
-                                                <p-button label="Enviar nueva oferta" (click)="editOffer(offer, $any(priceOffer.value))" />
-                                            </div>
-                                        </div>
+                                <td><p-button icon="pi pi-times" [rounded]="true" [text]="true" severity="danger" (click)="deleteProduct(product)" /></td>
+                            </tr>
+                        </ng-template>
+                        <ng-template #footer>
+                            <tr>
+                                <td colspan="6">Cantidad total de productos: {{ products().length }}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </p-tabpanel>
+                <p-tabpanel value="1">
+                    <div style="display: flex; justify-content: center; width: 100%;">
+                        <div class="card-container">
+                            <h2>Agregar producto</h2>
+                            <form [formGroup]="productForm" class="form-container">
+                                <div class="form-inputs">
+                                    <p-floatlabel variant="in" class="input-label">
+                                        <input name="name" id="name" pInputText formControlName="name"/>
+                                        <label for="name">Nombre</label>
+                                        @if(name.invalid && name.touched){
+                                            <p-message severity="error" variant="simple" size="small" class="error-msg">
+                                                Debe ingresar un nombre
+                                            </p-message>
+                                        }
                                     </p-floatlabel>
-                                </p-dialog>
-                            </td>
-                            <td>
-                                <p-button icon="pi pi-times" [rounded]="true" [text]="true" severity="danger" (click)="rejectOffer(offer)"/>
-                            </td>
-                        </tr>
-                    </ng-template>
-                    <ng-template #footer>
-                        <tr>
-                            <td colspan="6">Cantidad total de ventas: {{ mySales().length }}</td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-            </p-tabpanel>
-            <p-tabpanel value="4">
-                <p-table [value]="notifications()" [tableStyle]="{ 'min-width': '60rem' }">
-                    <ng-template #header>
-                        <tr>
-                            <th>Tipo</th>
-                            <th>Producto</th>
-                            <th>Fecha</th>
-                        </tr>
-                    </ng-template>
-                    <ng-template #body let-notification>
-                        <tr>
-                            <td>{{ notification.type }}</td>
-                            <td>{{ notification.date| date:'dd/MM/yyyy' }}</td>
-                            <td>
-                                {{ notification.productName }}
-                            </td>
-                        </tr>
-                    </ng-template>
-                    <ng-template #footer>
-                        <tr>
-                            <td colspan="6">Cantidad total de notificaciones: {{ notifications().length }}</td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-            </p-tabpanel>
-        </p-tabpanels>
-    </p-tabs>
+                                    <p-floatlabel variant="in" class="input-label">
+                                        <input name="brand" id="brand" pInputText formControlName="brand"/>
+                                        <label for="brand">Marca</label>
+                                        @if(brand.invalid && brand.touched){
+                                            <p-message severity="error" variant="simple" size="small" class="error-msg">
+                                                Debe ingresar una marca
+                                            </p-message>
+                                        }
+                                    </p-floatlabel>
+                                    <p-floatlabel variant="in" class="input-label">
+                                        <textarea pTextarea name="description" id="description" formControlName="description" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
+                                        <label for="description">Descripcion</label>
+                                        @if(description.invalid && description.touched){
+                                            <p-message severity="error" variant="simple" size="small" class="error-msg">
+                                                Debe ingresar una descripcion
+                                            </p-message>
+                                        }
+                                    </p-floatlabel>
+                                    <p-floatlabel variant="in" class="input-label">
+                                        <input name="category" id="category" pInputText formControlName="category"/>
+                                        <label for="category">Categoria</label>
+                                        @if(cateegory.invalid && cateegory.touched){
+                                            <p-message severity="error" variant="simple" size="small" class="error-msg">
+                                                Debe ingresar una categoria
+                                            </p-message>
+                                        }
+                                    </p-floatlabel>
+                                    <p-floatlabel variant="in" class="input-label">
+                                        <input name="image" id="image" pInputText formControlName="image"/>
+                                        <label for="image">Imagen</label>
+                                        @if(image.invalid && image.touched){
+                                            <p-message severity="error" variant="simple" size="small" class="error-msg">
+                                                Debe ingresar la URL de la imagen
+                                            </p-message>
+                                        }
+                                    </p-floatlabel>
+                                    <p-floatlabel variant="in" class="input-label">
+                                        <p-inputnumber formControlName="price" name="price" id="price" mode="currency" currency="ARS" />
+                                        <label for="price">Precio</label>
+                                        @if(price.invalid && price.touched){
+                                            <p-message severity="error" variant="simple" size="small" class="error-msg">
+                                                Debe ingresar el precio
+                                            </p-message>
+                                        }
+                                    </p-floatlabel>
+                                </div>
+                                <div class="action-btns">
+                                    @if(isEditing()){
+                                        <p-button label="Cancelar" severity="secondary" [outlined]="true" (click)="resetForm()" [style]="{'width': '100%'}" />
+                                    }
+                                    <p-button (click)="saveProduct()" [label]="isEditing() ? 'Guardar Cambios' : 'Agregar'" [style]="{'width': '100%'}" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </p-tabpanel>
+                <p-tabpanel value="2">
+                    <p-table [value]="mySales()" [tableStyle]="{ 'min-width': '60rem' }">
+                        <ng-template #header>
+                            <tr>
+
+                                <th>Date</th>
+                                <th>Cantidad</th>
+                                <th>Producto</th>
+                                <th>Precio final</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template #body let-purchase>
+                            <tr>
+                                <td>{{ purchase.date| date:'dd/MM/yyyy' }}</td>
+                                <td>
+                                    {{ purchase.items.length }}
+                                </td>
+                                <td>
+                                        @for(p of purchase.items; track $index) {
+                                            <div class="products-name">
+                                                {{ p.productName }}
+                                            </div>
+                                        }
+                                </td>
+                                <td>
+                                    ${{ purchase.totalAmount }}
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template #footer>
+                            <tr>
+                                <td colspan="6">Cantidad total de ventas: {{ mySales().length }}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </p-tabpanel>
+                <p-tabpanel value="3">
+                    <p-table [value]="myOffers()" [tableStyle]="{ 'min-width': '60rem' }">
+                        <ng-template #header>
+                            <tr>
+                                <th>Date</th>
+                                <th>Producto</th>
+                                <th>Estado</th>
+                                <th>Precio ofertado</th>
+                                <th>Aceptar</th>
+                                <th>Ofertar</th>
+                                <th>Rechazar</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template #body let-offer>
+                            <tr>
+                                <td>{{ offer.date| date:'dd/MM/yyyy' }}</td>
+                                <td>
+                                    {{ offer.productName }}
+                                </td>
+                                <td>
+                                    {{ offer.status }}
+                                </td>
+                                <td class="price-offer">
+                                    ${{ offer.amount }}
+                                </td>
+                                <td>
+                                    <p-button icon="pi pi-check" [rounded]="true" [text]="true" severity="success" (click)="acceptOffer(offer)"/>
+                                </td>
+                                <td>
+                                    <p-button icon="pi pi-pen-to-square" [rounded]="true" [text]="true" severity="info" (click)="showEditDialog(offer)"/>
+                                    <p-dialog header="Actualizar oferta" [modal]="true" [(visible)]="editOfferDialog" [style]="{ width: '25rem' }" >
+                                        <p-floatlabel variant="in">
+                                            <div class="dialog">
+                                                <p-inputnumber #priceOffer inputId="currency-us" mode="currency" currency="ARS" locale="es-AR" />
+                                                <label for="username" class="">Precio nuevo</label>
+                                                <div class="action-btns">
+                                                    <p-button label="Cancelar" [text]="true" severity="secondary" (click)="editOfferDialog = false" />
+                                                    <p-button label="Enviar nueva oferta" (click)="editOffer(offer, $any(priceOffer.value))" />
+                                                </div>
+                                            </div>
+                                        </p-floatlabel>
+                                    </p-dialog>
+                                </td>
+                                <td>
+                                    <p-button icon="pi pi-times" [rounded]="true" [text]="true" severity="danger" (click)="rejectOffer(offer)"/>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template #footer>
+                            <tr>
+                                <td colspan="6">Cantidad total de ventas: {{ mySales().length }}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </p-tabpanel>
+                <p-tabpanel value="4">
+                    <p-table [value]="notifications()" [tableStyle]="{ 'min-width': '60rem' }">
+                        <ng-template #header>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Producto</th>
+                                <th>Fecha</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template #body let-notification>
+                            <tr>
+                                <td>{{ notification.type }}</td>
+                                <td>{{ notification.date| date:'dd/MM/yyyy' }}</td>
+                                <td>
+                                    {{ notification.productName }}
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template #footer>
+                            <tr>
+                                <td colspan="6">Cantidad total de notificaciones: {{ notifications().length }}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </p-tabpanel>
+            </p-tabpanels>
+        </p-tabs>
+    }@else {
+                <p-tabs [(value)]="activeTab" (valueChange)="onTabChange($event)" scrollable>
+            <p-tablist>
+                <ng-template #previcon>
+                    <i class="pi pi-minus"></i>
+                </ng-template>
+                <p-tab value="0">
+                    <span>Compras</span>
+                </p-tab>
+                <p-tab value="1">
+                    <span>Ofertas</span>
+                </p-tab>
+                <p-tab value="2">
+                    <span>Notificaciones</span>
+                </p-tab>
+
+                <ng-template #nexticon>
+                    <i class="pi pi-plus"></i>
+                </ng-template>
+            </p-tablist>
+            <p-tabpanels>
+                <p-tabpanel value="0">
+                    <p-table [value]="products()" [tableStyle]="{ 'min-width': '60rem' }">
+                        <ng-template #header>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Productos</th>
+                                <th>Categoria</th>
+                                <th>Precio</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template #body let-product>
+                            <tr>
+                                <td>{{ product.name }}</td>
+                                <td>{{ product.brand }}</td>
+                                <td>
+                                    <p-image [src]="product.image" [alt]="product.name" width="100" height="65" style="object-fit: cover;"/>
+                                </td>
+                                <td>{{ product.category }}</td>
+                                <td>{{ product.price | currency: '$' }}</td>
+                                <td><p-button icon="pi pi-pen-to-square" [rounded]="true" [text]="true" severity="info" (click)="editProduct(product)" /></td>
+
+                                <td><p-button icon="pi pi-times" [rounded]="true" [text]="true" severity="danger" (click)="deleteProduct(product)" /></td>
+                            </tr>
+                        </ng-template>
+                        <ng-template #footer>
+                            <tr>
+                                <td colspan="6">Cantidad total de productos: {{ products().length }}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </p-tabpanel>
+                <p-tabpanel value="1">
+                    <p-table [value]="myOffers()" [tableStyle]="{ 'min-width': '60rem' }">
+                        <ng-template #header>
+                            <tr>
+                                <th>Date</th>
+                                <th>Producto</th>
+                                <th>Estado</th>
+                                <th>Precio ofertado</th>
+                                <th>Aceptar</th>
+                                <th>Ofertar</th>
+                                <th>Rechazar</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template #body let-offer>
+                            <tr>
+                                <td>{{ offer.date| date:'dd/MM/yyyy' }}</td>
+                                <td>
+                                    {{ offer.productName }}
+                                </td>
+                                <td>
+                                    {{ offer.status }}
+                                </td>
+                                <td class="price-offer">
+                                    ${{ offer.amount }}
+                                </td>
+                                <td>
+                                    <p-button icon="pi pi-check" [rounded]="true" [text]="true" severity="success" (click)="acceptOffer(offer)"/>
+                                </td>
+                                <td>
+                                    <p-button icon="pi pi-pen-to-square" [rounded]="true" [text]="true" severity="info" (click)="showEditDialog(offer)"/>
+                                    <p-dialog header="Actualizar oferta" [modal]="true" [(visible)]="editOfferDialog" [style]="{ width: '25rem' }" >
+                                        <p-floatlabel variant="in">
+                                            <div class="dialog">
+                                                <p-inputnumber #priceOffer inputId="currency-us" mode="currency" currency="ARS" locale="es-AR" />
+                                                <label for="username" class="">Precio nuevo</label>
+                                                <div class="action-btns">
+                                                    <p-button label="Cancelar" [text]="true" severity="secondary" (click)="editOfferDialog = false" />
+                                                    <p-button label="Enviar nueva oferta" (click)="editOffer(offer, $any(priceOffer.value))" />
+                                                </div>
+                                            </div>
+                                        </p-floatlabel>
+                                    </p-dialog>
+                                </td>
+                                <td>
+                                    <p-button icon="pi pi-times" [rounded]="true" [text]="true" severity="danger" (click)="rejectOffer(offer)"/>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template #footer>
+                            <tr>
+                                <td colspan="6">Cantidad total de ventas: {{ mySales().length }}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </p-tabpanel>
+                <p-tabpanel value="3">
+                    <p-table [value]="notifications()" [tableStyle]="{ 'min-width': '60rem' }">
+                        <ng-template #header>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Producto</th>
+                                <th>Fecha</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template #body let-notification>
+                            <tr>
+                                <td>{{ notification.type }}</td>
+                                <td>{{ notification.date| date:'dd/MM/yyyy' }}</td>
+                                <td>
+                                    {{ notification.productName }}
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template #footer>
+                            <tr>
+                                <td colspan="6">Cantidad total de notificaciones: {{ notifications().length }}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </p-tabpanel>
+            </p-tabpanels>
+        </p-tabs>
+    }
 </div>

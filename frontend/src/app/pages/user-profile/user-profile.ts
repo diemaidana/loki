@@ -51,7 +51,6 @@ export class UserProfile {
 
   // Signals para el estado
   isLoading = signal<boolean>(true);
-  isEditing = signal<boolean>(false);
   currentUser = signal<User | null>(null);
 
   private readonly userSource$ = this.route.paramMap.pipe(
@@ -72,7 +71,8 @@ export class UserProfile {
     DNI: [''],
     phoneNumber: [''],
     address: [''],
-    nationality: ['']
+    nationality: [''],
+    isSeller: [false]
   });
 
   ngOnInit() {
@@ -95,23 +95,9 @@ export class UserProfile {
       DNI: user.DNI || '',
       phoneNumber: user.phoneNumber || '',
       address: user.address || '',
-      nationality: user.nationality || ''
+      nationality: user.nationality || '',
+      isSeller: user.isSeller || false
     });
-  }
-
-  toggleEdit() {
-    this.isEditing.update(val => !val);
-    if (this.isEditing()) {
-      this.profileForm.enable();
-      this.profileForm.controls['DNI'].disable();
-      this.profileForm.controls['nationality'].disable();
-    } else {
-      this.profileForm.disable();
-      // Si cancela, reseteamos al valor original
-      if (this.currentUser()) {
-        this.patchForm(this.currentUser()!);
-      }
-    }
   }
 
   initiateSave() {
@@ -126,11 +112,11 @@ export class UserProfile {
       icon: 'pi pi-exclamation-triangle',
       
       accept: () => {
+
         this.saveData();
       },
       reject: () => {
         this.messageService.add({ severity: 'info', summary: 'Cancelado', detail: 'No se realizaron cambios' });
-        this.isEditing.set(false);
         if (this.currentUser()) {
             this.patchForm(this.currentUser()!);
         }
@@ -148,7 +134,6 @@ export class UserProfile {
       next: (updatedUser) => {
         this.currentUser.set(updatedUser);
         this.patchForm(updatedUser);
-        this.isEditing.set(false);
         this.isLoading.set(false);
         this.authService.updateCurrentUser(updatedUser);
         console.log("Mostrar mensaje");

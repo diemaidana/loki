@@ -9,13 +9,13 @@
         <p class="product-brand">{{ product()?.brand }}</p>
         <p>{{ product()?.description }}</p>
         <p class="price">{{ product()?.price | currency: 'ARS'}}</p>
-        <p>{{product()?.stock || 0}}</p>
         @if(product()?.stock == 0){
             <h4>Producto sin Stock.</h4>
         }
         @else {
+            <p>Stock: {{product()?.stock }}</p>
             <div class="btns-container">
-                <p-button label="Ofertar" severity="warn" icon="pi pi-dollar" (click)="openOfferDialog()" />
+                <p-button label="Ofertar" severity="warn" icon="pi pi-dollar" (click)="openOfferDialog()" [disabled]="currentUser?.isSeller"/>
                     <p-dialog header="Realizar oferta" [modal]="true" [(visible)]="showOfferDialog" [style]="{ width: '25rem' }" styleClass="dialog-container">
                         <div class="dialog-container">
 
@@ -27,7 +27,7 @@
                             <p-button label="Ofertar" (click)="submitOffer()" />
                         </div>
                     </p-dialog>
-                <p-button label="Agregar al carrito" icon="pi pi-cart-plus" (click)="addToCart()" />
+                <p-button label="Agregar al carrito" icon="pi pi-cart-plus" (click)="addToCart()" [disabled]="currentUser?.isSeller"/>
             </div>
         }
     </div>

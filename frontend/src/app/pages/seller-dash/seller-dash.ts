@@ -124,7 +124,7 @@ export class SellerDash implements OnInit{
     description: ["", [Validators.required]],
     category: ["", [Validators.required]],
     stock: [0, [Validators.required]],
-    image: ["", [Validators.required]],
+    image: [""],
     price: this.formBuilder.control(1, [Validators.required, Validators.min(1)])
   })
 
@@ -145,11 +145,11 @@ export class SellerDash implements OnInit{
   get cateegory() {
     return this.productForm.controls.category;
   }
-
+  
   get image() {
     return this.productForm.controls.image;
   }
-
+  
   get price() {
     return this.productForm.controls.price;
   }
@@ -230,7 +230,8 @@ export class SellerDash implements OnInit{
       const newProduct: Product = {
         ...rawValue,
         id_seller: this.currentUser()?.id,
-        price: rawValue.price ?? 0
+        price: rawValue.price ?? 0,
+        image: rawValue.image ?  rawValue.image : "Image-not-found.png" 
       }
 
       this.productService.addProduct(newProduct).subscribe({

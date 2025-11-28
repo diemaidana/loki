@@ -21,6 +21,7 @@ import { User } from '../../model/user';
 import { Checkout } from '../../model/checkout';
 import { CheckoutItemDetail } from '../../model/check-out-item-detail';
 import { NotificationService } from '../../service/notification-service';
+import { ProductService } from '../../service/product';
 
 
 @Component({
@@ -47,6 +48,7 @@ export class Cart {
   private confirmationService = inject(ConfirmationService);
   private messageService = inject(MessageService);
   private notificationService = inject(NotificationService);
+  private productService = inject(ProductService);
   private readonly checkoutService = inject(CheckoutService);
 
   private readonly authService = inject(AuthService);
@@ -143,7 +145,7 @@ export class Cart {
 
             setTimeout(() => {
                 this.cartService.clearCart();
-                this.router.navigateByUrl("/"); 
+                this.router.navigateByUrl("/list-products"); 
             }, 2000);
         },
         error: (err) => {
@@ -164,13 +166,16 @@ export class Cart {
 
   private getCartItemsForCheckout(): CheckoutItemDetail[] {
     return this.cartService.items().map(item => {
-        return {
-            productId: (item.product as any).id, 
-            quantity: item.quantity,
-            price: item.product.price,
-            idSeller: item.product.id_seller!,
-            productName: item.product.name
-        };
+      const product = item.product;
+      item.product.stock = item.product.stock - item.quantity;
+      this.productService.updateProduct(product.id!, product).subscribe();
+      return {
+          productId: (item.product as any).id, 
+          quantity: item.quantity,
+          price: item.product.price,
+          idSeller: item.product.id_seller!,
+          productName: item.product.name
+      };
     });
   }
 

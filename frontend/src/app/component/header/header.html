@@ -69,14 +69,16 @@
                 <p-button (click)="goToDashboard()" pRipple [raised]="true"> 
                     <i class="pi pi-bell" pBadge [value]="notificationCount().toString()" severity="danger" style="font-size: 1rem;"></i>
                 </p-button>
-                <p-button (onClick)="goToCart()" pRipple [raised]="true"> 
-                    @if(cartService.count() > 0){
-                        <i class="pi pi-shopping-cart" pBadge [value]="cartService.count().toString()" severity="danger" style="font-size: 1rem;"></i>
-                    }
-                    @else {
-                        <i class="pi pi-shopping-cart" pBadge style="font-size: 1rem;"></i>
-                    }
-                </p-button>
+                @if(!currentUser?.isSeller){
+                    <p-button (onClick)="goToCart()" pRipple [raised]="true"> 
+                        @if(cartService.count() > 0){
+                            <i class="pi pi-shopping-cart" pBadge [value]="cartService.count().toString()" severity="danger" style="font-size: 1rem;"></i>
+                        }
+                        @else {
+                            <i class="pi pi-shopping-cart" pBadge style="font-size: 1rem;"></i>
+                        }
+                    </p-button>
+                }
                 <p-splitbutton [label]="currentUser?.fullName || 'Mi cuenta'" (onClick)="goToProfile()" [model]="items"/>
             } @else {
                 <p-button label="Registrarse" [raised]="true" styleClass="user-btn" routerLink="/sign-up" />

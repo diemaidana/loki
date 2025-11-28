@@ -14,91 +14,24 @@
     },
     {
       "email": "seller@mail.com",
+      "username": "sonlegends",
       "fullName": "Vendedor Loki",
       "password": "abcdef",
       "DNI": "",
       "phoneNumber": "",
       "address": "Calle Falsa 123, Buenos Aires",
       "nationality": "Argentina",
-      "id": "2"
+      "id": "2",
+      "isSeller": true
     },
     {
-      "username": "Juan Carlos",
-      "email": "lucascamino05@gmail.com",
-      "fullName": "Lucas Camino",
-      "phoneNumber": "2266489025",
-      "address": "San Juan 200",
-      "nationality": "Argentina",
-      "id": "f184"
-    },
-    {
+      "id": "b4fa",
       "username": "Sonlegends",
       "email": "lucascamino05@gmail.com",
       "fullName": "Lucas Camino",
-      "password": "123456",
+      "password": "lucas05",
       "DNI": "41928079",
-      "phoneNumber": "1234",
-      "address": "1234",
-      "nationality": "Argentina",
-      "id": "7b58"
-    },
-    {
-      "id": "6a0d",
-      "username": "Sonlegends",
-      "email": "1234@gmail.com",
-      "password": "1234",
-      "repassword": "1234",
-      "fullName": "12345",
-      "DNI": "12345",
-      "phoneNumber": "12345",
-      "address": "123456",
-      "nationality": ""
-    },
-    {
-      "id": "413b",
-      "username": "123",
-      "email": "123456@gmail.com",
-      "password": "123",
-      "repassword": "123",
-      "fullName": "123",
-      "DNI": "123",
-      "phoneNumber": "123",
-      "address": "1234",
-      "nationality": ""
-    },
-    {
-      "id": "8929",
-      "username": "1234",
-      "email": "1234567@gmail.com",
-      "password": "1234",
-      "repassword": "1234",
-      "fullName": "1234",
-      "DNI": "1234",
-      "phoneNumber": "1234",
-      "address": "1234",
-      "nationality": ""
-    },
-    {
-      "id": "18ed",
-      "username": "1234",
-      "email": "seller1@mail.com",
-      "password": "1234",
-      "repassword": "1234",
-      "fullName": "1234",
-      "DNI": "1234",
-      "phoneNumber": "1234",
-      "address": "1234",
-      "nationality": ""
-    },
-    {
-      "id": "3409",
-      "username": "123",
-      "email": "lucascamino05@gmail.com",
-      "password": "123",
-      "repassword": "123",
-      "fullName": "123",
-      "DNI": "123",
-      "phoneNumber": "123",
+      "phoneNumber": "2266489025",
       "address": "123",
       "nationality": "",
       "isSeller": false
@@ -113,7 +46,8 @@
       "image": "/assets/products/auriculares.jpg",
       "price": 25000,
       "id": "1",
-      "id_seller": "2"
+      "id_seller": "2",
+      "stock": 11
     },
     {
       "id": "2",
@@ -123,7 +57,8 @@
       "id_seller": 1,
       "brand": "Apple",
       "image": "/assets/products/notebook.jpg",
-      "category": "Electronica"
+      "category": "Electronica",
+      "stock": 17
     },
     {
       "id": "3",
@@ -133,7 +68,8 @@
       "id_seller": 1,
       "brand": "Logitech",
       "image": "/assets/products/mouse.jpg",
-      "category": "Electronica"
+      "category": "Electronica",
+      "stock": 21
     },
     {
       "id": "4",
@@ -143,7 +79,8 @@
       "id_seller": 2,
       "brand": "HyperX",
       "image": "/assets/products/teclado.jpg",
-      "category": "Electronica"
+      "category": "Electronica",
+      "stock": 54
     },
     {
       "id": "5",
@@ -153,7 +90,8 @@
       "id_seller": 1,
       "brand": "Samsung",
       "image": "/assets/products/monitor.jpg",
-      "category": "Electronica"
+      "category": "Electronica",
+      "stock": 7
     },
     {
       "id": "6",
@@ -163,7 +101,8 @@
       "id_seller": 2,
       "brand": "DXRacer",
       "image": "/assets/products/silla.jpg",
-      "category": ""
+      "category": "Gaming",
+      "stock": 11
     },
     {
       "id": "7",
@@ -173,7 +112,8 @@
       "id_seller": 1,
       "brand": "Xiaomi",
       "image": "/assets/products/smartwatch.jpg",
-      "category": "Electronica"
+      "category": "Electronica",
+      "stock": 9
     },
     {
       "id": "8",
@@ -183,7 +123,8 @@
       "id_seller": 2,
       "brand": "JBL",
       "image": "/assets/products/parlante.jpg",
-      "category": "Electronica"
+      "category": "Electronica",
+      "stock": 10
     },
     {
       "id": "9",
@@ -193,7 +134,8 @@
       "id_seller": 1,
       "brand": "LG",
       "image": "/assets/products/smarttv.jpg",
-      "category": "Electronica"
+      "category": "Electronica",
+      "stock": 7
     },
     {
       "id": "10",
@@ -203,7 +145,8 @@
       "id_seller": 2,
       "brand": "Sony",
       "image": "/assets/products/ps5.jpg",
-      "category": "Electronica"
+      "category": "Electronica",
+      "stock": 5
     },
     {
       "id": "11",
@@ -213,7 +156,8 @@
       "id_seller": 1,
       "brand": "GoPro",
       "image": "/assets/products/camara.jpg",
-      "category": "Electronica"
+      "category": "Electronica",
+      "stock": 7
     },
     {
       "id": "12",
@@ -223,7 +167,8 @@
       "id_seller": 2,
       "brand": "HP",
       "image": "/assets/products/impresora.jpg",
-      "category": "Electronica"
+      "category": "Electronica",
+      "stock": 26
     },
     {
       "id": "13",
@@ -233,7 +178,8 @@
       "id_seller": 1,
       "brand": "Huawei",
       "image": "/assets/products/tablet.jpg",
-      "category": "Electronica"
+      "category": "Electronica",
+      "stock": 31
     },
     {
       "id": "14",
@@ -243,7 +189,8 @@
       "id_seller": 2,
       "brand": "Niche",
       "image": "/assets/products/cafetera.jpg",
-      "category": "Electronica"
+      "category": "Electronica",
+      "stock": 46
     },
     {
       "id": "15",
@@ -253,7 +200,8 @@
       "id_seller": 1,
       "brand": "Whirlpool",
       "image": "/assets/products/heladera.jpg",
-      "category": "Electronica"
+      "category": "Electronica",
+      "stock": 4
     },
     {
       "id": "16",
@@ -263,7 +211,8 @@
       "id_seller": 2,
       "brand": "Aliomatic",
       "image": "/assets/products/lavarropas.jpg",
-      "category": "Electronica"
+      "category": "Electronica",
+      "stock": 23
     },
     {
       "id": "17",
@@ -273,7 +222,8 @@
       "id_seller": 1,
       "brand": "Black & Decker",
       "image": "/assets/products/microondas.jpg",
-      "category": "Electronica"
+      "category": "Electronica",
+      "stock": 3
     },
     {
       "id": "18",
@@ -283,7 +233,8 @@
       "id_seller": 2,
       "brand": "Roomba",
       "image": "/assets/products/robot.jpg",
-      "category": "Electronica"
+      "category": "Electronica",
+      "stock": 15
     },
     {
       "id": "19",
@@ -293,7 +244,8 @@
       "id_seller": 1,
       "brand": "Venzo",
       "image": "/assets/products/bicicleta.jpg",
-      "category": "Deportes"
+      "category": "Deportes",
+      "stock": 11
     },
     {
       "id": "20",
@@ -303,7 +255,8 @@
       "id_seller": 2,
       "brand": "Nike",
       "image": "/assets/products/zapatillas.jpg",
-      "category": "Indumentaria"
+      "category": "Indumentaria",
+      "stock": 2
     },
     {
       "id": "ccfa",
@@ -313,57 +266,26 @@
       "category": "Electronica",
       "image": "https://images.unsplash.com/photo-1551818014-7c8ace9c1b5c?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "price": 12000,
-      "id_seller": "2"
+      "id_seller": "2",
+      "stock": 8
+    },
+    {
+      "id": "84ab",
+      "name": "Iphone",
+      "brand": "Apple",
+      "description": "Gran telefono",
+      "category": "Electronica",
+      "stock": 0,
+      "image": "Image-not-found.png",
+      "price": 1500000,
+      "id_seller": "1"
     }
   ],
   "purchases": [
     {
-      "id": "00f7",
-      "id_buyer": "6a0d",
-      "date": "2025-11-27T17:57:21.831Z",
-      "items": [
-        {
-          "productId": "2",
-          "quantity": 1,
-          "price": 950000,
-          "idSeller": 1,
-          "productName": "Macbook Pro"
-        },
-        {
-          "productId": "15",
-          "quantity": 1,
-          "price": 650000,
-          "idSeller": 1,
-          "productName": "Heladera No Frost"
-        },
-        {
-          "productId": "7",
-          "quantity": 1,
-          "price": 45000,
-          "idSeller": 1,
-          "productName": "Smartwatch"
-        },
-        {
-          "productId": "1",
-          "quantity": 1,
-          "price": 25000,
-          "idSeller": "2",
-          "productName": "Auriculares Bluetooth"
-        },
-        {
-          "productId": "5",
-          "quantity": 1,
-          "price": 200000,
-          "idSeller": 1,
-          "productName": "Monitor 27''"
-        }
-      ],
-      "totalAmount": 1870000
-    },
-    {
-      "id": "e3b6",
-      "id_buyer": "3409",
-      "date": "2025-11-27T20:29:30.182Z",
+      "id": "e065",
+      "id_buyer": "b4fa",
+      "date": "2025-11-28T12:17:33.280Z",
       "items": [
         {
           "productId": "2",
@@ -376,9 +298,9 @@
       "totalAmount": 950000
     },
     {
-      "id": "84d8",
-      "id_buyer": "3409",
-      "date": "2025-11-28T06:14:20.997Z",
+      "id": "0896",
+      "id_buyer": "b4fa",
+      "date": "2025-11-28T12:18:24.699Z",
       "items": [
         {
           "productId": "2",
@@ -391,412 +313,26 @@
       "totalAmount": 950000
     }
   ],
-  "offers": [
-    {
-      "id": "239d",
-      "productId": "2",
-      "userId": "3409",
-      "sellerId": 1,
-      "amount": 855000,
-      "date": "2025-11-27T16:55:03.640Z",
-      "status": "aceptada"
-    },
-    {
-      "id": "1295",
-      "productId": "2",
-      "userId": "3409",
-      "sellerId": 1,
-      "amount": 855000,
-      "date": "2025-11-27T18:14:18.332Z",
-      "status": "rechazada"
-    },
-    {
-      "id": "7dc4",
-      "productId": "4",
-      "userId": "3409",
-      "sellerId": 2,
-      "amount": 27000,
-      "date": "2025-11-27T18:14:49.292Z",
-      "status": "rechazada"
-    },
-    {
-      "id": "eedd",
-      "productId": "5",
-      "userId": "3409",
-      "sellerId": 1,
-      "amount": 180000,
-      "date": "2025-11-27T18:15:01.294Z",
-      "status": "rechazada"
-    },
-    {
-      "id": "d57f",
-      "productId": "5",
-      "userId": "3409",
-      "sellerId": 1,
-      "amount": 180000,
-      "date": "2025-11-27T18:16:11.449Z",
-      "status": "pendiente"
-    },
-    {
-      "id": "cf7c",
-      "productId": "5",
-      "userId": "3409",
-      "sellerId": 1,
-      "amount": 2,
-      "date": "2025-11-27T18:21:00.532Z",
-      "status": "pendiente"
-    },
-    {
-      "id": "1b1f",
-      "productId": "5",
-      "userId": "3409",
-      "sellerId": 1,
-      "amount": 3,
-      "date": "2025-11-27T18:23:04.389Z",
-      "status": "pendiente"
-    },
-    {
-      "id": "5b5c",
-      "productId": "5",
-      "userId": "3409",
-      "sellerId": 1,
-      "amount": 180000,
-      "date": "2025-11-27T18:23:25.647Z",
-      "status": "pendiente"
-    },
-    {
-      "id": "2add",
-      "productId": "3",
-      "userId": "3409",
-      "sellerId": 1,
-      "amount": 10800,
-      "date": "2025-11-27T18:25:41.883Z",
-      "status": "pendiente"
-    },
-    {
-      "id": "e039",
-      "productId": "3",
-      "userId": "3409",
-      "sellerId": 1,
-      "amount": 10800,
-      "date": "2025-11-27T18:27:14.032Z",
-      "status": "pendiente"
-    },
-    {
-      "id": "faab",
-      "productId": "2",
-      "userId": "3409",
-      "sellerId": 1,
-      "amount": 15,
-      "date": "2025-11-27T18:27:22.971Z",
-      "status": "pendiente",
-      "lastOffer": false
-    },
-    {
-      "id": "aa3f",
-      "productId": "1",
-      "userId": "3409",
-      "sellerId": 2,
-      "amount": 22500,
-      "date": "2025-11-27T18:27:32.615Z",
-      "status": "pendiente"
-    },
-    {
-      "id": "1be6",
-      "productId": "1",
-      "userId": "3409",
-      "productName": "Auriculares Bluetooth",
-      "sellerId": "2",
-      "amount": 22500,
-      "date": "2025-11-27T20:29:35.830Z",
-      "status": "pendiente"
-    },
-    {
-      "id": "773a",
-      "productId": "1",
-      "userId": "3409",
-      "productName": "Auriculares Bluetooth",
-      "sellerId": "2",
-      "amount": 22500,
-      "date": "2025-11-28T04:41:31.115Z",
-      "status": "pendiente"
-    },
-    {
-      "id": "df07",
-      "productId": "3",
-      "userId": "3409",
-      "productName": "Mouse Inalámbrico",
-      "sellerId": 1,
-      "amount": 1500,
-      "date": "2025-11-28T05:41:32.998Z",
-      "lastOffer": false,
-      "status": "rechazada"
-    },
-    {
-      "id": "2446",
-      "productId": "2",
-      "userId": "3409",
-      "productName": "Macbook Pro",
-      "sellerId": 1,
-      "amount": 855000,
-      "date": "2025-11-28T06:14:07.323Z",
-      "lastOffer": true,
-      "status": "aceptada"
-    },
-    {
-      "id": "6dfe",
-      "productId": "2",
-      "userId": "3409",
-      "productName": "Macbook Pro",
-      "sellerId": 1,
-      "amount": 855000,
-      "date": "2025-11-28T06:14:11.946Z",
-      "lastOffer": true,
-      "status": "aceptada"
-    },
-    {
-      "id": "49bc",
-      "productId": "9",
-      "userId": "3409",
-      "productName": "Smart TV 55''",
-      "sellerId": 1,
-      "amount": 123,
-      "date": "2025-11-28T06:14:16.744Z",
-      "lastOffer": false,
-      "status": "pendiente"
-    },
-    {
-      "id": "a63c",
-      "productId": "2",
-      "userId": "3409",
-      "productName": "Macbook Pro",
-      "sellerId": 1,
-      "amount": 15000,
-      "date": "2025-11-28T06:30:26.273Z",
-      "lastOffer": true,
-      "status": "pendiente"
-    },
-    {
-      "id": "2741",
-      "productId": "2",
-      "userId": "3409",
-      "productName": "Macbook Pro",
-      "sellerId": 1,
-      "amount": 123,
-      "date": "2025-11-28T06:46:40.580Z",
-      "lastOffer": false,
-      "status": "pendiente"
-    },
-    {
-      "id": "df5d",
-      "productId": "2",
-      "userId": "3409",
-      "productName": "Macbook Pro",
-      "sellerId": 1,
-      "amount": 1234,
-      "date": "2025-11-28T06:49:11.164Z",
-      "lastOffer": false,
-      "status": "pendiente"
-    },
-    {
-      "id": "8378",
-      "productId": "2",
-      "userId": "3409",
-      "productName": "Macbook Pro",
-      "sellerId": 1,
-      "amount": 12345,
-      "date": "2025-11-28T06:52:16.403Z",
-      "lastOffer": false,
-      "status": "pendiente"
-    },
-    {
-      "id": "4b77",
-      "productId": "2",
-      "userId": "3409",
-      "productName": "Macbook Pro",
-      "sellerId": 1,
-      "amount": 1234,
-      "date": "2025-11-28T06:54:52.618Z",
-      "lastOffer": false,
-      "status": "pendiente"
-    },
-    {
-      "id": "e1b3",
-      "productId": "2",
-      "userId": "3409",
-      "productName": "Macbook Pro",
-      "sellerId": 1,
-      "amount": 123,
-      "date": "2025-11-28T06:56:16.413Z",
-      "lastOffer": false,
-      "status": "pendiente"
-    }
-  ],
+  "offers": [],
   "notifications": [
     {
-      "id": "ff3d",
+      "id": "cb3d",
       "recipientId": 1,
-      "senderId": "3409",
-      "type": "PURCHASE",
-      "productName": "Macbook Pro",
-      "productId": "2",
-      "date": "2025-11-27T20:29:30.201Z"
-    },
-    {
-      "id": "c7b7",
-      "recipientId": "2",
-      "senderId": "3409",
-      "type": "OFFER",
-      "productName": "Auriculares Bluetooth",
-      "productId": "1",
-      "date": "2025-11-27T20:29:35.842Z"
-    },
-    {
-      "id": "4a9e",
-      "recipientId": "2",
-      "senderId": "3409",
-      "type": "oferta",
-      "productName": "Auriculares Bluetooth",
-      "productId": "1",
-      "date": "2025-11-28T04:41:31.132Z"
-    },
-    {
-      "id": "94b3",
-      "recipientId": 1,
-      "senderId": "3409",
-      "type": "oferta",
-      "productName": "Mouse Inalámbrico",
-      "productId": "3",
-      "date": "2025-11-28T05:41:33.013Z"
-    },
-    {
-      "id": "d678",
-      "recipientId": 1,
-      "senderId": "3409",
-      "type": "oferta",
-      "productName": "Macbook Pro",
-      "productId": "2",
-      "date": "2025-11-28T06:14:07.340Z",
-      "read": false
-    },
-    {
-      "id": "7065",
-      "recipientId": 1,
-      "senderId": "3409",
-      "type": "oferta",
-      "productName": "Macbook Pro",
-      "productId": "2",
-      "date": "2025-11-28T06:14:11.960Z",
-      "read": false
-    },
-    {
-      "id": "9bfd",
-      "recipientId": 1,
-      "senderId": "3409",
-      "type": "oferta",
-      "productName": "Smart TV 55''",
-      "productId": "9",
-      "date": "2025-11-28T06:14:16.758Z",
-      "read": false
-    },
-    {
-      "id": "29a0",
-      "recipientId": 1,
-      "senderId": "3409",
+      "senderId": "b4fa",
       "type": "compra",
       "productName": "Macbook Pro",
       "productId": "2",
-      "date": "2025-11-28T06:14:21.013Z",
+      "date": "2025-11-28T12:17:33.348Z",
       "read": false
     },
     {
-      "id": "52ec",
+      "id": "b25c",
       "recipientId": 1,
-      "senderId": "3409",
-      "type": "oferta",
+      "senderId": "b4fa",
+      "type": "compra",
       "productName": "Macbook Pro",
       "productId": "2",
-      "date": "2025-11-28T06:30:26.287Z",
-      "read": false
-    },
-    {
-      "id": "1463",
-      "recipientId": 1,
-      "senderId": "3409",
-      "type": "oferta",
-      "productName": "Macbook Pro",
-      "productId": "2",
-      "date": "2025-11-28T06:46:40.596Z",
-      "read": false
-    },
-    {
-      "id": "6660",
-      "recipientId": 1,
-      "senderId": "3409",
-      "type": "oferta",
-      "productName": "Macbook Pro",
-      "productId": "2",
-      "date": "2025-11-28T06:49:11.179Z",
-      "read": false
-    },
-    {
-      "id": "19ec",
-      "recipientId": 1,
-      "senderId": "3409",
-      "type": "oferta",
-      "productName": "Macbook Pro",
-      "productId": "2",
-      "date": "2025-11-28T06:52:16.416Z",
-      "read": false
-    },
-    {
-      "id": "10c6",
-      "recipientId": 1,
-      "senderId": "3409",
-      "type": "updateDeOferta",
-      "productName": "Macbook Pro",
-      "productId": "2",
-      "date": "2025-11-28T06:52:37.306Z",
-      "read": false
-    },
-    {
-      "id": "19e9",
-      "recipientId": 1,
-      "senderId": "3409",
-      "type": "oferta",
-      "productName": "Macbook Pro",
-      "productId": "2",
-      "date": "2025-11-28T06:54:52.633Z",
-      "read": false
-    },
-    {
-      "id": "fa7c",
-      "recipientId": 1,
-      "senderId": "3409",
-      "type": "updateDeOferta",
-      "productName": "Macbook Pro",
-      "productId": "2",
-      "date": "2025-11-28T06:55:25.384Z",
-      "read": false
-    },
-    {
-      "id": "df0c",
-      "recipientId": 1,
-      "senderId": "3409",
-      "type": "oferta",
-      "productName": "Macbook Pro",
-      "productId": "2",
-      "date": "2025-11-28T06:56:16.427Z",
-      "read": false
-    },
-    {
-      "id": "9627",
-      "recipientId": "3409",
-      "senderId": 1,
-      "type": "updateDeOferta",
-      "productName": "Macbook Pro",
-      "productId": "2",
-      "date": "2025-11-28T06:56:34.196Z",
+      "date": "2025-11-28T12:18:24.761Z",
       "read": false
     }
   ]

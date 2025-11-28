@@ -69,7 +69,13 @@ export class ProductDetails {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Producto no disponible.' });
         return;
     }
+    if (!this.currentUser) {
+      this.messageService.add({ severity: 'warn', summary: 'Atención', detail: 'Debes iniciar sesión para ofertar.' });
 
+      const currentUrl = this.router.url;
+      setTimeout(() => this.router.navigate(['/sign-in'], { queryParams: { returnUrl: currentUrl } }), 1000);
+      return;
+    }
     this.cartService.addToCart(p);
     this.messageService.add({ severity: 'success', summary: 'Agregado', detail: 'Producto agregado al carrito' });
     
@@ -82,11 +88,11 @@ export class ProductDetails {
   openOfferDialog() {
     // Validamos que este logeado.
     if (!this.currentUser) {
-        this.messageService.add({ severity: 'warn', summary: 'Atención', detail: 'Debes iniciar sesión para ofertar.' });
+      this.messageService.add({ severity: 'warn', summary: 'Atención', detail: 'Debes iniciar sesión para ofertar.' });
 
-        const currentUrl = this.router.url;
-        setTimeout(() => this.router.navigate(['/sign-in'], { queryParams: { returnUrl: currentUrl } }), 1000);
-        return;
+      const currentUrl = this.router.url;
+      setTimeout(() => this.router.navigate(['/sign-in'], { queryParams: { returnUrl: currentUrl } }), 1000);
+      return;
     }
     
     const p = this.product();

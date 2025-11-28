@@ -153,11 +153,11 @@ docker compose up --build
 
 [x] Gestión de Productos (Alta, Baja, Modificación)
 
-[ ] Sistema de Carrito de Compras
+[x] Sistema de Carrito de Compras
 
-[ ] Lógica de Negociación (Ofertas)
+[x] Lógica de Negociación (Ofertas)
 
-[ ] Autenticación y Roles (User/Seller)
+[x] Autenticación y Roles (User/Seller)
 
 <p align="right">(<a href="https://www.google.com/search?q=%23readme-top">volver arriba</a>)</p>
 

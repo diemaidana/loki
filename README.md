@@ -4,6 +4,7 @@
 
 [![Angular][Angular-shield]][Angular-url]
 [![PrimeNG][PrimeNG-shield]][PrimeNG-url]
+[![Swiper][Swiper-shield]][Swiper-url]
 [![Docker][Docker-shield]][Docker-url]
 [![TypeScript][TypeScript-shield]][TypeScript-url]
 
@@ -60,7 +61,7 @@
 
 **Loki** es una plataforma de comercio electrónico diseñada para conectar compradores y vendedores en un entorno dinámico. A diferencia de los e-commerce tradicionales, Loki incorpora un sistema de ofertas y contra-ofertas que permite la negociación en tiempo real.
 
-El proyecto destaca por su arquitectura moderna, utilizando la última versión de **Angular (v20)** con Signals y Standalone Components, estilizado con **PrimeNG v20 (Aura Theme)**, y ejecutándose en un entorno completamente aislado mediante **Docker**.
+El proyecto destaca por su arquitectura moderna, utilizando la última versión de **Angular (v20)** con Signals y Standalone Components, estilizado con **PrimeNG v20 (Aura Theme)**, carruseles táctiles con **Swiper**, y ejecutándose en un entorno completamente aislado mediante **Docker**.
 
 <p align="right">(<a href="#readme-top">volver arriba</a>)</p>
 
@@ -68,6 +69,7 @@ El proyecto destaca por su arquitectura moderna, utilizando la última versión 
 
 * [![Angular][Angular-shield]][Angular-url]
 * [![PrimeNG][PrimeNG-shield]][PrimeNG-url]
+* [![Swiper][Swiper-shield]][Swiper-url]
 * [![Docker][Docker-shield]][Docker-url]
 * [![TypeScript][TypeScript-shield]][TypeScript-url]
 * **JSON Server** (Mock Backend)
@@ -114,16 +116,58 @@ Solo necesitas tener instalado:
 
 Dado que no usamos Node local, utilizamos comandos de Docker para gestionar las dependencias y el entorno.
 
-### 📦 Instalar una nueva librería
-No uses `npm install` localmente. Úsalo a través de Docker para que se guarde en el contenedor:
+### 📦 Instalación de Librerías Clave
 
+Si necesitas reinstalar el entorno o agregar las dependencias principales, usa estos comandos dentro de Docker:
+
+**Instalar PrimeNG + Iconos + Temas:**
 ```sh
-# Ejemplo: Instalar chart.js
-docker compose run --rm angular-loki npm install chart.js --save --legacy-peer-deps
-
-# Luego reiniciar el servicio
-docker compose restart angular-loki
+docker compose run --rm angular-loki npm install primeng @primeuix/themes primeicons --save --legacy-peer-deps
 ```
+### 🔴 Solucionar "Líneas Rojas" en VS Code
+Si VS Code marca errores en los imports (porque no tienes las librerías en tu disco físico), ejecuta este comando para copiar los `node_modules` del contenedor a tu máquina:
+
+```bash
+# Ejecutar en la raíz del proyecto
+docker cp angular-loki:/app/node_modules ./frontend
+
+# (Solo Linux) Si tienes errores de permisos después de copiar:
+sudo chown -R $USER:$USER ./frontend/node_modules
+```
+
+### 🧹 Limpieza total
+Si tienes errores extraños de dependencias o permisos:
+
+```bash
+docker compose down -v
+docker compose up --build
+```
+<p align="right">(<a href="https://www.google.com/search?q=%23readme-top">volver arriba</a>)</p>
+
+### 🗺️ Roadmap
+[x] Configuración de Docker y Ambiente
+
+[x] Integración de PrimeNG v20 (Tema Violeta)
+
+[x] Dashboard de Vendedor (Tabs, Tablas, Gráficos)
+
+[x] Gestión de Productos (Alta, Baja, Modificación)
+
+[ ] Sistema de Carrito de Compras
+
+[ ] Lógica de Negociación (Ofertas)
+
+[ ] Autenticación y Roles (User/Seller)
+
+<p align="right">(<a href="https://www.google.com/search?q=%23readme-top">volver arriba</a>)</p>
+
+### 👥 Autores
+Diego Maidana - https://www.linkedin.com/in/die-maidana/
+
+Lucas Camino - https://www.linkedin.com/in/lucas-camino-0808231b6/
+
+<p align="right">(<a href="https://www.google.com/search?q=%23readme-top">volver arriba</a>)</p>
+
 [Angular-shield]: https://img.shields.io/badge/angular-%23DD0031.svg?style=for-the-badge&logo=angular&logoColor=white
 [Angular-url]: https://angular.io/
 [PrimeNG-shield]: https://img.shields.io/badge/PrimeNG-v20-%235F2ECC?style=for-the-badge
@@ -132,3 +176,5 @@ docker compose restart angular-loki
 [Docker-url]: https://www.docker.com/
 [TypeScript-shield]: https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white
 [TypeScript-url]: https://www.typescriptlang.org/
+[Swiper-shield]: https://img.shields.io/badge/Swiper-%236332F6?style=for-the-badge&logo=swiper&logoColor=white
+[Swiper-url]: https://swiperjs.com/

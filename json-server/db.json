@@ -100,6 +100,18 @@
       "phoneNumber": "123",
       "address": "123",
       "nationality": ""
+    },
+    {
+      "id": "d3db",
+      "username": "Cata Casino",
+      "email": "agustinFrigerio@gmail.com",
+      "fullName": "Cata Casino",
+      "password": "123",
+      "DNI": "1231234",
+      "phoneNumber": "12341234",
+      "address": "12341234",
+      "nationality": "",
+      "isSeller": true
     }
   ],
   "products": [
@@ -359,19 +371,34 @@
       "totalAmount": 1870000
     },
     {
-      "id": "e3b6",
-      "id_buyer": "3409",
-      "date": "2025-11-27T20:29:30.182Z",
+      "id": "22ce",
+      "id_buyer": "f184",
+      "date": "2025-11-27T22:17:23.072Z",
       "items": [
         {
           "productId": "2",
-          "quantity": 1,
+          "quantity": 4,
           "price": 950000,
           "idSeller": 1,
           "productName": "Macbook Pro"
         }
       ],
-      "totalAmount": 950000
+      "totalAmount": 3800000
+    },
+    {
+      "id": "101b",
+      "id_buyer": "d3db",
+      "date": "2025-11-28T01:16:43.713Z",
+      "items": [
+        {
+          "productId": "3",
+          "quantity": 1,
+          "price": 12000,
+          "idSeller": 1,
+          "productName": "Mouse Inalámbrico"
+        }
+      ],
+      "totalAmount": 12000
     }
   ],
   "offers": [
@@ -484,34 +511,24 @@
       "status": "pending"
     },
     {
-      "id": "1be6",
+      "id": "12b7",
       "productId": "1",
-      "userId": "3409",
+      "userId": "f184",
       "productName": "Auriculares Bluetooth",
       "sellerId": "2",
       "amount": 22500,
-      "date": "2025-11-27T20:29:35.830Z",
+      "date": "2025-11-27T22:17:04.010Z",
       "status": "pendiente"
-    }
-  ],
-  "notifications": [
-    {
-      "id": "ff3d",
-      "recipientId": 1,
-      "senderId": "3409",
-      "type": "compra",
-      "productName": "Macbook Pro",
-      "productId": "2",
-      "date": "2025-11-27T20:29:30.201Z"
     },
     {
-      "id": "c7b7",
-      "recipientId": "2",
-      "senderId": "3409",
-      "type": "oferta",
-      "productName": "Auriculares Bluetooth",
+      "id": "b737",
       "productId": "1",
-      "date": "2025-11-27T20:29:35.842Z"
+      "userId": "d3db",
+      "productName": "Auriculares Bluetooth",
+      "sellerId": "2",
+      "amount": 22500,
+      "date": "2025-11-28T01:16:27.081Z",
+      "status": "pendiente"
     }
   ]
 }

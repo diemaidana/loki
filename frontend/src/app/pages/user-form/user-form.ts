@@ -135,8 +135,28 @@ export class UserForm {
       message: '¿Estás seguro de que deseas registrarte?',
       icon: 'pi pi-exclamation-triangle',
       
+
+
+      
       accept: () => {
-        this.service.postUser(this.formSignUp.getRawValue()).subscribe(() => {
+          const rawValue = this.formSignUp.getRawValue();
+
+      // 🛡️ LIMPIEZA DE DATOS (Sanitización)
+      // Creamos un objeto nuevo explícitamente para evitar referencias circulares
+      const newUser: User = {
+          username: rawValue.username,
+          email: rawValue.email,
+          fullName: rawValue.fullName,
+          password: rawValue.password,
+          // Campos opcionales (aseguramos string vacío si son null)
+          DNI: rawValue.DNI || '',
+          phoneNumber: rawValue.phoneNumber || '',
+          address: rawValue.address || '',
+          nationality: rawValue.nationality || '',
+          // Aseguramos que isSeller sea booleano
+          isSeller: !!rawValue.isSeller 
+      };
+        this.service.postUser(newUser).subscribe(() => {
           this.messageService.add({ severity: 'success', summary: 'Confirmado', detail: 'Usuario registrado con éxito' });
           this.router.navigateByUrl("/sign-in");
         });

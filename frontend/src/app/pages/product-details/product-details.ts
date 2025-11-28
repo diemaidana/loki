@@ -142,6 +142,7 @@ export class ProductDetails {
         sellerId: sellerId,     
         amount: amount,         
         date: new Date().toISOString(),
+        lastOffer: true,
         status: 'pendiente'       
     };
 
@@ -157,7 +158,7 @@ export class ProductDetails {
                 sellerId, 
                 buyer.id!,        // Sender ID (Comprador)
                 p.name,           // Nombre Producto
-                p.id!             // ID Producto
+                p.id!            // ID Producto
             ).subscribe({
                 error: (e) => console.error('Fallo al notificar oferta', e)
             });

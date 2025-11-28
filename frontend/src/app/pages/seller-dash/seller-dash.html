@@ -4,9 +4,6 @@
     @if(currentUser()?.isSeller){
         <p-tabs [(value)]="activeTab" (valueChange)="onTabChange($event)" scrollable>
             <p-tablist>
-                <ng-template #previcon>
-                    <i class="pi pi-minus"></i>
-                </ng-template>
                 <p-tab value="0">
                     <span>Productos</span>
                 </p-tab>
@@ -22,10 +19,6 @@
                 <p-tab value="4">
                     <span>Notificaciones</span>
                 </p-tab>
-
-                <ng-template #nexticon>
-                    <i class="pi pi-plus"></i>
-                </ng-template>
             </p-tablist>
             <p-tabpanels>
                 <p-tabpanel value="0">
@@ -196,10 +189,10 @@
                                     ${{ offer.amount }}
                                 </td>
                                 <td>
-                                    <p-button icon="pi pi-check" [rounded]="true" [text]="true" severity="success" (click)="acceptOffer(offer)"/>
+                                    <p-button icon="pi pi-check" [rounded]="true" [text]="true" severity="success" (click)="acceptOffer(offer)" [disabled]="!(offer.lastOffer) || offer.status != 'pendiente'"/>
                                 </td>
                                 <td>
-                                    <p-button icon="pi pi-pen-to-square" [rounded]="true" [text]="true" severity="info" (click)="showEditDialog(offer)"/>
+                                    <p-button icon="pi pi-pen-to-square" [rounded]="true" [text]="true" severity="info" (click)="showEditDialog(offer)" [disabled]="!(offer.lastOffer) || offer.status != 'pendiente'"/>
                                     <p-dialog header="Actualizar oferta" [modal]="true" [(visible)]="editOfferDialog" [style]="{ width: '25rem' }" >
                                         <p-floatlabel variant="in">
                                             <div class="dialog">
@@ -214,7 +207,7 @@
                                     </p-dialog>
                                 </td>
                                 <td>
-                                    <p-button icon="pi pi-times" [rounded]="true" [text]="true" severity="danger" (click)="rejectOffer(offer)"/>
+                                    <p-button icon="pi pi-times" [rounded]="true" [text]="true" severity="danger" (click)="rejectOffer(offer)" [disabled]="offer.status != 'pendiente'"/>
                                 </td>
                             </tr>
                         </ng-template>
@@ -253,11 +246,8 @@
             </p-tabpanels>
         </p-tabs>
     }@else {
-                <p-tabs [(value)]="activeTab" (valueChange)="onTabChange($event)" scrollable>
+        <p-tabs [(value)]="activeTab"  scrollable>
             <p-tablist>
-                <ng-template #previcon>
-                    <i class="pi pi-minus"></i>
-                </ng-template>
                 <p-tab value="0">
                     <span>Compras</span>
                 </p-tab>
@@ -267,39 +257,26 @@
                 <p-tab value="2">
                     <span>Notificaciones</span>
                 </p-tab>
-
-                <ng-template #nexticon>
-                    <i class="pi pi-plus"></i>
-                </ng-template>
             </p-tablist>
             <p-tabpanels>
                 <p-tabpanel value="0">
-                    <p-table [value]="products()" [tableStyle]="{ 'min-width': '60rem' }">
+                    <p-table [value]="mySales()" [tableStyle]="{ 'min-width': '60rem' }">
                         <ng-template #header>
                             <tr>
                                 <th>Fecha</th>
                                 <th>Productos</th>
-                                <th>Categoria</th>
                                 <th>Precio</th>
                             </tr>
                         </ng-template>
                         <ng-template #body let-product>
                             <tr>
-                                <td>{{ product.name }}</td>
-                                <td>{{ product.brand }}</td>
-                                <td>
-                                    <p-image [src]="product.image" [alt]="product.name" width="100" height="65" style="object-fit: cover;"/>
+                                <td>{{ product.date | date:'dd/MM/yyyy'}}</td>
+                                <td class="products-name">
+                                    @for(p of product.items; track $index) {
+                                        {{ p.productName }}
+                                    }
                                 </td>
-                                <td>{{ product.category }}</td>
-                                <td>{{ product.price | currency: '$' }}</td>
-                                <td><p-button icon="pi pi-pen-to-square" [rounded]="true" [text]="true" severity="info" (click)="editProduct(product)" /></td>
-
-                                <td><p-button icon="pi pi-times" [rounded]="true" [text]="true" severity="danger" (click)="deleteProduct(product)" /></td>
-                            </tr>
-                        </ng-template>
-                        <ng-template #footer>
-                            <tr>
-                                <td colspan="6">Cantidad total de productos: {{ products().length }}</td>
+                                <td>{{ product.totalAmount | currency: '$' }}</td>
                             </tr>
                         </ng-template>
                     </p-table>
@@ -315,6 +292,7 @@
                                 <th>Aceptar</th>
                                 <th>Ofertar</th>
                                 <th>Rechazar</th>
+                                <th>Pagar</th>
                             </tr>
                         </ng-template>
                         <ng-template #body let-offer>
@@ -330,31 +308,29 @@
                                     ${{ offer.amount }}
                                 </td>
                                 <td>
-                                    <p-button icon="pi pi-check" [rounded]="true" [text]="true" severity="success" (click)="acceptOffer(offer)"/>
+                                    <p-button icon="pi pi-check" [rounded]="true" [text]="true" severity="success" (click)="acceptOffer(offer)" [disabled]="offer.lastOffer || !(offer.status == 'pendiente')"/>
                                 </td>
                                 <td>
-                                    <p-button icon="pi pi-pen-to-square" [rounded]="true" [text]="true" severity="info" (click)="showEditDialog(offer)"/>
-                                    <p-dialog header="Actualizar oferta" [modal]="true" [(visible)]="editOfferDialog" [style]="{ width: '25rem' }" >
+                                    <p-button icon="pi pi-pen-to-square" [rounded]="true" [text]="true" severity="info" (click)="showEditDialog(offer)" [disabled]="offer.lastOffer || !(offer.status == 'pendiente')"/>
+                                    <p-dialog header="Actualizar oferta" [modal]="true" [(visible)]="editOfferDialog" [style]="{ width: '25rem' }">
                                         <p-floatlabel variant="in">
                                             <div class="dialog">
                                                 <p-inputnumber #priceOffer inputId="currency-us" mode="currency" currency="ARS" locale="es-AR" />
                                                 <label for="username" class="">Precio nuevo</label>
                                                 <div class="action-btns">
                                                     <p-button label="Cancelar" [text]="true" severity="secondary" (click)="editOfferDialog = false" />
-                                                    <p-button label="Enviar nueva oferta" (click)="editOffer(offer, $any(priceOffer.value))" />
+                                                    <p-button label="Enviar nueva oferta" (click)="editOffer(offer, $any(priceOffer.value))"/>
                                                 </div>
                                             </div>
                                         </p-floatlabel>
                                     </p-dialog>
                                 </td>
                                 <td>
-                                    <p-button icon="pi pi-times" [rounded]="true" [text]="true" severity="danger" (click)="rejectOffer(offer)"/>
+                                    <p-button icon="pi pi-times" [rounded]="true" [text]="true" severity="danger" (click)="rejectOffer(offer)" [disabled]="offer.status != 'pendiente'"/>
                                 </td>
-                            </tr>
-                        </ng-template>
-                        <ng-template #footer>
-                            <tr>
-                                <td colspan="6">Cantidad total de ventas: {{ mySales().length }}</td>
+                                <td>
+                                    <p-button label="Ir a pagar" variant="text" [disabled]="offer.status != 'aceptada'" (click)="goToPay(offer)"/>
+                                </td>
                             </tr>
                         </ng-template>
                     </p-table>
@@ -366,14 +342,27 @@
                                 <th>Tipo</th>
                                 <th>Producto</th>
                                 <th>Fecha</th>
+                                <th>Marcar como leido</th>
                             </tr>
                         </ng-template>
                         <ng-template #body let-notification>
                             <tr>
-                                <td>{{ notification.type }}</td>
-                                <td>{{ notification.date| date:'dd/MM/yyyy' }}</td>
-                                <td>
-                                    {{ notification.productName }}
+                            @if(!notification.read){
+                                    <td>{{ notification.type }}</td>
+                                    <td>{{ notification.date| date:'dd/MM/yyyy' }}</td>
+                                    <td>
+                                        {{ notification.productName }}
+                                    </td>
+                                }
+                                @else {    
+                                    <td>Usted no tiene notificaciones.</td>
+                                }
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="4" class="text-center p-4">
+                                    Usted no tiene notificaciones.
                                 </td>
                             </tr>
                         </ng-template>

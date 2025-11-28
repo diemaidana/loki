@@ -1,5 +1,5 @@
 import { Component, inject, Input, input, signal } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { User } from '../../model/user';
 import { UserService } from '../../service/user-service';
 import { Router } from '@angular/router';
@@ -15,6 +15,7 @@ import { InputText } from "primeng/inputtext";
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Toast } from "primeng/toast";
 import { ConfirmDialog } from "primeng/confirmdialog";
+import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
   selector: 'app-user-form',
@@ -22,13 +23,15 @@ import { ConfirmDialog } from "primeng/confirmdialog";
     ReactiveFormsModule,
     CardModule,
     FloatLabelModule,
+    FormsModule,
     MessageModule,
     PasswordModule,
     ButtonModule,
     Dialog,
     InputText,
     Toast,
-    ConfirmDialog
+    ConfirmDialog,
+    CheckboxModule
 ],
   providers: [MessageService, ConfirmationService],
   templateUrl: './user-form.html',
@@ -92,7 +95,9 @@ export class UserForm {
   get nationality() {
     return this.formSignUp.controls.nationality;
   }
-
+  get isSeller(){
+    return this.formSignUp.controls.isSeller;
+  }
   get touched(){
     return this.formSignUp.touched;
   }
@@ -107,7 +112,8 @@ export class UserForm {
     DNI: ["", [Validators.required]],
     phoneNumber: [""],
     address: ["", [Validators.required]],
-    nationality: [""]
+    nationality: [""],
+    isSeller: [false]
   }, { validators: [passwordsMatchValidator]});
 
   get formControls(){

@@ -135,6 +135,10 @@
                         </p-message>
                     }
                 </p-floatlabel>
+                <div styleClass="p-checkbox">
+                    <p-checkbox inputId="isSeller" name="isSeller" (value)="true" [(ngModel)]="isSeller" formControlName="isSeller"/>
+                    <label for="isSeller">Vendedor</label>
+                </div>
                 <p-floatlabel variant="in" class="input-label">
                     <input name="phoneNumber" id="phoneNumber" pInputText formControlName="phoneNumber" />
                     <label for="phoneNumber">Numero de telefono</label>

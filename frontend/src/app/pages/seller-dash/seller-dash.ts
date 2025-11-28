@@ -1,6 +1,5 @@
 import { Component, computed, effect, inject, Input, OnInit, signal, untracked } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { filter, switchMap } from 'rxjs/operators';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import { Product } from '../../model/product';
@@ -65,6 +64,7 @@ export class SellerDash implements OnInit{
   protected isLoading = signal<boolean>(true);
   protected products = signal<Product[]>([]);
   protected purchases = signal<Checkout[]>([]);
+
   protected mySales = computed(() => {
     const sellerId = this.currentUser()?.id;
     
@@ -101,6 +101,7 @@ export class SellerDash implements OnInit{
     brand: ["", [Validators.required]],
     description: ["", [Validators.required]],
     category: ["", [Validators.required]],
+    stock: [0, [Validators.required]],
     image: ["", [Validators.required]],
     price: this.formBuilder.control(1, [Validators.required, Validators.min(1)])
   })

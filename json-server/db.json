@@ -112,6 +112,18 @@
       "address": "12341234",
       "nationality": "",
       "isSeller": true
+    },
+    {
+      "id": "509b",
+      "username": "ant25",
+      "email": "aaNtare5@gmail.com",
+      "fullName": "tito",
+      "password": "30253025PAnt",
+      "DNI": "45291192",
+      "phoneNumber": "22333333",
+      "address": "cordoba 3025",
+      "nationality": "",
+      "isSeller": true
     }
   ],
   "products": [
@@ -324,6 +336,16 @@
       "image": "https://images.unsplash.com/photo-1551818014-7c8ace9c1b5c?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "price": 12000,
       "id_seller": "2"
+    },
+    {
+      "id": "3fba",
+      "name": "cerveza lupulada",
+      "brand": "antRes",
+      "description": "cerveza estilo india pale ale con 5% de alcohol\n\n",
+      "category": "bebida",
+      "image": "https://lh3.googleusercontent.com/rd-gg-dl/ABS2GSmDv9qVND7NUYMMJxqZLZrE8eo9t8WCkrw229RAuD00xapkvF4EZ0sRqQ65RrX4hojBcQNFMvH8VWcDbDEbAlKDr6uwWbmJ8f-W1x3j0YKgTbyGomoFMBynOcgTrz5YFmhxp0eAio9k-4wpkZc5p72KpG8HwxOGJBs57wio8WkM8I8pXS_9IkDd7BRt8CZ3z9NZzVQq3c_JncxUtVK0C0gMsl9GgDhZAudyaEYE3W_mfxsLm-t7B92mNx3uud_2kECRKnEyUyqXw_ciG_zDAP4NMXzJPsDkcyXVQfFkqgOR94ugt1zOwIz1kQkjTYIGt_uPna6ZiXmjZtFzs0gqLoJPqv8EKhyqSW302kri6XcIweDz-ZGwUBwAJCtpChEKaeb8tSOUnfZX4LttaZLvzxhi4cilVpD7O11_jG2aNxTn7Y2feUp7KhMl4CTCqcA_jr5yELSZX6eRuTx5B2Y3CZn2Rv20Fm8sSz5tfmrao1hgsYdVdwSGk2jwlRfSCE86DSPV5BSHGaTXUjlgRaNbP4it2tZcgojkvpnbwq0i6Tz8F1PfpLYBVF0zaOuX6JIKwtFBfC1DfuCxxdml5MNW-8vfBjpDxr2yv33655N11-ejBH2JPbk5p9Cbs7AIoS4f3KyLba9CUFPomVOWn6Do8HfLIdA2Vwolb2vXPS_NqqXX8Pcwyh93tCH7BfKIWk9v0KlDhREFEP9aPyP9V2YRKXW_qaLg9kZg06JZ1YBtMw4v9qcWzXRqYml1LWTfXyVc16PVz9L6ZZPCc1dMNqob4F7qKHuHHVJKXI2RkzxMEq0J6yhIt0TwaT1Blgoqsw4ftudIH-SxDN8RPPByFLWQPSiLxlDIzsr45kt3mR-DNOJClAYKnZBj_SDxIh7ayqkTsHvqL25QTEhLLZ5NT3Y4HRKKX0vmk2EpSbzVTgO-CQGVFpzY0MiEcTJORZoleS6vl4D4_bB5l6z2ViSs3gqW6sNQTfjxxTnI9yruyyvGqx2qUV76OiJs6i-rFi3LMFWo7xYrIKY1g5OqfLnJ3BiKijQZCoPWOlCUk5kIMdBDWKIAi_WRNmqruy63j9JG7YfK4RHvI9v_pHtvpuqPdysaeopkQ46gF3BBtDD3KDSsvX0Ny3OyHQp8oWcghQkXeCwQFoKXs2mULyzNjkSxoaRnlhTNCacsPfsByF20At1NojhFDtvIo-ashHklsgnAAGOIKtIee51vm5anUKhxupqb4__wMRSv=s1024-rj",
+      "price": 1,
+      "id_seller": "509b"
     }
   ],
   "purchases": [
@@ -399,6 +421,73 @@
         }
       ],
       "totalAmount": 12000
+    },
+    {
+      "id": "6c24",
+      "id_buyer": "509b",
+      "date": "2025-11-28T02:14:18.360Z",
+      "items": [
+        {
+          "productId": "1",
+          "quantity": 1,
+          "price": 25000,
+          "idSeller": "2",
+          "productName": "Auriculares Bluetooth"
+        },
+        {
+          "productId": "8",
+          "quantity": 1,
+          "price": 35000,
+          "idSeller": 2,
+          "productName": "Parlante Bluetooth"
+        }
+      ],
+      "totalAmount": 60000
+    },
+    {
+      "id": "1425",
+      "id_buyer": "509b",
+      "date": "2025-11-28T02:15:06.330Z",
+      "items": [
+        {
+          "productId": "1",
+          "quantity": 1,
+          "price": 25000,
+          "idSeller": "2",
+          "productName": "Auriculares Bluetooth"
+        }
+      ],
+      "totalAmount": 25000
+    },
+    {
+      "id": "1f2f",
+      "id_buyer": "509b",
+      "date": "2025-11-28T02:15:56.955Z",
+      "items": [
+        {
+          "productId": "9",
+          "quantity": 1,
+          "price": 500000,
+          "idSeller": 1,
+          "productName": "Smart TV 55''"
+        }
+      ],
+      "totalAmount": 500000
+    },
+    {
+      "id": "fcef",
+      "id_buyer": "509b",
+      "date": "2025-11-28T02:26:31.231Z",
+      "items": [
+        {
+          "productId": "3fba",
+          "quantity": 6,
+          "price": 1,
+          "idSeller": "509b",
+          "productName": "cerveza lupulada"
+        }
+      ],
+      "totalAmount": 6
     }
   ],
   "offers": [
@@ -528,6 +617,26 @@
       "sellerId": "2",
       "amount": 22500,
       "date": "2025-11-28T01:16:27.081Z",
+      "status": "pendiente"
+    },
+    {
+      "id": "3107",
+      "productId": "8",
+      "userId": "509b",
+      "productName": "Parlante Bluetooth",
+      "sellerId": 2,
+      "amount": 31500,
+      "date": "2025-11-28T02:13:59.694Z",
+      "status": "pendiente"
+    },
+    {
+      "id": "ceca",
+      "productId": "17",
+      "userId": "509b",
+      "productName": "Microondas Digital",
+      "sellerId": 1,
+      "amount": 85000,
+      "date": "2025-11-28T02:17:47.923Z",
       "status": "pendiente"
     }
   ]

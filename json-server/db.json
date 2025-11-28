@@ -9,7 +9,8 @@
       "dni": "40111222",
       "phonenumber": "+54 223 555 1234",
       "address": "Av. Independencia 1234, Mar del Plata",
-      "nationality": "Argentina"
+      "nationality": "Argentina",
+      "isSeller": true
     },
     {
       "email": "seller@mail.com",
@@ -99,7 +100,8 @@
       "DNI": "123",
       "phoneNumber": "123",
       "address": "123",
-      "nationality": ""
+      "nationality": "",
+      "isSeller": false
     }
   ],
   "products": [
@@ -372,6 +374,21 @@
         }
       ],
       "totalAmount": 950000
+    },
+    {
+      "id": "84d8",
+      "id_buyer": "3409",
+      "date": "2025-11-28T06:14:20.997Z",
+      "items": [
+        {
+          "productId": "2",
+          "quantity": 1,
+          "price": 950000,
+          "idSeller": 1,
+          "productName": "Macbook Pro"
+        }
+      ],
+      "totalAmount": 950000
     }
   ],
   "offers": [
@@ -382,7 +399,7 @@
       "sellerId": 1,
       "amount": 855000,
       "date": "2025-11-27T16:55:03.640Z",
-      "status": "pending"
+      "status": "aceptada"
     },
     {
       "id": "1295",
@@ -391,7 +408,7 @@
       "sellerId": 1,
       "amount": 855000,
       "date": "2025-11-27T18:14:18.332Z",
-      "status": "pending"
+      "status": "rechazada"
     },
     {
       "id": "7dc4",
@@ -400,7 +417,7 @@
       "sellerId": 2,
       "amount": 27000,
       "date": "2025-11-27T18:14:49.292Z",
-      "status": "pending"
+      "status": "rechazada"
     },
     {
       "id": "eedd",
@@ -409,7 +426,7 @@
       "sellerId": 1,
       "amount": 180000,
       "date": "2025-11-27T18:15:01.294Z",
-      "status": "pending"
+      "status": "rechazada"
     },
     {
       "id": "d57f",
@@ -418,7 +435,7 @@
       "sellerId": 1,
       "amount": 180000,
       "date": "2025-11-27T18:16:11.449Z",
-      "status": "pending"
+      "status": "pendiente"
     },
     {
       "id": "cf7c",
@@ -427,7 +444,7 @@
       "sellerId": 1,
       "amount": 2,
       "date": "2025-11-27T18:21:00.532Z",
-      "status": "pending"
+      "status": "pendiente"
     },
     {
       "id": "1b1f",
@@ -436,7 +453,7 @@
       "sellerId": 1,
       "amount": 3,
       "date": "2025-11-27T18:23:04.389Z",
-      "status": "pending"
+      "status": "pendiente"
     },
     {
       "id": "5b5c",
@@ -445,7 +462,7 @@
       "sellerId": 1,
       "amount": 180000,
       "date": "2025-11-27T18:23:25.647Z",
-      "status": "pending"
+      "status": "pendiente"
     },
     {
       "id": "2add",
@@ -454,7 +471,7 @@
       "sellerId": 1,
       "amount": 10800,
       "date": "2025-11-27T18:25:41.883Z",
-      "status": "pending"
+      "status": "pendiente"
     },
     {
       "id": "e039",
@@ -463,16 +480,17 @@
       "sellerId": 1,
       "amount": 10800,
       "date": "2025-11-27T18:27:14.032Z",
-      "status": "pending"
+      "status": "pendiente"
     },
     {
       "id": "faab",
       "productId": "2",
       "userId": "3409",
       "sellerId": 1,
-      "amount": 855000,
+      "amount": 15,
       "date": "2025-11-27T18:27:22.971Z",
-      "status": "pending"
+      "status": "pendiente",
+      "lastOffer": false
     },
     {
       "id": "aa3f",
@@ -481,7 +499,7 @@
       "sellerId": 2,
       "amount": 22500,
       "date": "2025-11-27T18:27:32.615Z",
-      "status": "pending"
+      "status": "pendiente"
     },
     {
       "id": "1be6",
@@ -492,6 +510,126 @@
       "amount": 22500,
       "date": "2025-11-27T20:29:35.830Z",
       "status": "pendiente"
+    },
+    {
+      "id": "773a",
+      "productId": "1",
+      "userId": "3409",
+      "productName": "Auriculares Bluetooth",
+      "sellerId": "2",
+      "amount": 22500,
+      "date": "2025-11-28T04:41:31.115Z",
+      "status": "pendiente"
+    },
+    {
+      "id": "df07",
+      "productId": "3",
+      "userId": "3409",
+      "productName": "Mouse Inalámbrico",
+      "sellerId": 1,
+      "amount": 1500,
+      "date": "2025-11-28T05:41:32.998Z",
+      "lastOffer": false,
+      "status": "rechazada"
+    },
+    {
+      "id": "2446",
+      "productId": "2",
+      "userId": "3409",
+      "productName": "Macbook Pro",
+      "sellerId": 1,
+      "amount": 855000,
+      "date": "2025-11-28T06:14:07.323Z",
+      "lastOffer": true,
+      "status": "aceptada"
+    },
+    {
+      "id": "6dfe",
+      "productId": "2",
+      "userId": "3409",
+      "productName": "Macbook Pro",
+      "sellerId": 1,
+      "amount": 855000,
+      "date": "2025-11-28T06:14:11.946Z",
+      "lastOffer": true,
+      "status": "aceptada"
+    },
+    {
+      "id": "49bc",
+      "productId": "9",
+      "userId": "3409",
+      "productName": "Smart TV 55''",
+      "sellerId": 1,
+      "amount": 123,
+      "date": "2025-11-28T06:14:16.744Z",
+      "lastOffer": false,
+      "status": "pendiente"
+    },
+    {
+      "id": "a63c",
+      "productId": "2",
+      "userId": "3409",
+      "productName": "Macbook Pro",
+      "sellerId": 1,
+      "amount": 15000,
+      "date": "2025-11-28T06:30:26.273Z",
+      "lastOffer": true,
+      "status": "pendiente"
+    },
+    {
+      "id": "2741",
+      "productId": "2",
+      "userId": "3409",
+      "productName": "Macbook Pro",
+      "sellerId": 1,
+      "amount": 123,
+      "date": "2025-11-28T06:46:40.580Z",
+      "lastOffer": false,
+      "status": "pendiente"
+    },
+    {
+      "id": "df5d",
+      "productId": "2",
+      "userId": "3409",
+      "productName": "Macbook Pro",
+      "sellerId": 1,
+      "amount": 1234,
+      "date": "2025-11-28T06:49:11.164Z",
+      "lastOffer": false,
+      "status": "pendiente"
+    },
+    {
+      "id": "8378",
+      "productId": "2",
+      "userId": "3409",
+      "productName": "Macbook Pro",
+      "sellerId": 1,
+      "amount": 12345,
+      "date": "2025-11-28T06:52:16.403Z",
+      "lastOffer": false,
+      "status": "pendiente"
+    },
+    {
+      "id": "4b77",
+      "productId": "2",
+      "userId": "3409",
+      "productName": "Macbook Pro",
+      "sellerId": 1,
+      "amount": 1234,
+      "date": "2025-11-28T06:54:52.618Z",
+      "lastOffer": false,
+      "status": "pendiente"
+    },
+    {
+      "id": "e1b3",
+      "productId": "2",
+      "userId": "3409",
+      "productName": "Macbook Pro",
+      "sellerId": 1,
+      "amount": 123,
+      "date": "2025-11-28T06:56:16.413Z",
+      "lastOffer": false,
+      "status": "pendiente"
     }
   ],
   "notifications": [
@@ -499,7 +637,7 @@
       "id": "ff3d",
       "recipientId": 1,
       "senderId": "3409",
-      "type": "compra",
+      "type": "PURCHASE",
       "productName": "Macbook Pro",
       "productId": "2",
       "date": "2025-11-27T20:29:30.201Z"
@@ -508,10 +646,158 @@
       "id": "c7b7",
       "recipientId": "2",
       "senderId": "3409",
-      "type": "oferta",
+      "type": "OFFER",
       "productName": "Auriculares Bluetooth",
       "productId": "1",
       "date": "2025-11-27T20:29:35.842Z"
+    },
+    {
+      "id": "4a9e",
+      "recipientId": "2",
+      "senderId": "3409",
+      "type": "oferta",
+      "productName": "Auriculares Bluetooth",
+      "productId": "1",
+      "date": "2025-11-28T04:41:31.132Z"
+    },
+    {
+      "id": "94b3",
+      "recipientId": 1,
+      "senderId": "3409",
+      "type": "oferta",
+      "productName": "Mouse Inalámbrico",
+      "productId": "3",
+      "date": "2025-11-28T05:41:33.013Z"
+    },
+    {
+      "id": "d678",
+      "recipientId": 1,
+      "senderId": "3409",
+      "type": "oferta",
+      "productName": "Macbook Pro",
+      "productId": "2",
+      "date": "2025-11-28T06:14:07.340Z",
+      "read": false
+    },
+    {
+      "id": "7065",
+      "recipientId": 1,
+      "senderId": "3409",
+      "type": "oferta",
+      "productName": "Macbook Pro",
+      "productId": "2",
+      "date": "2025-11-28T06:14:11.960Z",
+      "read": false
+    },
+    {
+      "id": "9bfd",
+      "recipientId": 1,
+      "senderId": "3409",
+      "type": "oferta",
+      "productName": "Smart TV 55''",
+      "productId": "9",
+      "date": "2025-11-28T06:14:16.758Z",
+      "read": false
+    },
+    {
+      "id": "29a0",
+      "recipientId": 1,
+      "senderId": "3409",
+      "type": "compra",
+      "productName": "Macbook Pro",
+      "productId": "2",
+      "date": "2025-11-28T06:14:21.013Z",
+      "read": false
+    },
+    {
+      "id": "52ec",
+      "recipientId": 1,
+      "senderId": "3409",
+      "type": "oferta",
+      "productName": "Macbook Pro",
+      "productId": "2",
+      "date": "2025-11-28T06:30:26.287Z",
+      "read": false
+    },
+    {
+      "id": "1463",
+      "recipientId": 1,
+      "senderId": "3409",
+      "type": "oferta",
+      "productName": "Macbook Pro",
+      "productId": "2",
+      "date": "2025-11-28T06:46:40.596Z",
+      "read": false
+    },
+    {
+      "id": "6660",
+      "recipientId": 1,
+      "senderId": "3409",
+      "type": "oferta",
+      "productName": "Macbook Pro",
+      "productId": "2",
+      "date": "2025-11-28T06:49:11.179Z",
+      "read": false
+    },
+    {
+      "id": "19ec",
+      "recipientId": 1,
+      "senderId": "3409",
+      "type": "oferta",
+      "productName": "Macbook Pro",
+      "productId": "2",
+      "date": "2025-11-28T06:52:16.416Z",
+      "read": false
+    },
+    {
+      "id": "10c6",
+      "recipientId": 1,
+      "senderId": "3409",
+      "type": "updateDeOferta",
+      "productName": "Macbook Pro",
+      "productId": "2",
+      "date": "2025-11-28T06:52:37.306Z",
+      "read": false
+    },
+    {
+      "id": "19e9",
+      "recipientId": 1,
+      "senderId": "3409",
+      "type": "oferta",
+      "productName": "Macbook Pro",
+      "productId": "2",
+      "date": "2025-11-28T06:54:52.633Z",
+      "read": false
+    },
+    {
+      "id": "fa7c",
+      "recipientId": 1,
+      "senderId": "3409",
+      "type": "updateDeOferta",
+      "productName": "Macbook Pro",
+      "productId": "2",
+      "date": "2025-11-28T06:55:25.384Z",
+      "read": false
+    },
+    {
+      "id": "df0c",
+      "recipientId": 1,
+      "senderId": "3409",
+      "type": "oferta",
+      "productName": "Macbook Pro",
+      "productId": "2",
+      "date": "2025-11-28T06:56:16.427Z",
+      "read": false
+    },
+    {
+      "id": "9627",
+      "recipientId": "3409",
+      "senderId": 1,
+      "type": "updateDeOferta",
+      "productName": "Macbook Pro",
+      "productId": "2",
+      "date": "2025-11-28T06:56:34.196Z",
+      "read": false
     }
   ]
 }

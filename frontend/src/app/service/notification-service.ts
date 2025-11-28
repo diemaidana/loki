@@ -21,7 +21,8 @@ export class NotificationService {
       type: 'compra',
       productName: productName,
       productId: productId,
-      date: new Date().toISOString()
+      date: new Date().toISOString(),
+      read: false
     };
     return this.http.post<Notification>(this.apiUrl, notification);
   }
@@ -33,7 +34,8 @@ export class NotificationService {
       type: 'oferta',
       productName: productName,
       productId: productId,
-      date: new Date().toISOString()
+      date: new Date().toISOString(),
+      read: false
     };
     return this.http.post<Notification>(this.apiUrl, notification);
   }
@@ -45,8 +47,19 @@ export class NotificationService {
       type: 'updateDeOferta',
       productName: productName,
       productId: productId,
-      date: new Date().toISOString()
+      date: new Date().toISOString(),
+      read: false
     };
     return this.http.post<Notification>(this.apiUrl, notification);
+  }
+
+  toggleRead(item: Notification): Observable<Notification> {
+    const updatedItem = { ...item, read: !item.read };
+    return this.http.put<Notification>(`${this.apiUrl}/${item.id}`, updatedItem);
+  }
+
+  toggleReadPatch(id: number, currentStatus: boolean): Observable<Notification> {
+    const body = { read: !currentStatus };
+    return this.http.patch<Notification>(`${this.apiUrl}/${id}`, body);
   }
 }

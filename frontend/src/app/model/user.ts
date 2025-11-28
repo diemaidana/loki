@@ -8,4 +8,5 @@ export interface User {
     phoneNumber: string;
     address: string;
     nationality: string;
+    isSeller: boolean;
 }

@@ -7,6 +7,6 @@ export interface Notification {
     
     productName: string;
     productId: string | number;
-    
+    read: boolean; /* False = No leida | True = Leida */
     date: string;
 }

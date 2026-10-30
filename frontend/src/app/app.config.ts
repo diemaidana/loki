@@ -8,7 +8,9 @@ import Aura from '@primeuix/themes/aura';
 import { definePreset } from '@primeuix/themes';
 
 import { routes } from './app.routes';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { authinterceptor } from './core/auth-interceptor';
+import { API_BASE_URL } from './core/api.config';
 
 const LokiPreset = definePreset(Aura, {
     semantic: {
@@ -30,10 +32,11 @@ const LokiPreset = definePreset(Aura, {
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    { provide: 'API_BASE_URL', useValue: API_BASE_URL },
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(withFetch()),
+    provideHttpClient(withFetch(), withInterceptors([ authinterceptor ])),
     provideAnimations(),
     providePrimeNG({
       theme: {

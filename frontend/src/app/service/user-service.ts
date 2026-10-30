@@ -8,7 +8,7 @@ import { catchError, Observable, throwError } from 'rxjs';
 })
 export class UserService {
   private readonly http = inject(HttpClient);
-  private readonly urlApi = " http://localhost:3000/users";
+  private readonly urlApi = "http://localhost:3000/users";
   
   // Get
   getUsers(){

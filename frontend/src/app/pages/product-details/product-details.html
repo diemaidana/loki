@@ -15,7 +15,7 @@
         @else {
             <p>Stock: {{product()?.stock }}</p>
             <div class="btns-container">
-                <p-button label="Ofertar" severity="warn" icon="pi pi-dollar" (click)="openOfferDialog()" [disabled]="currentUser?.isSeller"/>
+                <p-button label="Ofertar" severity="warn" icon="pi pi-dollar" (click)="openOfferDialog()" [disabled]="currentAccount?.isSeller"/>
                     <p-dialog header="Realizar oferta" [modal]="true" [(visible)]="showOfferDialog" [style]="{ width: '25rem' }" styleClass="dialog-container">
                         <div class="dialog-container">
 
@@ -27,7 +27,7 @@
                             <p-button label="Ofertar" (click)="submitOffer()" />
                         </div>
                     </p-dialog>
-                <p-button label="Agregar al carrito" icon="pi pi-cart-plus" (click)="addToCart()" [disabled]="currentUser?.isSeller"/>
+                <p-button label="Agregar al carrito" icon="pi pi-cart-plus" (click)="addToCart()" [disabled]="currentAccount?.isSeller"/>
             </div>
         }
     </div>

@@ -1,7 +1,4 @@
 import { Component, inject, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { filter, map, switchMap } from 'rxjs';
 import { AuthService } from '../../auth/service/auth-service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -18,6 +15,7 @@ import { ToastModule } from 'primeng/toast';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { PasswordModule } from 'primeng/password';
 import { FormsModule } from '@angular/forms';
+import { Account } from '../../model/account';
 
 @Component({
   selector: 'app-user-profile',
@@ -45,22 +43,23 @@ export class UserProfile {
   private readonly profileFormEdit = inject(FormBuilder);
   private readonly service = inject(UserService);
   private readonly authService = inject(AuthService);
-  private readonly route = inject(ActivatedRoute);
+/*   private readonly route = inject(ActivatedRoute); */
   private readonly confirmationService = inject(ConfirmationService);
   private readonly messageService = inject(MessageService);
 
   // Signals para el estado
   isLoading = signal<boolean>(true);
-  currentUser = signal<User | null>(null);
+  currentUser = signal<Account | null>(null);
 
-  private readonly userSource$ = this.route.paramMap.pipe(
+/*   private readonly userSource$ = this.route.paramMap.pipe(
     map(params => params.get('id')),
     filter((id): id is string => !!id),
     switchMap(id => this.service.getUserById(id)) 
   );
 
-  private readonly userResource = toSignal(this.userSource$, { initialValue: null });
-  userForm = signal<User | null>(null);
+  private readonly userResource = toSignal(this.userSource$, { initialValue: null }); */
+
+  userForm = signal<Account | null>(null);
 
   // Formulario Reactivo
   profileForm = this.profileFormEdit.group({
@@ -76,17 +75,17 @@ export class UserProfile {
   });
 
   ngOnInit() {
-    this.authService.userState$.subscribe(user => {
-      if (user) {
-        this.currentUser.set(user);
-        this.patchForm(user);
+    this.authService.account$.subscribe(account => {
+      if (account) {
+        this.currentUser.set(account);
+        this.patchForm(account);
         this.isLoading.set(false);
       }
     });
   }
 
   // Rellenar formulario con datos existentes
-  private patchForm(user: User) {
+  private patchForm(user: Account) {
     this.profileForm.patchValue({
 /*       username: user.username, */
       email: user.email,

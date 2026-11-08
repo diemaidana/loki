@@ -18,6 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { Toast } from "primeng/toast";
 import { ConfirmDialog } from "primeng/confirmdialog";
 import { NotificationService } from '../../service/notification-service';
+import { Account } from '../../model/account';
 
 @Component({
   selector: 'app-product-details',
@@ -50,7 +51,7 @@ export class ProductDetails {
   // Datos del producto (Signal)
   protected product = toSignal(this.productService.getProductsById(this.id!), { initialValue: null });
   // Usuario actual (Comprador)
-  protected currentUser: User | null = null;
+  protected currentAccount: Account | null = null;
   
   // Estado del Modal de Oferta
   protected showOfferDialog = signal(false);
@@ -58,7 +59,7 @@ export class ProductDetails {
   protected isSubmittingOffer = signal(false);
 
   ngOnInit() {
-    this.authService.userState$.subscribe(user => this.currentUser = user);
+    this.authService.account$.subscribe(account => this.currentAccount = account);
   }
 
   // --- Lógica del Carrito ---
@@ -69,7 +70,7 @@ export class ProductDetails {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Producto no disponible.' });
         return;
     }
-    if (!this.currentUser) {
+    if (!this.currentAccount) {
       this.messageService.add({ severity: 'warn', summary: 'Atención', detail: 'Debes iniciar sesión para ofertar.' });
 
       const currentUrl = this.router.url;
@@ -87,7 +88,7 @@ export class ProductDetails {
 
   openOfferDialog() {
     // Validamos que este logeado.
-    if (!this.currentUser) {
+    if (!this.currentAccount) {
       this.messageService.add({ severity: 'warn', summary: 'Atención', detail: 'Debes iniciar sesión para ofertar.' });
 
       const currentUrl = this.router.url;
@@ -112,7 +113,7 @@ export class ProductDetails {
   submitOffer() {
     const p = this.product();
     const amount = this.offerAmount();
-    const buyer = this.currentUser;
+    const buyer = this.currentAccount;
 
     if (!p || !buyer || !amount) return;
 
@@ -137,7 +138,7 @@ export class ProductDetails {
 
     const newOffer: Offer = {
         productId: p.id!,        
-        userId: buyer.id!,
+        userId: buyer.uuid!,
         productName: p.name,      
         sellerId: sellerId,     
         amount: amount,         
@@ -156,7 +157,7 @@ export class ProductDetails {
 
             this.notificationService.notifySellerOfOffer(
                 sellerId, 
-                buyer.id!,        // Sender ID (Comprador)
+                buyer.uuid!,        // Sender ID (Comprador)
                 p.name,           // Nombre Producto
                 p.id!            // ID Producto
             ).subscribe({

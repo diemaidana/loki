@@ -3,8 +3,9 @@ import { inject } from "@angular/core";
 import { Router } from "@angular/router";
 import { catchError, throwError } from "rxjs";
 import { API_BASE_URL } from "./api.config";
+import { EXPIRES_AT_STORAGE_KEY, TOKEN_STORAGE_KEY } from "./storage-key";
 
-const PUBLIC_AUTH_PATHS = ['/auth/login', '/auth/register', '/auth/password/', '/auth/email/'];
+const PUBLIC_AUTH_PATHS = ['/auth/login', '/auth/register', '/auth/password/', '/auth/email/', '/auth/me'];
 
 function isApiRequest(url: string): boolean {
   return url.startsWith('/') && !url.startsWith('/assets');
@@ -36,7 +37,8 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       const isPublicAuth = PUBLIC_AUTH_PATHS.some((path) => req.url.startsWith(path));
 
       if (err.status === 401 && !isPublicAuth) {
-        localStorage.removeItem('auth_token');
+        localStorage.removeItem(TOKEN_STORAGE_KEY);
+        localStorage.removeItem(EXPIRES_AT_STORAGE_KEY);
         router.navigate(['/sign-in'], { queryParams: { returnUrl: router.url } });
       }
 

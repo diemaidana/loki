@@ -1,0 +1,75 @@
+<div [formGroup]="addressGroup()" class="address-form">
+
+  <p-floatlabel variant="in" class="input-label">
+    <input id="street" pInputText formControlName="street" />
+    <label for="street">Calle *</label>
+  </p-floatlabel>
+  @if (error('street'); as msg) {
+    <p-message severity="error" variant="simple" size="small" class="error-msg">{{ msg }}</p-message>
+  }
+
+  <p-floatlabel variant="in" class="input-label">
+    <input id="streetNumber" pInputText formControlName="streetNumber" />
+    <label for="streetNumber">Número</label>
+  </p-floatlabel>
+  @if (error('streetNumber'); as msg) {
+    <p-message severity="error" variant="simple" size="small" class="error-msg">{{ msg }}</p-message>
+  }
+
+  <p-floatlabel variant="in" class="input-label">
+    <input id="floor" pInputText formControlName="floor" />
+    <label for="floor">Piso</label>
+  </p-floatlabel>
+
+  <p-floatlabel variant="in" class="input-label">
+    <input id="apartment" pInputText formControlName="apartment" />
+    <label for="apartment">Departamento</label>
+  </p-floatlabel>
+
+  <p-floatlabel variant="in" class="input-label">
+    <input id="city" pInputText formControlName="city" />
+    <label for="city">Ciudad *</label>
+  </p-floatlabel>
+  @if (error('city'); as msg) {
+    <p-message severity="error" variant="simple" size="small" class="error-msg">{{ msg }}</p-message>
+  }
+
+  <p-floatlabel variant="in" class="input-label">
+    <p-select
+      inputId="province"
+      formControlName="province"
+      [options]="provinceOptions"
+      optionLabel="label"
+      optionValue="value"
+      [filter]="true"
+      [fluid]="true" />
+    <label for="province">Provincia *</label>
+  </p-floatlabel>
+  @if (error('province'); as msg) {
+    <p-message severity="error" variant="simple" size="small" class="error-msg">{{ msg }}</p-message>
+  }
+
+  <p-floatlabel variant="in" class="input-label">
+    <input id="postalCode" pInputText formControlName="postalCode" />
+    <label for="postalCode">Código postal *</label>
+  </p-floatlabel>
+  @if (error('postalCode'); as msg) {
+    <p-message severity="error" variant="simple" size="small" class="error-msg">{{ msg }}</p-message>
+  }
+
+  <p-floatlabel variant="in" class="input-label">
+    <input id="crossStreetOne" pInputText formControlName="crossStreetOne" />
+    <label for="crossStreetOne">Entre calle 1</label>
+  </p-floatlabel>
+
+  <p-floatlabel variant="in" class="input-label">
+    <input id="crossStreetTwo" pInputText formControlName="crossStreetTwo" />
+    <label for="crossStreetTwo">Entre calle 2</label>
+  </p-floatlabel>
+
+  <p-floatlabel variant="in" class="input-label">
+    <input id="additionalInformation" pInputText formControlName="additionalInformation" />
+    <label for="additionalInformation">Información adicional</label>
+  </p-floatlabel>
+
+</div>

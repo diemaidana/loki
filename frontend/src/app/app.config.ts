@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, inject, provideAppInitializer, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -10,7 +10,7 @@ import { definePreset } from '@primeuix/themes';
 import { routes } from './app.routes';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './core/auth-interceptor';
-import { API_BASE_URL } from './core/api.config';
+import { AuthService } from './auth/service/auth-service';
 
 const LokiPreset = definePreset(Aura, {
     semantic: {
@@ -32,7 +32,10 @@ const LokiPreset = definePreset(Aura, {
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    { provide: 'API_BASE_URL', useValue: API_BASE_URL },
+    provideAppInitializer(() => {
+      const auth = inject(AuthService);
+      return auth.restoreSession();
+    }),
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),

@@ -1,79 +1,73 @@
 import { inject, Injectable } from '@angular/core';
-import { UserService } from '../../service/user-service';
-import { BehaviorSubject, catchError, firstValueFrom, map, Observable, tap, throwError } from 'rxjs';
-import { User } from '../../model/user';
+import { BehaviorSubject, catchError, map, Observable, of, tap } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { EXPIRES_AT_STORAGE_KEY, TOKEN_STORAGE_KEY } from '../../core/storage-key';
+import { LoginResponse } from '../dto/login-response';
+import { Account } from '../../model/account';
+import { RegisterRequest } from '../dto/register-request';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly userService = inject(UserService);
+  private readonly http = inject(HttpClient);
 
-  // Fuente de verdad del estado del usuario
-  private userSubject = new BehaviorSubject<User | null>(null);
-  public userState$ = this.userSubject.asObservable();
+  private accountSubject = new BehaviorSubject<Account | null>(null);
+  public account$ = this.accountSubject.asObservable();
 
-  constructor() {
-    this.checkInitialAuth();
-  }
-
-  private checkInitialAuth(): void {
-    const token = localStorage.getItem('auth_token');
-    const userData = localStorage.getItem('user_data');
-    if (token && userData) {
-      this.userSubject.next(JSON.parse(userData));
-    }
-  }
 
   isLoggedIn(): boolean {
-    return !!this.userSubject.value; 
+    return !! this.accountSubject.value; 
   }
-
-  /**
-   * Valida el email y contraseña contra el json-server usando UserService.
-   */
-  login(email: string, password: string): Observable<User> {
-    // Llamamos al UserService para obtener los usuarios y filtramos
-    // Nota: Asumimos que userService.getUsers() retorna Observable<User[]>
-    return this.userService.getUsers().pipe(
-      map(users => {
-        // Buscamos el usuario que coincida con email y password
-        const user = users.find(u => u.email === email && (u as any).password === password);
-        
-        if (!user) {
-          throw new Error('Credenciales inválidas');
-        }
-        
-        return user;
-      }),
-      tap((user) => {
+  
+  login(email: string, password: string): Observable<void> {
+    return this.http.post<LoginResponse>('/auth/login', { email, password }).pipe(
+      tap((response) => {
         // Login exitoso: Actualizamos estado y localStorage
-        this.userSubject.next(user);
-        
-        // Usamos el ID del usuario como token simple o generamos uno
-        const token = `token_${(user as any).id || Date.now()}`;
-        
-        localStorage.setItem('auth_token', token);
-        localStorage.setItem('user_data', JSON.stringify(user));
+        localStorage.setItem(TOKEN_STORAGE_KEY, response.token);
+        localStorage.setItem(EXPIRES_AT_STORAGE_KEY, response.expiresAt);
+        this.accountSubject.next(response.account);
       }),
-      catchError(err => {
-        // Propagamos el error para que el componente lo maneje
-        return throwError(() => err);
-      })
+      map(() => void 0),
     );
   }
 
-  updateCurrentUser(user: User): void {
-    // 1. Emitimos el nuevo valor a todos los suscriptores (Header, etc.)
-    this.userSubject.next(user);
-    
-    // 2. Actualizamos la persistencia para que no se pierda al recargar
-    localStorage.setItem('user_data', JSON.stringify(user));
+  restoreSession(): Observable<void> {
+    const token = localStorage.getItem(TOKEN_STORAGE_KEY);
+    const expiresAt = localStorage.getItem(EXPIRES_AT_STORAGE_KEY);
+
+    if (!token || !expiresAt || new Date() > new Date(expiresAt)) {
+      this.clearSession();
+      return of(void 0);
+    }
+
+    return this.http.get<Account>('/auth/me').pipe(
+      tap((account) => this.accountSubject.next(account)),
+      map(() => void 0),
+      catchError(() => {
+        this.clearSession();
+        return of(void 0);
+      }),
+    );
+  }
+  register(data: RegisterRequest): Observable<Account | null> {
+    return this.http.post<Account>('/auth/register', data, { observe: 'response' }).pipe(
+      map((res) => (res.status === 201 ? res.body : null)),
+    );
+  }
+
+  updateCurrentUser(account: Account): void {
+    this.accountSubject.next(account);
+  }
+
+  logout(): void {
+    this.clearSession();
   }
   
-  logout(): void {
-    localStorage.removeItem('auth_token');
+  private clearSession(): void {
+    localStorage.removeItem(TOKEN_STORAGE_KEY);
+    localStorage.removeItem(EXPIRES_AT_STORAGE_KEY);
     localStorage.removeItem('user_data');
-    this.userSubject.next(null);
+    this.accountSubject.next(null);
   }
 }

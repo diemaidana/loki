@@ -1,15 +1,14 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, effect, inject, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { ProductService } from '../../service/product';
-import { Product } from '../../model/product';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { CurrencyPipe } from '@angular/common';
 
 import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
-import { User } from '../../model/user';
 import { UserService } from '../../service/user-service';
 import { AuthService } from '../../auth/service/auth-service';
+import { Account } from '../../model/account';
 
 @Component({
   selector: 'app-home',
@@ -31,12 +30,12 @@ export class Home {
 
     // Valores default sin usuario logueado
     protected isLoggedIn : boolean = false;
-    currentUser: User | null = null;
+    currentAccount: Account | null = null;
   
   ngOnInit(): void{
-      this.authService.userState$.subscribe((user) => {
-        this.isLoggedIn = !!user;
-        this.currentUser = user;
+      this.authService.account$.subscribe((account) => {
+        this.isLoggedIn = !!account;
+        this.currentAccount = account;
       });
     }
 

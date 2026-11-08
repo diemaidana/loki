@@ -1,4 +1,4 @@
-import { Component, inject, Input, input, signal } from '@angular/core';
+import { Component, inject, Input, signal } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { User } from '../../model/user';
 import { UserService } from '../../service/user-service';
@@ -10,12 +10,19 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { MessageModule } from 'primeng/message';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
-import { Dialog } from 'primeng/dialog';
 import { InputText } from "primeng/inputtext";
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Toast } from "primeng/toast";
 import { ConfirmDialog } from "primeng/confirmdialog";
 import { CheckboxModule } from 'primeng/checkbox';
+import { AddressForm, buildAddressGroup } from '../address-form/address-form/address-form';
+import { SocialNumberType } from '../../model/account';
+import { HttpErrorResponse } from '@angular/common/http';
+import { documentLengthValidator } from '../../validator/document-length';
+import { RegisterRequest } from '../../auth/dto/register-request';
+import { AuthService } from '../../auth/service/auth-service';
+import { httpErrorMessage } from '../../core/errors/http-message';
+import { SelectModule } from 'primeng/select';
 
 @Component({
   selector: 'app-user-form',
@@ -27,11 +34,12 @@ import { CheckboxModule } from 'primeng/checkbox';
     MessageModule,
     PasswordModule,
     ButtonModule,
-    Dialog,
     InputText,
     Toast,
     ConfirmDialog,
-    CheckboxModule
+    CheckboxModule,
+    AddressForm,
+    SelectModule
 ],
   providers: [MessageService, ConfirmationService],
   templateUrl: './user-form.html',
@@ -44,6 +52,7 @@ export class UserForm {
   private readonly router = inject(Router);
   private readonly confirmationService = inject(ConfirmationService);
   private readonly messageService = inject(MessageService);
+  private readonly auth = inject(AuthService);
 
   protected visible = signal(false);
 
@@ -60,9 +69,14 @@ export class UserForm {
     "Brasil"
   ];
 
-  get username() {
-    return this.formSignUp.controls.username;
-  }
+  protected readonly addressGroup = buildAddressGroup(this.formBuilder);
+
+  protected readonly documentTypes = [
+    { label: 'DNI', value: 'DNI' as SocialNumberType },
+    { label: 'CUIL', value: 'CUIL' as SocialNumberType },
+    { label: 'CUIT', value: 'CUIT' as SocialNumberType },
+  ];
+
 
   get email() {
     return this.formSignUp.controls.email;
@@ -76,12 +90,20 @@ export class UserForm {
     return this.formSignUp.controls.repassword;
   }
 
-  get fullName() {
-    return this.formSignUp.controls.fullName;
+  get firstName() {
+    return this.formSignUp.controls.firstName;
   }
 
-  get DNI() {
-    return this.formSignUp.controls.DNI;
+  get lastName() {
+    return this.formSignUp.controls.lastName;
+  }
+
+  get documentType() {
+    return this.formSignUp.controls.documentType;
+  }
+
+  get documentNumber() {
+    return this.formSignUp.controls.documentNumber;
   }
 
   get phoneNumber() {
@@ -92,29 +114,29 @@ export class UserForm {
     return this.formSignUp.controls.address;
   }
 
-  get nationality() {
-    return this.formSignUp.controls.nationality;
-  }
-  get isSeller(){
-    return this.formSignUp.controls.isSeller;
-  }
   get touched(){
     return this.formSignUp.touched;
   }
 
+  protected get documentLengthError(): number | null {
+    const error = this.formSignUp.getError('documentLength');
+    return error ? error.expected : null;
+  }
+
 
   protected readonly formSignUp = this.formBuilder.nonNullable.group({
-    username: ["", [Validators.required]],
-    email: ["", [Validators.required, Validators.email]],
-    password: ["", [Validators.required]],
-    repassword: ["", [Validators.required]],
-    fullName: ["", [Validators.required]],
-    DNI: ["", [Validators.required]],
-    phoneNumber: [""],
-    address: ["", [Validators.required]],
-    nationality: [""],
-    isSeller: [false]
-  }, { validators: [passwordsMatchValidator]});
+    firstName: ['', [Validators.required, Validators.maxLength(50)]],
+    lastName:  ['', [Validators.required, Validators.maxLength(50)]],
+    email:     ['', [Validators.required, Validators.email, Validators.maxLength(100)]],
+    password:  ['', [Validators.required, Validators.minLength(8), Validators.maxLength(64),
+                    Validators.pattern(/^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).+$/)]],
+    repassword: ['', [Validators.required]],
+    documentType:   ['' as SocialNumberType, [Validators.required]],
+    documentNumber: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+    phoneNumber: ['', [Validators.maxLength(20),
+                      Validators.pattern(/^$|^\+?[0-9 \-]{6,20}$/)]],
+    address: this.addressGroup,
+  }, { validators: [passwordsMatchValidator, documentLengthValidator] });
 
   get formControls(){
     return this.formSignUp.controls
@@ -124,20 +146,70 @@ export class UserForm {
     return this.router.navigateByUrl("/");
   }
 
-  handleSubmit(){
-    if (this.formSignUp.invalid) {
-        this.messageService.add({severity:'error', summary:'Error', detail:'Formulario inválido'});
-        return;
-    }
+  handleSubmit() {
+  if (this.formSignUp.invalid) {
+    this.formSignUp.markAllAsTouched();
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Formulario inválido' });
+    return;
+  }
 
-    this.confirmationService.confirm({
-      header: 'Confirmar Registro',
-      message: '¿Estás seguro de que deseas registrarte?',
-      icon: 'pi pi-exclamation-triangle',
+  this.confirmationService.confirm({
+    header: 'Confirmar Registro',
+    message: '¿Estás seguro de que deseas registrarte?',
+    icon: 'pi pi-exclamation-triangle',
+
+    accept: () => {
+      const raw = this.formSignUp.getRawValue();
+      const hasAddress = raw.address && Object.values(raw.address).some(value => value !== null && value !== '');
       
+      const request: RegisterRequest = {
+        firstName: raw.firstName,
+        lastName: raw.lastName,
+        email: raw.email.trim(),
+        password: raw.password,
+        documentType: raw.documentType,
+        documentNumber: raw.documentNumber,
+        phoneNumber: raw.phoneNumber || undefined,
+        address: hasAddress ? {
+          street: raw.address.street,
+          city: raw.address.city,
+          province: raw.address.province,
+          postalCode: raw.address.postalCode,
+          streetNumber: raw.address.streetNumber || undefined,
+          floor: raw.address.floor || undefined,
+          apartment: raw.address.apartment || undefined,
+          crossStreetOne: raw.address.crossStreetOne || undefined,
+          crossStreetTwo: raw.address.crossStreetTwo || undefined,
+          additionalInformation: raw.address.additionalInformation || undefined,
+        } : undefined,
+      };
 
+      this.auth.register(request).subscribe({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Listo',
+            detail: 'Si el email no estaba registrado, te enviamos un correo de verificación.',
+          });
+          this.router.navigateByUrl('/sign-in');
+        },
+        error: (err: HttpErrorResponse) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: httpErrorMessage(err),
+          });
+        },
+      });
+    },
 
-      
+    reject: () => {
+      this.messageService.add({ severity: 'info', summary: 'Cancelado', detail: 'No se realizaron cambios' });
+    },
+  });
+  }
+
+      /* 
       accept: () => {
           const rawValue = this.formSignUp.getRawValue();
 
@@ -164,8 +236,9 @@ export class UserForm {
       reject: () => {
         this.messageService.add({ severity: 'info', summary: 'Cancelado', detail: 'No se realizaron cambios' });
       }
-    });
-  }
+    }); */
+  
+}
 
 /* 
     if(this.formSignUp.invalid){
@@ -185,4 +258,3 @@ export class UserForm {
     }
   }
 */
-}

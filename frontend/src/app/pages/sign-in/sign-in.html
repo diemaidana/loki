@@ -29,7 +29,7 @@
 <p-card class="card">
     <div class="card-container">
         <h2>Bienvenido!</h2>
-        <form [formGroup]="formSignIn" class="form-container">
+        <form [formGroup]="formSignIn" class="form-container" (ngSubmit)="handleSubmit()">
             <div class="form-inputs">
                 <p-floatlabel variant="in" class="input-label">
                     <input name="email" id="email" pInputText formControlName="email" />
@@ -53,7 +53,11 @@
                     <p-button label="Olvido su contraseña?" link size="small"/>
                 </div>
             </div>
-            <p-button (click)="handleSubmit()" label="Iniciar sesion" [style]="{'width': '100%'}" />
+            <p-button type="submit"
+            (click)="handleSubmit()"
+            label="Iniciar sesion"
+            [loading]="isLoading()"
+            [style]="{'width': '100%'}" />
         </form>
         <p-divider />
         <h3>Todavia no te registraste?</h3>
@@ -64,7 +68,7 @@
     <p-dialog header="Error inicio de sesion" [(visible)]="errorVisible" [modal]="true" [style]="{ width: '25rem' }">
         <div class="warn-dialog">
             <i class="pi pi-exclamation-circle"></i>
-            <p>Datos incorrectos o inexistentes</p>
+            <p> {{ errorMessage() }}</p>
         </div>
     </p-dialog>
 

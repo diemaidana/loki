@@ -6,7 +6,13 @@ export const authGuardGuard: CanActivateFn = (route, state) => {
   const auth = inject(AuthService);
   const router = inject(Router);
 
-  // Preferir método explícito en AuthService (ej. isAuthenticated/isLoggedIn).
+  if(auth.isLoggedIn()) {
+    return true;
+  } 
+
+  return router.createUrlTree(['/sign-in'], { queryParams: { returnUrl: state.url } });
+
+/*   // Preferir método explícito en AuthService (ej. isAuthenticated/isLoggedIn).
   // Si no existe, usar fallback simple (token en localStorage).
   const isAuthenticated = (() => {
     if (typeof (auth as any).isAuthenticated === 'function') {
@@ -22,5 +28,5 @@ export const authGuardGuard: CanActivateFn = (route, state) => {
   if (isAuthenticated) return true;
 
   // redirige al sign-in y mantiene la URL de retorno
-  return router.createUrlTree(['/sign-in'], { queryParams: { returnUrl: state.url } });
+  return router.createUrlTree(['/sign-in'], { queryParams: { returnUrl: state.url } }); */  
 };

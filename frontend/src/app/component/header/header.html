@@ -66,6 +66,18 @@
     <ng-template #end>
         <div class="btn-actions">
             @if (isLoggedIn) {
+                <span class="user-greeting">Hola, {{ displayName }}</span>
+                <p-button icon="pi pi-sign-out" [raised]="true"
+                        (onClick)="logout()" title="Cerrar sesion" />
+            } @else {
+                <p-button label="Registrarse" [raised]="true" styleClass="user-btn" routerLink="/sign-up" />
+                <p-button label="Iniciar sesion" [raised]="true" styleClass="user-btn" routerLink="/sign-in" />
+            }
+        </div>
+    </ng-template>
+<!--     <ng-template #end>
+        <div class="btn-actions">
+            @if (isLoggedIn) {
                 <p-button (click)="goToDashboard()" pRipple [raised]="true"> 
                     <i class="pi pi-bell" pBadge [value]="notificationCount().toString()" severity="danger" style="font-size: 1rem;"></i>
                 </p-button>
@@ -84,8 +96,8 @@
                 <p-button label="Registrarse" [raised]="true" styleClass="user-btn" routerLink="/sign-up" />
                 <p-button label="Iniciar sesion" [raised]="true" styleClass="user-btn" routerLink="/sign-in"/>
             }
-<!--             <p-button label="Registrarse" [raised]="true" styleClass="user-btn" routerLink="/sign-up" />
-            <p-button label="Iniciar sesion" [raised]="true" styleClass="user-btn" routerLink="/sign-in"/> -->
+            <p-button label="Registrarse" [raised]="true" styleClass="user-btn" routerLink="/sign-up" />
+            <p-button label="Iniciar sesion" [raised]="true" styleClass="user-btn" routerLink="/sign-in"/>
         </div>
-    </ng-template>
+    </ng-template> -->
 </p-toolbar>

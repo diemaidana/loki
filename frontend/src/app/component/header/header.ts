@@ -9,14 +9,13 @@ import { InputTextModule } from 'primeng/inputtext';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { BadgeModule } from 'primeng/badge';
 import { ToastModule } from 'primeng/toast';
-
-import { User } from '../../model/user';
 import { SearchBar } from '../search-bar/search-bar';
 import { AuthService } from '../../auth/service/auth-service';
 import { SearchStateService } from '../../service/search-state-service';
 import { MenuItem } from 'primeng/api';
 import { CartService } from '../../service/cart-service';
 import { NotificationService } from '../../service/notification-service';
+import { Account } from '../../model/account';
 
 @Component({
   selector: 'app-header',
@@ -46,15 +45,15 @@ export class Header implements OnInit{
   protected notificationService = inject(NotificationService);
   protected notificationCount = signal(0);
 
-  currentUser: User | null = null;
+  currentUser: Account | null = null;
 
 
   ngOnInit(): void{
-    this.authService.userState$.subscribe((user) => {
-      this.isLoggedIn = !!user;
-      this.currentUser = user;
+    this.authService.account$.subscribe((account) => {
+      this.isLoggedIn = !!account;
+      this.currentUser = account;
       if (this.isLoggedIn) {
-        this.loadNotifications(); // ✅ Cargar notificaciones al loguearse
+        // TODO: this.loadNotifications(); Todavia no esta el notification service implementado.
       } else {
         this.notificationCount.set(0);
       }
@@ -78,22 +77,23 @@ export class Header implements OnInit{
     this.router.navigateByUrl("/");
   }
 
-  goToProfile(): void{
-    this.router.navigateByUrl("/profile/" + this.currentUser?.fullName), {queryParams: {fullName  : this.currentUser!.fullName} };
+  
+  goToProfile(): void {
+    this.router.navigateByUrl("/profile");
   }
 
-  goToCart(): void{
-    this.router.navigateByUrl("/"+ this.currentUser?.fullName+"/cart");
+  goToCart(): void {
+    this.router.navigateByUrl("/cart");
   }
 
-  goToDashboard(){
-    this.router.navigateByUrl("/"+this.currentUser?.fullName+"/seller-dash");
+  goToDashboard(): void {
+    this.router.navigateByUrl('/seller-dash');
   }
 
   private loadNotifications() {
-    if (!this.currentUser?.id) return;
+    if (!this.currentUser?.uuid) return;
 
-    this.notificationService.getUserNotifications(this.currentUser.id).subscribe({
+    this.notificationService.getUserNotifications(this.currentUser.uuid).subscribe({
       next: (notifs) => {
         // Filtramos las no leídas si tuviéramos esa propiedad, 
         // o simplemente mostramos el total por ahora.
@@ -110,7 +110,7 @@ export class Header implements OnInit{
           {
               label: 'Dashboard',
               icon: 'pi pi-fw pi-clipboard',
-              command: () => this.router.navigateByUrl("/"+this.currentUser?.fullName+"/seller-dash")
+              command: () => this.router.navigateByUrl("/seller-dash")
           },
           {
               separator: true
@@ -121,5 +121,10 @@ export class Header implements OnInit{
               command: () => this.logout()
           }
         ];
+    }
+
+    get displayName(): string {
+      if (!this.currentUser) return 'Mi Cuenta';
+      return `${this.currentUser.firstName} ${this.currentUser.lastName}`;
     }
 }

@@ -1,7 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators, ɵInternalFormsSharedModule } from "@angular/forms";
+import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+
 import { AuthService } from '../../auth/service/auth-service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ProblemDetail } from '../../core/errors/problem-detail';
 
 import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
@@ -30,6 +33,7 @@ import { Dialog } from 'primeng/dialog';
   styleUrl: './sign-in.css',
 })
 export class SignIn {
+
   private readonly auth = inject(AuthService);
   private readonly formBuilder = inject(FormBuilder);
   private readonly router = inject(Router);
@@ -41,8 +45,8 @@ export class SignIn {
   protected errorVisible = signal(false);
 
   readonly formSignIn = this.formBuilder.nonNullable.group({
-    email: ["", [Validators.required]],
-    password: ["", [Validators.required]]
+    email: ["", [Validators.required, Validators.email]],
+    password: ["", [Validators.required, Validators.minLength(8)]]
   })
 
   get email(){
@@ -68,24 +72,37 @@ handleSubmit() {
 
     const rawValues = this.formSignIn.getRawValue();
     const email = rawValues.email.trim();
-    const password = rawValues.password.trim();
+    const password = rawValues.password;
 
     // Nos suscribimos al Observable del login
     this.auth.login(email, password).subscribe({
       next: () => {
-        // ✅ Login exitoso
+      
         this.isLoading.set(false);
+        const returnUrl = this.route.snapshot.queryParams['returnUrl'] ?? '/';
+        this.router.navigateByUrl(returnUrl.startsWith('/') ? returnUrl : '/');
         
-        // Redirigir a la URL de retorno (si existe) o al Home
-        this.router.navigateByUrl("/");
       },
-      error: (err) => {
-        // ❌ Login fallido
+      error: (err: HttpErrorResponse) => {
+        
         console.error(err);
         this.isLoading.set(false);
         this.errorVisible.set(true);        
-        this.errorMessage.set('Credenciales inválidas. Intente nuevamente.');
+        this.errorMessage.set(this.messageFor(err));
       }
     });
   }
-}
+    // ← fin de handleSubmit
+
+  private messageFor(err: HttpErrorResponse): string {
+    const problem = err.error as ProblemDetail | null;
+
+    switch (err.status) {
+      case 0:   return 'No se pudo conectar con el servidor.';
+      case 400: return problem?.detail ?? 'Revisá los datos ingresados.';
+      case 401: return 'Email o contraseña incorrectos.';
+      case 423: return problem?.detail ?? 'La cuenta está bloqueada temporalmente.';
+      default:  return 'Ocurrió un error inesperado. Intentá más tarde.';
+    }
+  }
+} 

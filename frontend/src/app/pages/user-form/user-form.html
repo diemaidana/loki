@@ -1,85 +1,8 @@
-<!--
-
-<div class="container form-container">
-    <h2>Registrarse</h2>
-
-    <form [formGroup]="formSignUp" (ngSubmit)="handleSubmit()">
-        <div class="form-field">
-            <label for="username">Nombre de Usuario</label>
-            @if(username.invalid && username.touched){
-                <span class="errorMessageForm">Nombre de usuario no puede estar vacio</span>
-            }
-            <input type="text" name="username" id="username" formControlName="username">
-        </div>
-        <div class="form-field">
-            <label for="email">Correo electronico</label>
-            @if(email.invalid && email.touched){
-                <span class="errorMessageForm">Nombre de usuario no puede estar vacio</span>
-            }
-            <input type="email" name="email" id="email" formControlName="email">
-        </div>
-        <div class="form-field">
-            <label for="password">Contraseña</label>
-            <input type="password" name="password" id="password"
-            formControlName="password">
-        </div>
-        <div class="form-field">
-            <label for="repassword">Confirmar contraseña</label>
-            @if(repassword.invalid && repassword.touched && repassword.hasError("passwordsDoNotMatch")){
-                <span class="errorMessageForm">Las contraseñas deben coincidir</span>
-            }
-            <input type="password" name="repassword" id="repassword" formControlName="repassword">
-        </div>
-        <div class="form-field">
-            <label for="fullName">Nombre completo</label>
-            @if(fullName.invalid && fullName.touched){
-                <span class="errorMessageForm">El nombre es obligatorio</span>
-            }
-            <input type="text" name="fullName" id="fullName" formControlName="fullName">
-        </div>
-        <div class="form-field">
-            <label for="DNI">DNI</label>
-            @if(DNI.invalid && DNI.touched){
-                <span class="errorMessageForm">El DNI es obligatorio</span>
-            }
-            <input type="text" name="DNI" id="DNI" formControlName="DNI">
-        </div>
-        <div class="form-field">
-            <label for="phoneNumber">Numero de telefono</label>
-            <input type="text" name="phoneNumber" id="phoneNumber" formControlName="phoneNumber">
-        </div>
-        <div class="form-field">
-            <label for="address">Direccion: </label>
-            @if(address.invalid && address.touched){
-                <span class="errorMessageForm">La direccion es obligatoria</span>
-            }
-            <input type="text" name="address" id="address" formControlName="address">
-        </div>
-        <div class="form-field">
-            <label for="nationality">Nacionalidad</label>
-            @if(nationality.invalid && nationality.touched){
-                <span class="errorMessageForm">Seleccione nacionalidad</span>
-            }
-            <select name="nationality" id="nationality" formControlName="nationality">
-                <option value="" selected disabled>Seleccione su nacionalidad</option>
-                @for (nation of nations; track $index) {
-                    <option [value]="nation">{{nation}}</option>
-                }
-            </select>
-        </div>
-        <div class="action-btns btn-margin">
-            <button (click)="navigateTo()" class="btn btn-primary">Volver</button>
-            <button type="submit" class="btn btn-primary">Registrarse</button>
-        </div>
-    </form>
-</div>
--->
-
 <p-toast  position="top-right"/>
 <p-card class="card">
     <div class="card-container">
         <h2>Bienvenido!</h2>
-        <form [formGroup]="formSignUp" class="form-container">
+        <form [formGroup]="formSignUp" class="form-container" (ngSubmit)="handleSubmit()">
             <div class="form-inputs">
                 <p-floatlabel variant="in" class="input-label">
                     <input name="email" id="email" pInputText formControlName="email" />
@@ -94,9 +17,19 @@
                     <p-password formControlName="password" inputId="password" />
                     <label for="password">Password</label>
                     @if(password.invalid && password.touched){
-                        <p-message severity="error" variant="simple" size="small" class="error-msg">
-                            Debe ingresar una contraseña
-                        </p-message>
+                        @if(password.invalid && password.touched){
+                            <p-message severity="error" variant="simple" size="small" class="error-msg">
+                                @if(password.hasError('required')) {
+                                    Debe ingresar una contraseña
+                                } @else if(password.hasError('minlength')) {
+                                    Mínimo 8 caracteres
+                                } @else if(password.hasError('maxlength')) {
+                                    Máximo 64 caracteres
+                                } @else {
+                                    Debe tener al menos una mayúscula, un número y un carácter especial
+                                }
+                            </p-message>
+                        }
                     }
                 </p-floatlabel>
                 <p-floatlabel variant="in" class="input-label">
@@ -109,29 +42,44 @@
                     }
                 </p-floatlabel>
                 <p-floatlabel variant="in" class="input-label">
-                    <input name="username" id="username" pInputText formControlName="username" />
-                    <label for="username">Nombre de usuario</label>
-                    @if(username.invalid && username.touched){
+                    <input name="firstName" id="firstName" pInputText formControlName="firstName" />
+                    <label for="firstName">Nombre</label>
+                    @if(firstName.invalid && firstName.touched){
                         <p-message severity="error" variant="simple" size="small" class="error-msg">
-                            Debe ingresar nombre y apellido
+                            Debe ingresar su nombre
                         </p-message>
                     }
                 </p-floatlabel>
                 <p-floatlabel variant="in" class="input-label">
-                    <input name="fullName" id="fullName" pInputText formControlName="fullName" />
-                    <label for="fullName">Nombre completo</label>
-                    @if(fullName.invalid && fullName.touched){
+                    <input name="lastName" id="lastName" pInputText formControlName="lastName" />
+                    <label for="lastName">Apellido</label>
+                    @if(lastName.invalid && lastName.touched){
                         <p-message severity="error" variant="simple" size="small" class="error-msg">
-                            Debe ingresar nombre y apellido
+                            Debe ingresar apellido
                         </p-message>
                     }
                 </p-floatlabel>
                 <p-floatlabel variant="in" class="input-label">
-                    <input name="DNI" id="DNI" pInputText formControlName="DNI" />
-                    <label for="DNI">DNI</label>
-                    @if(DNI.invalid && DNI.touched){
+                    <p-select
+                        inputId="documentType"
+                        formControlName="documentType"
+                        [options]="documentTypes"
+                        optionLabel="label"
+                        optionValue="value"
+                        [fluid]="true" />
+                    <label for="documentType">Tipo de documento</label>
+                    @if(documentType.invalid && documentType.touched){
                         <p-message severity="error" variant="simple" size="small" class="error-msg">
-                            Debe ingresar un dni
+                            Seleccione el tipo de documento
+                        </p-message>
+                    }
+                </p-floatlabel>
+                <p-floatlabel variant="in" class="input-label">
+                    <input name="documentNumber" id="documentNumber" pInputText formControlName="documentNumber" />
+                    <label for="documentNumber">Número de documento</label>
+                    @if(documentLengthError; as expected){
+                        <p-message severity="error" variant="simple" size="small" class="error-msg">
+                            El documento debe tener {{ expected }} dígitos
                         </p-message>
                     }
                 </p-floatlabel>
@@ -139,41 +87,17 @@
                 <p-floatlabel variant="in" class="input-label">
                     <input name="phoneNumber" id="phoneNumber" pInputText formControlName="phoneNumber" />
                     <label for="phoneNumber">Numero de telefono</label>
-                    @if(email.invalid && email.touched){
+                    @if(phoneNumber.invalid && phoneNumber.touched){
                         <p-message severity="error" variant="simple" size="small" class="error-msg">
-                            Debe ingresar un numero de telefono
+                            Debe ingresar un número de telefono
                         </p-message>
                     }
                 </p-floatlabel>
-                <p-floatlabel variant="in" class="input-label">
-                    <input name="address" id="address" pInputText formControlName="address" />
-                    <label for="address">Direccion</label>
-                    @if(address.invalid && address.touched){
-                        <p-message severity="error" variant="simple" size="small" class="error-msg">
-                            Debe ingresar una direccion
-                        </p-message>
-                    }
-                </p-floatlabel>
-                <div class="field-checkbox">
-                    <p-checkbox 
-                        formControlName="isSeller" 
-                        [binary]="true" 
-                        inputId="isSeller"
-                        label="Quiero crear una cuenta de Vendedor">
-                    </p-checkbox>
-                    <label for="isSeller">Crear cuenta Vendedor</label>
-                </div>
+                <app-address-form [addressGroup]="addressGroup" />
             </div>
-            <p-button (click)="handleSubmit()" label="Registrar" [style]="{'width': '100%'}" />
+            <p-button type="submit" label="Registrar" [style]="{'width': '100%'}" />
         </form>
     </div>
-
-    <p-dialog header="Error inicio de sesion" [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }">
-        <div class="warn-dialog">
-            <i class="pi pi-exclamation-circle"></i>
-            <p>Error al registrar usuario.</p>
-        </div>
-    </p-dialog>
     
     <p-confirmdialog>
         <ng-template #message let-message>

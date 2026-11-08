@@ -10,7 +10,7 @@ function isApiRequest(url: string): boolean {
   return url.startsWith('/') && !url.startsWith('/assets');
 }
 
-export const authinterceptor: HttpInterceptorFn = (req, next) => {
+export const authInterceptor: HttpInterceptorFn = (req, next) => {
     const apiBaseUrl = inject(API_BASE_URL);
     const router = inject(Router);
 

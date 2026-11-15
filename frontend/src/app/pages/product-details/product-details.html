@@ -2,11 +2,18 @@
 <p-confirmdialog />
 <div class="product-container container">
     <div class="img-container">
-        <p-image src="{{ product()?.image }}" alt="{{ product()?.name }}" width="500" [preview]="true" />
+        @let images = product()?.images || [];
+        @if(images.length){
+            <p-image [src]="images[0]" [alt]="product()?.title" [preview]="true" [style]="{ width: '100%' }" />
+        }
+        @else {
+            <div class="no-image">
+                <p>No hay imagen disponible</p>
+            </div>
+        }
     </div>
     <div class="detail-container">
-        <h2 class="product-title">{{ product()?.name }}</h2>
-        <p class="product-brand">{{ product()?.brand }}</p>
+        <h2 class="product-title">{{ product()?.title }}</h2>
         <p>{{ product()?.description }}</p>
         <p class="price">{{ product()?.price | currency: 'ARS'}}</p>
         @if(product()?.stock == 0){
